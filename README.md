@@ -20,9 +20,9 @@ from various systems (pacman, AUR, npm, ruby). This can be done by executing
 the following commands:
 
 ```bash
- $ git clone https://gitlab.com/Eosapien/dotfiles.git
+ $ git clone https://github.com/SCThijsse/dots.git
  $ shopt -s dotglob     # Enables to move dotfiles
- $ mv dotfiles/* ./
+ $ mv dots/* ./
  $ ./.local/scripts/arr # Installs pacman packages, AUR packages, nvm, npm &
                         # node, global npm packages, ruby gems when given the
                         # options.
