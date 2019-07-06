@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+#
+# Script to setup the single monitor configuration.
+#
+
+if [ "$TOP_TYPE" = "laptop" ]; then
+    xrandr --output HDMI2 --off \
+        --output DP1 --off \
+        --output DP2 --off \
+        --output HDMI1 --off \
+        --output eDP1 --primary --mode 1920x1080 --pos 0x0 --rotate normal
+else
+    # shellcheck source=/dev/null
+    . ~/.local/scripts/mss
+fi

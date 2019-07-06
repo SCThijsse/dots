@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+#
+# Script to check for updates every 30 minutes.
+#
+
+# shellcheck source=/dev/null
+. ~/.local/scripts/bar
+
+while true; do
+    updates > /tmp/updates
+    sleep 1800
+done

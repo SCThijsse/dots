@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+#
+# Script to nuke docker containers and volumes.
+#
+
+# shellcheck disable=SC2046
+docker container stop $(docker container ps -aq)
+docker container rm $(docker container ps -aq)
+docker volume rm $(docker volume ls -q)

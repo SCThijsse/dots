@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+#
+# Script to setup the monitor configuration.
+#
+
+# shellcheck source=/dev/null
+
+if [ -z "$WAYLAND_DISPLAY" ]; then
+    scr="$(xrandr | grep -c ' connected')"
+    if [ "$scr" -eq 3 ]; then
+        . ~/.local/scripts/mss > /dev/null
+    else 
+        . ~/.local/scripts/sss > /dev/null
+    fi
+fi

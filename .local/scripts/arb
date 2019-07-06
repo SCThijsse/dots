@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+#
+# Script to output currently installed dependencies. See `arr`.
+#
+
+printf '%s\n' "generating list of packages to backup"
+
+base="$XDG_CONFIG_HOME/pkglist"
+if [ -n "$(command -v pacman)" ]; then
+    printf '%s\t' "pacman..."
+    pacman -Qqe | grep -v "$(pacman -Qqm)" > "$base/pacman-$TOP_TYPE.lst"
+    pacman -Qqm > "$base/yay-$TOP_TYPE.lst"
+    printf '%s\n' "done"
+fi
+
+[ -n "$(command -v npm)" ] && \
+    printf '%s\t\t' "npm..." && \
+    npm ls -g --depth=0 | sed '1d' | sed 's/[^a-zA-Z0-9@\.-]//g' \
+        > "$base/npm-$TOP_TYPE.lst" && \
+    printf '%s\n' "done"
+[ -n "$(command -v apm)" ] && \
+    printf '%s\t\t' "apm..." && \
+    apm ls --bar --installed > "$base/apm-$TOP_TYPE.lst" && \
+    printf '%s\n' "done"
+[ -n "$(command -v gem)" ] && \
+    printf '%s\t\t' "gems..." && \
+    printf '%s\n%s' "travis" "sass" > "$base/gems-$TOP_TYPE.lst" && \
+    printf '%s\n' "done"
+
+printf '%s\n' "finished."

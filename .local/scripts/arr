@@ -1,0 +1,99 @@
+#!/usr/bin/env sh
+#
+# Script to reinstall dependencies. See `arb`.
+#
+
+# shellcheck source=/dev/null disable=SC2002
+base="$XDG_CONFIG_HOME/pkglist"
+
+err() {
+    printf '%s\n' "$1"
+    exit 1
+}
+
+usg() {
+    printf '%s\n' "usage arr [arguments]"
+    printf '\n'
+    printf '%s\n' "Options"
+    printf '%s\n' "-t - required, either 'laptop' or 'desktop'"
+    printf '%s\n' "-a - install apm packages"
+    printf '%s\n' "-g - install gems packages"
+    printf '%s\n' "-n - install npm packages"
+    printf '%s\n' "-p - install pacman packages"
+    printf '%s\n' "-y - install yay with aur packages"
+    printf '%s\n' "-h - display this"
+    exit
+}
+
+# getopts
+while getopts ":aghnpt:y" opt; do
+    case "$opt" in
+        t)  type="$OPTARG" ;;
+        a)  apmflag="true" ;;
+        g)  gemsflag="true" ;;
+        n)  npmflag="true" ;;
+        p)  pacmanflag="true" ;;
+        y)  yayflag="true" ;; 
+        h)  usg ;;
+        \?) err "invalid option: -$OPTARG" >&2 ;;
+        :)  err "option -$OPTARG requires an argument" >&2 ;;
+    esac
+done
+
+# throw errors when needed
+[ -z "$type" ] && err "error: -t flag is required"
+[ "$type" != "laptop" ] && [ "$type" != "desktop" ] && \
+    err "error: -t flag argument can only be 'laptop' or 'desktop'"
+
+# install pacman
+if [ -n "$pacmanflag" ]; then
+    printf '%s\n' "installing pacman packages..."
+    cat "$base/pacman-$type.lst" | xargs sudo pacman -S --needed --noconfirm 
+fi
+
+# install yay
+if [ -n "$yayflag" ]; then
+    printf '%s\n' "installing yay..."
+    
+    aur="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h="
+    
+    curl "${aur}yay" -o PKGBUILD -s
+    makepkg -si --noconfirm
+    
+    rm -Rf src pkg yay* PKGBUILD
+    
+    # install AUR packages
+    printf '%s\n' "installing yay packages..."
+   cat "$base/yay-$type.lst" | xargs yay -S --noconfirm 
+fi
+
+# install nvm, npm & node
+if [ -n "$npmflag" ]; then
+    printf '%s\n' "installing nvm, npm & node..."
+    mkdir -p ~/.config/nvm
+    nvm="https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh"
+    curl -o- "$nvm" | bash
+    . ~/.bashrc
+
+    nvm install stable
+    nvm use stable
+
+fi
+
+# install apm
+if [ -n "$apmflag" ]; then
+    printf '%s\n' "installing npm & apm packages..."
+    [ -n "$(command -v apm)" ] && cat "$base/apm-$type.lst" | apm install
+    [ -n "$(command -v npm)" ] && \
+        cat "$base/npm-$type.list"  | sudo npm install -g
+fi
+
+# install gems
+if [ -n "$gemsflag" ]; then
+    printf '%s\n' "installing gems..."
+    [ -n "$(command -v gem)" ] && \
+        cat "$base/gems-$type.lst" | xargs gem install
+fi
+
+# finised
+printf '%s\n' "finished."

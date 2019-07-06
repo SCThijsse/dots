@@ -1,0 +1,80 @@
+#!/usr/bin/env sh
+#
+# Startx init script.
+#
+
+export WM="${1:-dmw}"
+
+[ -f "$XDG_CONFIG_HOME/X11/Xresources" ] && \
+    xrdb -merge "$XDG_CONFIG_HOME/X11/Xresources"
+[ -s "$HOME/.local/scripts/scr" ] && \
+    . "$HOME/.local/scripts/scr"
+
+# Set if is desktop or laptop based if machine has wifi
+if [ "$(lspci -k | grep -ic wireless)" -gt 0 ]; then
+    TOP_TYPE="laptop"
+else
+    TOP_TYPE="dekstop"
+fi
+export TOP_TYPE
+
+exec_dwm() {
+    # common programs
+    idl &
+    scs &
+    feh --no-fehbg --bg-scale ~/Pictures/walls/bck.* &
+    dunst &
+    sxhkd &
+    lxpolkit &
+    redshift &
+    upt &
+    slstatus &
+
+    # tag l0
+    firefox-developer-edition &
+
+    # tag l1
+    tabbed -n term -c st -w &
+    if [ "$TOP_TYPE" = "laptop" ]; then
+        tabbed -n term -c st -w &
+        tabbed -n term -c st -w &
+    else 
+        qbittorrent &
+    fi
+
+    # tag l2
+    [ "$TOP_TYPE" = "laptop" ] && intellij-idea-ultimate-edition &
+
+    # tag l3
+    st -n rangerterm -e ranger &
+    st -n nnnterm -e nnn &
+    st -n tmuxterm -e tmux -2 &
+
+    # tag l4
+    # postman &
+
+    # tag l5
+    slack &
+
+    # tag l6
+    spotify &
+
+    # tag l7
+    chromium &
+    srf &
+
+    # tag l8
+    st -n anotherterm -e ranger &
+    st -n rtorrentterm -e rtorrent &
+    st -n htopterm -e htop &
+
+    while true; do dwm 2> /tmp/.dwm.log; done
+}
+
+case "$WM" in
+    dwm)      exec_dwm ;;
+    i3)       exec dbus-launch i3 ;;
+    openbox)  exec dbus-launch openbox ;;
+    spectrwm) exec dbus-launch spectrwm ;;
+    *)        exec dbus-launch "$1" ;;
+esac

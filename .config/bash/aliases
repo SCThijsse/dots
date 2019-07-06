@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+#
+# ~/.config/bash/aliases
+#
+
+# Terminal application aliases
+alias htop-term='$TERM -n htopterm -e htop --user $USER'
+alias ranger-term='$TERM -n rangerterm -e ranger'
+alias rtorrent-term='$TERM -n rtorrenterm -e rtorrent'
+alias vim-term='$TERM -n vimterm -e vim'
+
+# LIbreOffice
+alias exel='/usr/lib/libreoffice/program/scalc'
+alias pres='/usr/lib/libreoffice/program/simpress'
+alias word='/usr/lib/libreoffice/program/swriter'
+
+# VPN
+alias oc='bkr $HOME/.local/scripts/opc || $HOME/.local/scripts/opc'
+alias poc='sudo pkill openconnect 2>/dev/null'

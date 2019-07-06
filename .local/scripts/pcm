@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+#
+# Script to check for shell errors or bashisms in scripts, used as a pre-commit
+# hook for the dotfiles repository.
+#
+
+shellcheck \
+    ~/.local/scripts/*
+    "$XDG_CONFIG_HOME/bash/aliases" \
+    "$XDG_CONFIG_HOME/bash/functions" \
+    ~/.bashrc \
+    ~/.profile
+checkbashisms \
+    ~/.local/scripts/*
+    "$XDG_CONFIG_HOME/bash/aliases" \
+    "$XDG_CONFIG_HOME/bash/functions" \
+    ~/.bashrc \
+    ~/.profile

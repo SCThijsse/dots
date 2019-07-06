@@ -1,0 +1,16 @@
+atom-beautify@0.33.4
+atom-material-syntax@1.0.8
+atom-material-ui@2.1.3
+busy-signal@1.4.3
+editorconfig@2.2.2
+file-icons@2.1.26
+highlight-selected@0.14.0
+intentions@1.1.5
+language-vue@0.23.1
+linter@2.2.0
+linter-ui-default@1.7.1
+minimap@4.29.9
+minimap-highlight-selected@4.6.1
+sort-lines@0.18.0
+vim-mode-plus@1.36.0
+

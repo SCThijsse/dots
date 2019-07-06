@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+#
+# ~/.config/bash/functions
+#
+
+# shellcheck source=/dev/null
+
+__function_exists() {
+  declare -f -F "$1" > /dev/null
+  return $?
+}
+
+__git_aliases() { __git_get_config_variables "alias"; }
+
+bkr() { (nohup "$@" >/dev/null 2>&1 &) }
+
+n() {
+    nnn "$@"
+    if [ -f "$NNN_TMPFILE" ]; then
+        . "$NNN_TMPFILE"
+        rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
+
+orphans() {
+  if [ -z "$(pacman -Qtd)" ]; then
+    echo "No orphans to remove."
+  else
+    sudo pacman -Rns "$(pacman -Qtdq)"
+  fi
+}
+
+cdl() { cd "$@" || return; ls --color=auto -l; }
+
+mkcd() { mkdir -p "$1"; cd "$1" || return; }
