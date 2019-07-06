@@ -258,7 +258,6 @@ available.
 A list of things I still want to fix but have not looked into yet. Or
 somethings I still want to dive into.
 
- - [ ] [M] Move `dotfiles` to GitHub
  - [ ] [M] Per tag per monitor layout configuration in `config.h` of `dwm`
  - [ ] [L] Fix bug with `dwm` `MOD + Shift + h` to resize stack
  - [ ] [L] Append layout for sway (https://github.com/swaywm/sway/pull/3022)
