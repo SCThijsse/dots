@@ -261,7 +261,6 @@ somethings I still want to dive into.
  - [ ] [M] Per tag per monitor layout configuration in `config.h` of `dwm`
  - [ ] [L] Fix bug with `dwm` `MOD + Shift + h` to resize stack
  - [ ] [L] Append layout for sway (https://github.com/swaywm/sway/pull/3022)
- - [ ] [L] Replace keepass a cli/dmenu version
 
 ## License
 

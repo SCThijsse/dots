@@ -14,8 +14,8 @@ XF86MonBrightness{Down,Up}
 mod4 + {p,space}
   /bin/sh ~/.local/scripts/{scs,lck}
 
-mod1 + shift + {c,e,m,u,z}
-    /bin/sh ~/.local/scripts/{chk,ext,dmm mount,dmm umount,itg}
+mod1 + shift + {c,e,m,p,u,z}
+    /bin/sh ~/.local/scripts/{chk,ext,dmm mount,pss,dmm umount,itg}
 
 F1
   printf '%s' "help" > /dev/null
