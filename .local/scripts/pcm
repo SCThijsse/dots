@@ -9,7 +9,7 @@ shellcheck \
     "$XDG_CONFIG_HOME/bash/aliases" \
     "$XDG_CONFIG_HOME/bash/functions" \
     ~/.bashrc \
-    ~/.profile
+    ~/.profile && \
 checkbashisms \
     ~/.local/scripts/*
     "$XDG_CONFIG_HOME/bash/aliases" \
