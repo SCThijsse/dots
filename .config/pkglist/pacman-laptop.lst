@@ -45,7 +45,6 @@ inetutils
 iproute2
 iputils
 jdk8-openjdk
-keepass
 less
 libnotify
 libtool
@@ -69,6 +68,7 @@ openconnect
 openssh
 otf-font-awesome
 pacman
+pass
 patch
 pciutils
 perl
@@ -92,6 +92,7 @@ terminus-font
 texinfo
 tmux
 ttf-dejavu
+unclutter
 util-linux
 w3m
 webkit2gtk
@@ -99,6 +100,7 @@ which
 wpa_supplicant
 xautolock
 xclip
+xdotool
 xf86-video-intel
 xf86-video-nouveau
 xorg-server

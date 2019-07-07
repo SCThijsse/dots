@@ -29,6 +29,7 @@ exec_dwm() {
     redshift &
     upt &
     slstatus &
+    unclutter --jitter 10 --timeout 1 &
 
     # tag l0
     firefox-developer-edition &
