@@ -1,5 +1,3 @@
-let mapleader=','                           " set mapleader
-
 if ! filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
     echo "Downloading junegunn/vim-plug to manage plugins..."
     silent !mkdir -p ~/.local/share/nvim/site/autoload/
@@ -11,6 +9,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
@@ -72,6 +71,10 @@ let g:hardtime_showmsg = 1
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2
 
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
 " mutiple cursors
 let g:multi_cursor_select_all_word_key = '<C-N>'
 
@@ -102,14 +105,6 @@ nmap } }zz
 " utils
 vmap < <gv
 vmap > >gv
-
-nnoremap <Tab> <Esc>
-vnoremap <Tab> <Esc>gV
-onoremap <Tab> <Esc>
-cnoremap <Tab> <C-C><Esc>
-inoremap <Tab> <Esc>`^
-inoremap <leader><Tab> <Tab>
-
 vnoremap y "*y<CR>
 vnoremap Y "*Y<CR>
 
