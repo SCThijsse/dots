@@ -17,3 +17,4 @@ alias word='/usr/lib/libreoffice/program/swriter'
 # VPN
 alias oc='bkr $HOME/.local/scripts/opc || $HOME/.local/scripts/opc'
 alias poc='sudo pkill openconnect 2>/dev/null'
+alias tabbed-surf='tabbed -d -r 2 surf -e 'surf' 2>/dev/null'
