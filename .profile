@@ -15,6 +15,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 
 # XDG support for various applications
+export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"
 export ATOM_HOME="$XDG_CONFIG_HOME/atom"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export GEM_HOME="$XDG_CONFIG_HOME/gem"
