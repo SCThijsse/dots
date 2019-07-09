@@ -21,27 +21,27 @@ Plug 'sbdchd/neoformat'
 call plug#end()                             " end plug
 
 syntax on                                   " enable syntax
-filetype plugin on                          " 
-set bg=light                                " 
-set nocompatible                            " use Vim settings, rather than Vi
-set encoding=utf8                           " set encoding
-set number relativenumber                   " enable line numbers
-set wildmode=longest,list,full              "
-set wildmenu                                " enable ctrl-n & ctrl-p to scroll thru matched
+filetype plugin on                          "
+set bg=light                                "
 set backspace=indent,eol,start              " allow backspacing over everything in insert mode
-set incsearch                               " find the next match as we type the search
-set hlsearch                                " highlight searched by default
 set cursorline                              " enable cursor line
-set noshowmode                              " do not show current mode down the bottom
-set laststatus=2                            " enable statusline
-set noshowcmd                               " show incomplete cmds down the bottom
-set linespace=4                             " add some line space for easy reading
+set display=truncate                        "
+set encoding=utf8                           " set encoding
 set history=200                             "
-set ruler                                   " 
+set hlsearch                                " highlight searched by default
+set incsearch                               " find the next match as we type the search
+set laststatus=2                            " enable statusline
+set linespace=4                             " add some line space for easy reading
+set nocompatible                            " use Vim settings, rather than Vi
+set noshowcmd                               " show incomplete cmds down the bottom
+set noshowmode                              " do not show current mode down the bottom
+set number relativenumber                   " enable line numbers
+set ruler                                   "
+set scrolloff=5                             "
 set ttimeout                                "
 set ttimeoutlen=100                         "
-set display=truncate                        "
-set scrolloff=5                             "
+set wildmenu                                " enable ctrl-n & ctrl-p to scroll thru matched
+set wildmode=longest:list:full              "
 
 " indent settings
 set shiftwidth=2                            "
@@ -49,7 +49,7 @@ set tabstop=2                               "
 set expandtab                               "
 set autoindent                              "
 
-" Fix the vertical split theming  
+" Fix the vertical split theming
 highlight VertSplit ctermbg=Black ctermfg=Black
 
 " gitgutter
