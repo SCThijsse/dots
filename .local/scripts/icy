@@ -1,13 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 # Script to display sys info
 #
 
 # shellcheck source=/dev/null
-bld=$(printf '%b' '\e[1m')
-rst=$(printf '%b' '\e[0m')
-f4=$(printf '%b' '\e[34m')
-f7=$(printf '%b' '\e[37m')
+bld=$(printf '%b' '\033[1m')
+rst=$(printf '%b' '\033[0m')
+f4=$(printf '%b' '\033[34m')
+f7=$(printf '%b' '\033[37m')
 
 cat <<EOF
 

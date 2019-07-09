@@ -6,8 +6,8 @@
 # shellcheck source=/dev/null
 cch="$XDG_CACHE_HOME/dmenu_run"
 frq="$XDG_CACHE_HOME/dmenu_history"
-als="$XDG_CONFIG_HOME/bash/aliases"
-. "$als"
+
+. "$XDG_CONFIG_HOME/bash/aliases"
 
 case "$1" in
     remove)
