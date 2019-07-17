@@ -30,92 +30,15 @@ the following commands:
 
 ### Suckless
 
-The following suckless tools are used. You can install them via pacman or
-clone the patched versions as instructed.
-
-#### dmenu
-
-Install `dmenu` with `lineheight` & colors patched:
-
-```sh
- $ git clone https://github.com/SCThijsse/dmenu.git
- $ cd dmenu/ &&
- $ find patches/ -type f -print0 | sort -z | xargs -n 1 -0 patch -Np1 -i
- $ sudo make install
-```
-
-#### dwm
-
-Install `dwm` with various patches applied:
+The following suckless tools are used. `dmenu`, `dwm`, `slock`, `slstatus`,
+`st`, `surf`, `sxiv` & `tabbed` You can install them via pacman or clone the
+patched versions as instructed. If you are using the patched versions the third
+step is optional if there is no `patches` folder in the root of the project
+folder.
 
 ```sh
- $ git clone https://github.com/SCThijsse/dwm.git
- $ cd dwm/
- $ find patches/ -type f -print0 | sort -z | xargs -n 1 -0 patch -Np1 -i
- $ sudo make install
-```
-
-#### slock
-
-Install `slock` with `dpms` & colors patched:
-
-```sh
- $ git clone https://github.com/SCThijsse/slock.git
- $ cd slock/
- $ find patches/ -type f -print0 | sort -z | xargs -n 1 -0 patch -Np1 -i
- $ sudo make install
-```
-
-#### slstatus
-
-Install `slstatus` with `debloat` and `noprint` patches:
-
-```sh
- $ git clone https://github.com/SCThijsse/slstatus.git
- $ cd slstatus/
- $ find patches/ -type f -print0 | sort -z | xargs -n 1 -0 patch -Np1 -i
- $ sudo make install
-```
-
-#### st
-
-Install `st` with `clipboard`, `copyurl`, `scrollback` & colors patches:
-
-```sh
- $ git clone https://github.com/SCThijsse/st.git
- $ cd st/
- $ find patches/ -type f -print0 | sort -z | xargs -n 1 -0 patch -Np1 -i
- $ sudo make install
-```
-
-#### surf
-
-Install `surf` with `homepage` & `spacesearch` patches:
-
-```sh
- $ git clone https://github.com/SCThijsse/surf.git
- $ cd surf/
- $ find patches/ -type f -print0 | sort -z | xargs -n 1 -0 patch -Np1 -i
- $ sudo make install
-```
-
-#### sxiv
-
-Install `sxiv` with colors patched:
-
-```sh
- $ git clone https://github.com/SCThijsse/sxiv.git
- $ cd sxiv/
- $ sudo make install
-```
-
-#### tabbed
-
-Install `tabbed` with `autohide`, `clientnumber` & colors patches:
-
-```sh
- $ git clone https://github.com/SCThijsse/tabbed.git
- $ cd tabbed/
+ $ git clone https://github.com/SCThijsse/<suckless-util>.git
+ $ cd <suckless-util>/ &&
  $ find patches/ -type f -print0 | sort -z | xargs -n 1 -0 patch -Np1 -i
  $ sudo make install
 ```
