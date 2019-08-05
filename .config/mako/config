@@ -1,4 +1,4 @@
-font=xos4 Terminus
+font=RobotoMono
 format=<b>%s</b>\n%b
 background-color=#22a7f0
 border-color=#22a7f0

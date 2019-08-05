@@ -29,8 +29,8 @@ set $up    k
 set $right l
 
 # font
-set $font     "pango:xos4 Terminus 10"
-set $fontdash xos4 Terminus-10
+set $font     "pango:RobotoMono 10"
+set $fontdash RobotoMono-10
 
 # term
 set $term st

@@ -1,6 +1,5 @@
 acpi
 alsa-utils
-atool
 autoconf
 automake
 bash
@@ -88,7 +87,6 @@ sysstat
 systemd
 systemd-sysvcompat
 tar
-terminus-font
 texinfo
 tmux
 ttf-dejavu
@@ -109,4 +107,4 @@ xorg-xinit
 xorg-xprop
 xorg-xrandr
 zathura
-zathura-pdf-mupdf
+zathura-pdf-poppler

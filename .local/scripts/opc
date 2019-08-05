@@ -3,5 +3,5 @@
 # Script to connect to the work VPN.
 #
 
-printf '%s' "$PASSWD" | sudo openconnect --authgroup="$AUTH_GROUP" -u "$USER" \
+printf '%s' "$PASSWD" | sudo openconnect --authgroup="$AUTH_GROUP" -u "$OC_USER" \
     -q "$ENDPOINT"

@@ -6,12 +6,14 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
+Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'udalov/kotlin-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'takac/vim-hardtime'
@@ -19,6 +21,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'sbdchd/neoformat'
 call plug#end()                             " end plug
+
+let g:mapleader=','                         " set leader
 
 syntax on                                   " enable syntax
 filetype plugin on                          "
