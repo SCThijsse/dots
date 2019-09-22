@@ -113,6 +113,8 @@
 !.config/X11/*
 !.config/zathura
 !.config/zathura/*
+!.config/zsh
+!.config/zsh/*
 !.config/libinput-gestures.conf
 !.config/mimeapps.list
 

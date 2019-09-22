@@ -69,7 +69,7 @@ let g:goyo_height = 90
 
 " hardtime
 map <leader>h :HardTimeToggle<CR>
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 let g:hardtime_timeout = 2000
 let g:hardtime_showmsg = 1
 let g:hardtime_allow_different_key = 1

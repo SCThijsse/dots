@@ -3,7 +3,7 @@
 # Startx init script.
 #
 
-export WM="${1:-dmw}"
+export WM="${1:-dwm}"
 
 [ -f "$XDG_CONFIG_HOME/X11/Xresources" ] && \
     xrdb -merge "$XDG_CONFIG_HOME/X11/Xresources"
