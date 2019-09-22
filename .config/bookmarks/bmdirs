@@ -9,8 +9,7 @@ pp   ~/Pictures
 S    ~/Software
 sdm  ~/Software/dmenu
 sdo  ~/Software/docker
-sdd  ~/Software/docker/hippo-docker
-sdh  ~/Software/docker/httpd-mysql-server-docker
+sdb  ~/Software/docker/brxm-mysql-traefik
 sdt  ~/Software/docker/tilde
 sdw  ~/Software/dwm
 sso  ~/Software/slock
