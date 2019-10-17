@@ -7,6 +7,6 @@ postman-bin
 rtorrent-vi-color
 shellcheck-static
 slack-desktop
-spotify
-ttf-roboto-mono
+spotify-tui-git
+spotifyd
 yay
