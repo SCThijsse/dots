@@ -1,7 +1,3 @@
-# 
-# ~/.zsh
-#
-
 # Enable colors and change prompt:
 autoload -U colors && colors
 PS1=" %F{white}%~ %B>>%F{blue}>%F{white}%b "
@@ -50,17 +46,8 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Use lf to switch directories and bind it to ctrl-o
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
-bindkey -s '^o' 'lfcd\n'
+# Reverse search
+bindkey '^R' history-incremental-search-backward
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
@@ -107,9 +94,10 @@ alias o='orphans'
 alias p='sudo pacman'
 alias pamcan='pacman'
 alias r='ranger'
-alias redshift='redshift -l $LAT:$LONG'
+alias redshift='redshift -l $RS_LAT:$RS_LONG'
 alias ref='shortcuts && . ~/.bashrc'
 alias rt='rtorrent'
+alias spotifyd='spotifyd -b alsa -u $SPOTIFYD_USER -p $SPOTIFYD_PASS'
 alias sr='sudo ranger'
 alias ss='sudo systemctl'
 alias sv='sudo nvim'
