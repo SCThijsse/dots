@@ -58,14 +58,14 @@ exec_dwm() {
     slack &
 
     # tag l6
-    spotify &
+    # spotify &
 
     # tag l7
     chromium &
     srf &
 
     # tag l8
-    st -n anotherterm -e ranger &
+    st -n anotherterm -e spt &
     st -n rtorrentterm -e rtorrent &
     st -n htopterm -e htop &
 

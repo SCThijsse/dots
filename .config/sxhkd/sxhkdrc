@@ -1,5 +1,5 @@
 XF86Audio{Play,Prev,Next}
-  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{PlayPause,Previous,Next}
+  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{PlayPause,Previous,Next}
 
 XF86Audio{Mute,LowerVolume,RaiseVolume}
   /bin/sh ~/.local/scripts/dvl {-t,-d 1, -i 1}
