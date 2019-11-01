@@ -55,6 +55,7 @@ bindkey '^e' edit-command-line
 
 # nvm support
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # Include aliases and functions
 [ -f "$XDG_CONFIG_HOME/bash/aliases" ] && \

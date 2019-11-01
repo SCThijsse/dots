@@ -13,6 +13,7 @@ PS1=" \W\[\e[0m\]\[\e[1;37m\] >>\[\e[34m\]> \[\e[0m\] "
 
 # nvm support
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+[ -s "$NVM_DIR/nvm.sh" ] && ."$NVM_DIR/nvm.sh"
 
 # Include aliases and functions
 [ -f "$XDG_CONFIG_HOME/bash/aliases" ] && \

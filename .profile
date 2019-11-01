@@ -40,11 +40,9 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh/"
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java""
 
 # Set clipboard variable based on wayland
-if [ -n "$WAYLAND_DISPLAY" ]; then
-    export CLIPBOARD=wl-copy
-else
-    export CLIPBOARD=xclip
-fi
+[ -n "$WAYLAND_DISPLAY" ] \
+    && export CLIPBOARD=wl-copy \
+    || export CLIPBOARD=xclip
 
 # nnn config
 export NNN_BMS="D:~/Documents;d:~/Downloads;E:/etc/;i:~/IdeaProjects;h:~/;m:/mnt;r:/;p:~/Pictures;S:~/Software;c:~/.config;s:~/.local/scripts;"
@@ -73,14 +71,11 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Added travis gem
 [ -f "$HOME/.travis/travis.sh" ] && . "$HOME/.travis/travis.sh"
 
-# Add nvm to path
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
 # Export secrets
 [ -d "$HOME/.local/scripts/scr" ] && . "$HOME/.local/scripts/scr"
 
 if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-    exec startx $XDG_CONFIG_HOME/X11/xinitrc dwm
+    exec startx "$XDG_CONFIG_HOME/X11/xinitrc" dwm
 elif [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty2" ]; then
     XKB_DEFAULT_LAYOUT=us exec sway
 fi
