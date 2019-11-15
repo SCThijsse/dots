@@ -61,8 +61,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 [ -d "$HOME/.local/share/fzf/bin" ] && PATH="$PATH:$HOME/.local/share/fzf/bin"
 
 # Add ruby gems to path
-[ -d "$XDG_CONFIG_HOME/gem/bin" ] && \
-    PATH=$PATH:$XDG_CONFIG_HOME/gem/bin/
+[ -d "$XDG_CONFIG_HOME/gem/ruby/2.6.0/bin" ] && \
+    PATH="$PATH:$XDG_CONFIG_HOME/gem/ruby/2.6.0/bin"
 
 # Add bin & scripts to path
 [ -d "$HOME/.local/bin" ] && PATH="$PATH:$HOME/.local/bin"

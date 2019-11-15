@@ -4,7 +4,7 @@
 #
 
 # shellcheck source=/dev/null disable=SC2002
-base="$XDG_CONFIG_HOME/pkglist"
+base="$HOME/.config/pkglist"
 
 err() {
     printf '%s\n' "$1"

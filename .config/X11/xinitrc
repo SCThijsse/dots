@@ -14,7 +14,7 @@ export WM="${1:-dwm}"
 if [ "$(lspci -k | grep -ic wireless)" -gt 0 ]; then
     TOP_TYPE="laptop"
 else
-    TOP_TYPE="dekstop"
+    TOP_TYPE="desktop"
 fi
 export TOP_TYPE
 
@@ -59,6 +59,7 @@ exec_dwm() {
 
     # tag l6
     # spotify &
+    spotifyd &
 
     # tag l7
     chromium &
