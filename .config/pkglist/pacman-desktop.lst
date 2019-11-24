@@ -7,7 +7,6 @@ bc
 binutils
 bison
 checkbashisms
-chromium
 dash
 dhcpcd
 docker
@@ -16,6 +15,7 @@ dzen2
 efibootmgr
 fakeroot
 feh
+ffmpegthumbnailer
 file
 findutils
 firefox-developer-edition
@@ -24,6 +24,7 @@ gawk
 gcc
 gettext
 git
+gparted
 grep
 groff
 grub
@@ -45,14 +46,13 @@ make
 man-db
 man-pages
 mdadm
-mediainfo
 mesa-vdpau
 mpv
 nemo
 neovim
-networkmanager-openconnect
 nnn
 ntfs-3g
+openconnect
 openssh
 otf-font-awesome
 pacman
@@ -74,8 +74,9 @@ ttf-dejavu
 ttf-roboto-mono
 unclutter
 util-linux
+virtualbox
+virtualbox-host-modules-arch
 vulkan-radeon
-w3m
 webkit2gtk
 which
 xautolock

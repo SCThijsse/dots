@@ -3,7 +3,7 @@
 # Script to setup tint2 for openbox.
 #
 
-trc="$HOME/.config/tint2/tint2rc"
+trc="$XDG_CONFIG_HOME/tint2/tint2rc"
 on="panel_items = TSC"
 off="panel_items = TC"
 
@@ -15,5 +15,3 @@ fi
 
 killall tint2
 tint2 "$trc"
-
-exit 0

@@ -6,6 +6,7 @@ PS1=" %F{white}%~ %B>>%F{blue}>%F{white}%b "
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE="$XDG_CACHE_HOME/zsh/history"
+TERM=st
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -76,37 +77,11 @@ done
 # Display some info
 icy
 
-# Aliases
-alias ..='cd ..'
-alias c='clear'
-alias cd..='cd ..'
-alias clear='clear && icy'
-alias dr='docker'
-alias dc='docker-compose'
-alias diff='diff --color=auto'
-alias e='$EDITOR'
-alias g='git'
-alias grep='grep --color=auto'
-alias h='htop -u $USER'
-alias htop='htop -u $USER'
-alias ll='ls --color=auto -l'
-alias ls='ls --color=auto'
-alias o='orphans'
-alias p='sudo pacman'
-alias pamcan='pacman'
-alias r='ranger'
-alias redshift='redshift -l $RS_LAT:$RS_LONG'
-alias ref='shortcuts && . ~/.bashrc'
-alias rt='rtorrent'
-alias spotifyd='spotifyd -b alsa -u $SPOTIFYD_USER -p $SPOTIFYD_PASSWD'
-alias sr='sudo ranger'
-alias ss='sudo systemctl'
-alias sv='sudo nvim'
-alias t='$TERM'
-alias v='nvim'
-alias vi='nvim'
-alias vim='nvim'
-alias y='yay'
+# Terminal Aliases
+[ -f "$XDG_CONFIG_HOME/bash/taliases" ] && \
+    . "$XDG_CONFIG_HOME/bash/taliases"
 
 # Load zsh-syntax-highlighting; should be last.
-. "$HOME/Software/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" > /dev/null
+[ -f "$HOME/Software/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
+    . "$HOME/Software/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+    > /dev/null

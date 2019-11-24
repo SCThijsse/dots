@@ -1,10 +1,15 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # Script to reinstall dependencies. See `arb`.
 #
 
 # shellcheck source=/dev/null disable=SC2002
 base="$HOME/.config/pkglist"
+
+split() {
+   IFS=$'\n' read -d "" -ra arr <<< "${1//$2/$'\n'}"
+   printf '%s\n' "${arr[@]}"
+}
 
 err() {
     printf '%s\n' "$1"
@@ -25,75 +30,141 @@ usg() {
     exit
 }
 
-# getopts
-while getopts ":aghnpt:y" opt; do
-    case "$opt" in
-        t)  type="$OPTARG" ;;
-        a)  apmflag="true" ;;
-        g)  gemsflag="true" ;;
-        n)  npmflag="true" ;;
-        p)  pacmanflag="true" ;;
-        y)  yayflag="true" ;; 
-        h)  usg ;;
-        \?) err "invalid option: -$OPTARG" >&2 ;;
-        :)  err "option -$OPTARG requires an argument" >&2 ;;
-    esac
-done
+install_pacman() {
+    if [ -n "$pacmanflag" ]; then
+        printf '%s\n' "installing pacman packages..."
+        cat "$base/pacman-$type.lst" | xargs sudo pacman -S --needed --noconfirm 
+    fi
+}
 
-# throw errors when needed
-[ -z "$type" ] && err "error: -t flag is required"
-[ "$type" != "laptop" ] && [ "$type" != "desktop" ] && \
-    err "error: -t flag argument can only be 'laptop' or 'desktop'"
+install_yay() {
+    if [ -n "$yayflag" ]; then
+        printf '%s\n' "installing yay..."
+        
+        aur="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h="
+        
+        curl "${aur}yay" -o PKGBUILD -s
+        makepkg -si --noconfirm
+        
+        rm -Rf src pkg yay* PKGBUILD
+        
+        printf '%s\n' "installing yay packages..."
+        cat "$base/yay-$type.lst" | xargs yay -S --noconfirm 
+    fi
+}
 
-# install pacman
-if [ -n "$pacmanflag" ]; then
-    printf '%s\n' "installing pacman packages..."
-    cat "$base/pacman-$type.lst" | xargs sudo pacman -S --needed --noconfirm 
-fi
-
-# install yay
-if [ -n "$yayflag" ]; then
-    printf '%s\n' "installing yay..."
+install_npm() {
+    if [ -n "$npmflag" ]; then
+        printf '%s\n' "installing nvm, npm & node..."
+        mkdir -p ~/.config/nvm
+        nvm="https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh"
+        curl -o- "$nvm" | bash
+        . ~/.bashrc
     
-    aur="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h="
+        nvm install stable
+        nvm use stable
+    fi
+}
+
+install_apm() {
+    if [ -n "$apmflag" ]; then
+        printf '%s\n' "installing npm & apm packages..."
+        [ -n "$(command -v apm)" ] && cat "$base/apm-$type.lst" | apm install
+        [ -n "$(command -v npm)" ] && \
+            cat "$base/npm-$type.list"  | sudo npm install -g
+    fi
+}
+
+install_gems() {
+    if [ -n "$gemsflag" ]; then
+        printf '%s\n' "installing gems..."
+        [ -n "$(command -v gem)" ] && \
+            cat "$base/gems-$type.lst" | xargs gem install
+    fi
+}
+
+install_suckless_tool() {
+    printf '\t- %s\t' "$1"
+
+    workdir="$HOME/Downloads/$1"
+    link="https://github.com/SCThijsse/$1.git"
+    git clone --quiet "$link" "$workdir" > /dev/null
+
+    find "$workdir/patches/" -type f -print0 | sort -z | \
+      xargs -n 1 -0 patch -Np1 -i >/dev/null 2>&1
+    sudo make -C "$workdir" --quiet clean install >/dev/null 2>&1
+
+    printf 'done\n'
+}
+
+install_suckless() {
+    if [ -n "$suckless" ]; then
+        printf '%s\n' "installing suckless tools..."
+        mkdir -p "$HOME/Downloads"
+        mapfile -t tools < <(split "$suckless" ",")
+
+        for tool in "${tools[@]}"; do
+            install_suckless_tool "$tool"
+        done
+    fi
+}
+
+install_docker_tool() {
+    printf '\t- %s\t' "$1"
+
+    workdir="$HOME/Downloads/docker/$1"
+    link="https://github.com/SCThijsse/$1.git"
+    git clone --quiet "$link" "$workdir" > /dev/null
+
+    docker stack deploy -c "$workdir/docker-stack.yml" "$1"
+
+    printf 'done\n'
+}
+
+install_docker() {
+    if [ -n "$docker" ]; then
+        printf '%s\n' "installing docker tools..."
+        sudo systemctl enable docker --now
+        mkdir -p "$HOME/Downloads/docker"
+        mapfile -t tools < <(split "$docker" ",")
+
+        for tool in "${tools[@]}"; do
+            install_docker_tool "$tool"
+        done
+    fi
+}
+
+main() {
+    while getopts ":ad:ghnps:t:y" opt; do
+        case "$opt" in
+            t)  type="$OPTARG" ;;
+            a)  apmflag="true" ;;
+            g)  gemsflag="true" ;;
+            n)  npmflag="true" ;;
+            p)  pacmanflag="true" ;;
+            y)  yayflag="true" ;; 
+            s)  suckless="$OPTARG" ;;
+            d)  docker="$OPTARG" ;;
+            h)  usg ;;
+            \?) err "invalid option: -$OPTARG" >&2 ;;
+            :)  err "option -$OPTARG requires an argument" >&2 ;;
+        esac
+    done
     
-    curl "${aur}yay" -o PKGBUILD -s
-    makepkg -si --noconfirm
-    
-    rm -Rf src pkg yay* PKGBUILD
-    
-    # install AUR packages
-    printf '%s\n' "installing yay packages..."
-   cat "$base/yay-$type.lst" | xargs yay -S --noconfirm 
-fi
+    # throw errors when needed
+    [ -z "$type" ] && err "error: -t flag is required"
+    [ "$type" != "laptop" ] && [ "$type" != "desktop" ] && \
+        err "error: -t flag argument can only be 'laptop' or 'desktop'"
 
-# install nvm, npm & node
-if [ -n "$npmflag" ]; then
-    printf '%s\n' "installing nvm, npm & node..."
-    mkdir -p ~/.config/nvm
-    nvm="https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh"
-    curl -o- "$nvm" | bash
-    . ~/.bashrc
+    install_pacman
+    install_yay
+    install_npm
+    install_apm
+    install_gems
+    install_suckless
+    install_docker
 
-    nvm install stable
-    nvm use stable
+    printf '%s\n' "finished."
+}
 
-fi
-
-# install apm
-if [ -n "$apmflag" ]; then
-    printf '%s\n' "installing npm & apm packages..."
-    [ -n "$(command -v apm)" ] && cat "$base/apm-$type.lst" | apm install
-    [ -n "$(command -v npm)" ] && \
-        cat "$base/npm-$type.list"  | sudo npm install -g
-fi
-
-# install gems
-if [ -n "$gemsflag" ]; then
-    printf '%s\n' "installing gems..."
-    [ -n "$(command -v gem)" ] && \
-        cat "$base/gems-$type.lst" | xargs gem install
-fi
-
-# finised
-printf '%s\n' "finished."
+main "$@"

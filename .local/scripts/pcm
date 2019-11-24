@@ -7,12 +7,14 @@
 shellcheck \
     ~/.local/scripts/*
     "$XDG_CONFIG_HOME/bash/aliases" \
+    "$XDG_CONFIG_HOME/bash/taliases" \
     "$XDG_CONFIG_HOME/bash/functions" \
     ~/.bashrc \
     ~/.profile && \
 checkbashisms \
     ~/.local/scripts/*
     "$XDG_CONFIG_HOME/bash/aliases" \
+    "$XDG_CONFIG_HOME/bash/taliases" \
     "$XDG_CONFIG_HOME/bash/functions" \
     ~/.bashrc \
     ~/.profile

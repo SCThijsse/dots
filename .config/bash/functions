@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # ~/.config/bash/functions
 #
@@ -15,7 +15,7 @@ __git_aliases() { __git_get_config_variables "alias"; }
 bkr() { (nohup "$@" >/dev/null 2>&1 &) }
 
 n() {
-    nnn "$@"
+    nnn -Hd "$@"
     if [ -f "$NNN_TMPFILE" ]; then
         . "$NNN_TMPFILE"
         rm -f "$NNN_TMPFILE" > /dev/null

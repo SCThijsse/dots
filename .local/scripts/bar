@@ -53,7 +53,7 @@ disk() {
 }
 
 mediaplayer() {
-    ply="${BLOCK_INSTANCE:-spotify}"
+    ply="${BLOCK_INSTANCE:-spotifyd}"
     arg="--player=$ply"
     art=$(playerctl "$arg" metadata artist)
     ttl=$(playerctl "$arg" metadata title)

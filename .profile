@@ -8,7 +8,7 @@
 # General environment variables
 export EDITOR=nvim
 export LC_TYPE=UTF-8
-export TERM=st
+# export TERM=st
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -40,15 +40,19 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh/"
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java""
 
 # Set clipboard variable based on wayland
-[ -n "$WAYLAND_DISPLAY" ] \
-    && export CLIPBOARD=wl-copy \
-    || export CLIPBOARD=xclip
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    export CLIPBOARD=wl-copy
+else
+    export CLIPBOARD=xclip
+fi
 
 # nnn config
-export NNN_BMS="D:~/Documents;d:~/Downloads;E:/etc/;i:~/IdeaProjects;h:~/;m:/mnt;r:/;p:~/Pictures;S:~/Software;c:~/.config;s:~/.local/scripts;"
+export NNN_BMS="D:~/Documents;d:~/Downloads;E:/etc/;i:~/IdeaProjects;h:~/;m:/mnt;p:~/Pictures;S:~/Software;c:~/.config;s:~/.local/scripts"
+export NNN_PLUG="d:dps;m:nmt;s:sxv"
 export NNN_TMPFILE="/tmp/nnn"
+export NNN_OPENER="gio open"
 export NNN_USE_EDITOR=1
-export NNN_COPER="$CLIPBOARD"
+export NNN_COPIER="$CLIPBOARD"
 
 # Other environment variables
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -72,14 +76,23 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 [ -f "$HOME/.travis/travis.sh" ] && . "$HOME/.travis/travis.sh"
 
 # Export secrets
-[ -d "$HOME/.local/scripts/scr" ] && . "$HOME/.local/scripts/scr"
+[ -s "$HOME/.local/scripts/scr" ] && . "$HOME/.local/scripts/scr"
+
+# Set if is dekstop or laptop based if machine has wifi
+if [ "$(lspci -k | grep -ic wireless)" -gt 0 ]; then
+    export TOP_TYPE="laptop"
+else
+    export TOP_TYPE="desktop"
+fi
 
 if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
     exec startx "$XDG_CONFIG_HOME/X11/xinitrc" dwm
 elif [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty2" ]; then
+    exec startx "$XDG_CONFIG_HOME/X11/xinitrc" sowm
+elif [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty3" ]; then
     XKB_DEFAULT_LAYOUT=us exec sway
 fi
 
 # If running bash include the ~/.bashrc file
 printf '%s' "$0" | grep "bash$" >/dev/null && \
-    [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+    [ -f "$XDG_CONFIG_HOME/bashrc" ] && . "$XDG_CONFIG_HOME/bashrc"

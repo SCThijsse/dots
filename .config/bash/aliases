@@ -4,10 +4,10 @@
 #
 
 # Terminal application aliases
-alias htop-term='$TERM -n htopterm -e htop --user $USER'
-alias ranger-term='$TERM -n rangerterm -e ranger'
-alias rtorrent-term='$TERM -n rtorrenterm -e rtorrent'
-alias vim-term='$TERM -n vimterm -e vim'
+alias htop-term='st -n htopterm -e htop --user $USER'
+alias ranger-term='st -n rangerterm -e ranger'
+alias rtorrent-term='st -n rtorrenterm -e rtorrent'
+alias vim-term='st -n vimterm -e vim'
 
 # LIbreOffice
 alias exel='/usr/lib/libreoffice/program/scalc'
@@ -17,4 +17,6 @@ alias word='/usr/lib/libreoffice/program/swriter'
 # VPN
 alias oc='bkr $HOME/.local/scripts/opc || $HOME/.local/scripts/opc'
 alias poc='sudo pkill openconnect 2>/dev/null'
-alias tabbed-surf='tabbed -d -r 2 surf -e 'surf' 2>/dev/null'
+
+# Other
+alias tabbed-surf='tabbed -d -r 2 surf -e "surf" 2>/dev/null'

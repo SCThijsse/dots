@@ -4,8 +4,8 @@
 #
 
 [ -n "$WAYLAND_DISPLAY" ] \
-    && msg="swaymsg"; cfg="$HOME/.config/i3/config" \
-    || msg="i3-msg"; cfg="$HOME/.config/sway/config.base"
+    && msg="swaymsg"; cfg="$XDG_CONFIG_HOME/i3/config" \
+    || msg="i3-msg"; cfg="$XDG_CONFIG_HOME/sway/config.base"
 on="tray_output     primary"
 off="tray_output     none"
     
