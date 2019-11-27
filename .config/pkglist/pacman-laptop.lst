@@ -52,7 +52,6 @@ licenses
 linux
 linux-firmware
 linux-headers
-lxsession
 m4
 make
 man-db
@@ -100,7 +99,6 @@ which
 wpa_supplicant
 xautolock
 xclip
-xdotool
 xf86-video-intel
 xf86-video-nouveau
 xorg-server

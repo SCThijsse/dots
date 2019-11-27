@@ -3,28 +3,49 @@
 # Script to output currently installed dependencies. See `arr`.
 #
 
-printf '%s\n' "generating list of packages to backup"
+backup_pacman() {
+  if [ -n "$(command -v pacman)" ]; then
+      printf '%s\t' "pacman..."
+      pacman -Qqe | grep -v "$(pacman -Qqm)" > "$1/pacman-$TOP_TYPE.lst"
+      pacman -Qqm > "$1/yay-$TOP_TYPE.lst"
+      printf '%s\n' "done"
+  fi
+}
 
-base="$XDG_CONFIG_HOME/pkglist"
-if [ -n "$(command -v pacman)" ]; then
-    printf '%s\t' "pacman..."
-    pacman -Qqe | grep -v "$(pacman -Qqm)" > "$base/pacman-$TOP_TYPE.lst"
-    pacman -Qqm > "$base/yay-$TOP_TYPE.lst"
-    printf '%s\n' "done"
-fi
+backup_npm() {
+    [ -n "$(command -v npm)" ] && \
+        printf '%s\t\t' "npm..." && \
+        npm ls -g --depth=0 | sed '1d' | sed 's/[^a-zA-Z0-9@\.-]//g' \
+            > "$1/npm-$TOP_TYPE.lst" && \
+        printf '%s\n' "done"
+}
 
-[ -n "$(command -v npm)" ] && \
-    printf '%s\t\t' "npm..." && \
-    npm ls -g --depth=0 | sed '1d' | sed 's/[^a-zA-Z0-9@\.-]//g' \
-        > "$base/npm-$TOP_TYPE.lst" && \
-    printf '%s\n' "done"
-[ -n "$(command -v apm)" ] && \
-    printf '%s\t\t' "apm..." && \
-    apm ls --bar --installed > "$base/apm-$TOP_TYPE.lst" && \
-    printf '%s\n' "done"
-[ -n "$(command -v gem)" ] && \
-    printf '%s\t\t' "gems..." && \
-    printf '%s\n%s' "travis" "sass" > "$base/gems-$TOP_TYPE.lst" && \
-    printf '%s\n' "done"
+backup_apm() {
+    [ -n "$(command -v apm)" ] && \
+        printf '%s\t\t' "apm..." && \
+        apm ls --bar --installed > "$1/apm-$TOP_TYPE.lst" && \
+        printf '%s\n' "done"
+}
 
-printf '%s\n' "finished."
+backup_gems() {
+    [ -n "$(command -v gem)" ] && \
+        printf '%s\t\t' "gems..." && \
+        printf '%s\n%s' "travis" "sass" > "$1/gems-$TOP_TYPE.lst" && \
+        printf '%s\n' "done"
+}
+
+main() {
+  TOP_TYPE="${TOP_TYPE:?}"
+  printf '%s\n' "generating list of packages to backup"
+  
+  base="$HOME/.config/pkglist"
+
+  backup_pacman "$base"
+  backup_npm "$base"
+  backup_apm "$base"
+  backup_gems "$base"
+
+  printf '%s\n' "finished."
+}
+
+main "$@"

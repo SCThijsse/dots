@@ -24,11 +24,6 @@ if [ -n "$WAYLAND_DISPLAY" ]; then
 else 
     if [ "$WM" = "dwm" ]; then
         slock
-        # if [ -n "$(command -v gllock)" ]; then
-        #   gllock
-        # else
-        #   slock
-        # fi
     else
         i3lock-fancy-rapid 5 1 \
             --radius=20 \

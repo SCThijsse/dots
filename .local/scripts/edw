@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+#
+# Script to execute programs for dwm.
+#
+
+# shellcheck disable=SC1090
+. "$HOME/.local/scripts/ecm" &
+idl &
+dunst &
+# lxpolkit &
+# redshift &
+upt &
+slstatus &
+unclutter --jitter 10 --timeout 1 &
+
+# program for both desktop & laptop
+firefox-developer-edition &
+tabbed -n term -c st -w &
+st -n nnnterm -e nnn -Hd &
+st -n tmuxterm -e tmux -2 &
+
+if [ "$TOP_TYPE" = "laptop" ]; then
+    # programs only for laptop
+    tabbed -n term -c st -w &
+    tabbed -n term -c st -w &
+    intellij-idea-ultimate-edition &
+    st -n rangerterm -e ranger &
+    slack &
+    chromium &
+    srf &
+    st -n anotherterm -e spt &
+    st -n rtorrentterm -e rtorrent &
+    st -n htopterm -e htop &
+else 
+    # programs only for desktop
+    qbittorrent &
+fi
