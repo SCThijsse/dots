@@ -63,7 +63,7 @@ case "$1" in
 esac
 
 out="$(amixer -D default sset Master "$arg")"
-vol="$(printf '%s' "$out" | awk '{print $4}' | sed -e 's/\[\(.*\)\%\]/\1/')"
+vol="$(printf '%s' "$out" | awk '{print $5}' | sed -e 's/\[\(.*\)\%\]/\1/')"
 sta="$(printf '%s' "$out" | awk '{print $6}' | sed -e 's/\[\(.*\)\]/\1/')"
 [ "$sta" = "off" ] && vol=0
 

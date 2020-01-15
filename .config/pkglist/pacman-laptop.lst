@@ -6,9 +6,12 @@ bash
 bc
 binutils
 bison
+bluez
+bluez-utils
 bzip2
 checkbashisms
 chromium
+code
 coreutils
 cryptsetup
 dash
@@ -75,6 +78,9 @@ pkgconf
 playerctl
 procps-ng
 psmisc
+pulseaudio
+pulseaudio-alsa
+pulseaudio-bluetooth
 ranger
 ruby
 scrot

@@ -1,4 +1,3 @@
-docker-compose-bin
 htop-vim-git
 intellij-idea-ultimate-edition
 intellij-idea-ultimate-edition-jre
@@ -6,7 +5,8 @@ numix-icon-theme-git
 postman-bin
 rtorrent-vi-color
 shellcheck-static
+simple-mtpfs
 slack-desktop
-spotify-tui-git
+spotify-tui
 spotifyd
 yay

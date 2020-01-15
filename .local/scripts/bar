@@ -140,7 +140,7 @@ volume() {
     cap="$(amixer -D $mix get "$ctl" \
         | sed -n 's/ \+Capabilities:.*volume.*/Capture/p')"
     dat="$(amixer -D $mix get "$ctl" "$cap" | sed '$!d')"
-    vol="$(printf '%s' "$dat" | awk '{print $4}' | sed -e 's/\[\(.*\)\%\]/\1/')"
+    vol="$(printf '%s' "$dat" | awk '{print $5}' | sed -e 's/\[\(.*\)\%\]/\1/')"
     sta="$(printf '%s' "$dat" | awk '{print $6}' | sed -e 's/\[\(.*\)\]/\1/')"
     
     [ "$sta" = "off" ] && vol=0
