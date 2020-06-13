@@ -34,4 +34,10 @@ if [ "$TOP_TYPE" = "laptop" ]; then
 else 
     # programs only for desktop
     qbittorrent &
+
+    if [ "$(date '+%u')" -le 5 ]; then
+        intellij-idea-ultimate-edition &
+        slack &
+        teams &
+    fi
 fi

@@ -72,6 +72,7 @@
 !.config/nnn/*
 .config/nnn/.history*
 .config/nnn/.selection
+.config/nnn/.lastd
 !.config/nnn/*/*
 !.config/npm
 !.config/npm/*

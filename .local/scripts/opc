@@ -3,5 +3,4 @@
 # Script to connect to the work VPN.
 #
 
-printf '%s' "$OC_PASSWD" | sudo openconnect --authgroup="$OC_AUTH_GROUP" \
-    -u "$OC_USER" -q "$OC_ENDPOINT"
+sudo openfortivpn --realm=luci -q

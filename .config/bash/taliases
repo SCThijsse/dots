@@ -1,4 +1,8 @@
-# Aliases
+#! /usr/bin/env sh
+#
+# $XDG_CONFIG_HOME/bash/taliases
+#
+
 alias ..='cd ..'
 alias c='clear'
 alias cd..='cd ..'
@@ -17,7 +21,7 @@ alias o='orphans'
 alias nnn='nnn -Hd'
 alias p='sudo pacman'
 alias pamcan='pacman'
-alias r='ranger'
+alias r='nnn -Hd'
 alias redshift='redshift -l $RS_LAT:$RS_LONG'
 alias ref='shortcuts && . ~/.bashrc'
 alias rt='rtorrent'
@@ -30,5 +34,7 @@ alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias y='yay'
+alias setup-brxm='sudo ip addr add 172.20.123.1 dev lo'
+alias build-brxm='mvn clean install -Dmaven.test.skip=true && mvn -Pcargo.run,with-mysql -Dcargo.jvm.args="-Xmx4g" -Drepo.bootstrap=true'
 
 # vim: set syntax=sh:

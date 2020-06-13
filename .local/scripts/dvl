@@ -16,8 +16,12 @@ if [ -n "$WAYLAND_DISPLAY" ]; then
     sch="$(swaymsg -t get_outputs -r \
         | jq -r '.[] | .current_mode | .height' | sed 1q)"
 else
-    scw="$(xrandr | grep '\*' | awk '{print $1}' \
-        | cut -d 'x' -f1 | awk '{s+=$1} END {print s}')"
+    if [ "$TOP_TYPE" = "desktop" ]; then
+        scw=5760
+    else 
+        scw="$(xrandr | grep '\*' | awk '{print $1}' \
+            | cut -d 'x' -f1 | awk '{s+=$1} END {print s}')"
+    fi
     sch="$(xrandr | grep '\*' | awk '{print $1}' \
         | cut -d 'x' -f2 | sed 1q)"
 fi

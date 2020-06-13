@@ -4,18 +4,15 @@ if ! filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
     silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.local/share/nvim/site/autoload/plug.vim
 endif
 
+" Plug 'airblade/vim-gitgutter'
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'junegunn/goyo.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'udalov/kotlin-vim'
 Plug 'scrooloose/nerdtree'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'takac/vim-hardtime'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -50,6 +47,7 @@ set scrolloff=5                             "
 set shortmess+=c                            "
 set ttimeout                                "
 set ttimeoutlen=100                         "
+set updatetime=300                          "
 set wildmenu                                " enable ctrl-n & ctrl-p to scroll thru matched
 set wildmode=longest:list:full              "
 " set foldmethod=syntax                       " fold based on syntax
@@ -63,6 +61,7 @@ set autoindent                              "
 
 " fix the vertical split theming
 highlight VertSplit ctermbg=black ctermfg=black
+highlight SignColumn ctermfg=NONE ctermbg=black cterm=NONE
 highlight Pmenu ctermfg=NONE ctermbg=black cterm=NONE
 highlight PmenuSel ctermfg=NONE ctermbg=darkblue cterm=NONE
 
@@ -205,6 +204,14 @@ let g:multi_cursor_select_all_word_key = '<C-N>'
 
 " nerdtree
 map <leader>\ :NERDTreeToggle<CR>
+
+" ale
+let g:ale_fixers = {
+\  '*': ['remove_trailing_lines', 'trim_whitespace'],
+\  'javascript': ['standard'],
+\}
+" let g:ale_javascript_standard_options = ' --stdin < %s > '
+let g:ale_fix_on_save = 1
 
 " unmap arrow keys
 no  <down>  ddp
