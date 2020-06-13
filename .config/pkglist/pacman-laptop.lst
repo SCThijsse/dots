@@ -38,8 +38,6 @@ glibc
 grep
 groff
 grub
-gst-libav
-gst-plugins-good
 gtk-engine-murrine
 gzip
 inetutils
@@ -65,7 +63,6 @@ mpv
 neovim
 networkmanager
 nnn
-openconnect
 openssh
 otf-font-awesome
 pacman
@@ -80,7 +77,6 @@ psmisc
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
-ranger
 ruby
 scrot
 sed
@@ -99,7 +95,6 @@ ttf-roboto-mono
 unclutter
 util-linux
 w3m
-webkit2gtk
 which
 wpa_supplicant
 xautolock

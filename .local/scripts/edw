@@ -24,7 +24,7 @@ if [ "$TOP_TYPE" = "laptop" ]; then
     tabbed -n term -c st -w &
     tabbed -n term -c st -w &
     intellij-idea-ultimate-edition &
-    st -n rangerterm -e ranger &
+    # st -n rangerterm -e ranger &
     slack &
     chromium &
     srf &
