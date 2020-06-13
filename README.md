@@ -58,7 +58,7 @@ Install `tmux` via:
 
 There is a script located in `~/.local/scripts` called `arb` this script
 outputs all the installed packages from pacman, the AUR, npm, and ruby gems to
-separate `.lst` files. These files are used by the `arr` script in the same
+separate `*.lst` files. These files are used by the `arr` script in the same
 directory.
 
 ## WMs
@@ -181,8 +181,6 @@ available.
 A list of things I still want to fix but have not looked into yet. Or
 somethings I still want to dive into.
 
- - [ ] [M] Per tag per monitor layout configuration in `config.h` of `dwm`
- - [ ] [L] Fix bug with `dwm` `MOD + Shift + h` to resize stack
  - [ ] [L] Append layout for sway (https://github.com/swaywm/sway/pull/3022)
 
 ## License

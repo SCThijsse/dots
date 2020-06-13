@@ -6,7 +6,7 @@ shellcheck-static
 simple-mtpfs
 slack-desktop
 spotify-tui
-spotifyd
+spotifyd-bin-full
 teams
 vscodium-bin
 yay
