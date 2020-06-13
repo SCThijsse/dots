@@ -71,6 +71,7 @@
 !.config/nnn
 !.config/nnn/*
 .config/nnn/.history*
+.config/nnn/.lastd*
 .config/nnn/.selection
 !.config/nnn/*/*
 !.config/npm
@@ -116,6 +117,7 @@
 !.config/zathura/*
 !.config/zsh
 !.config/zsh/*
+.config/zsh/.zcompdump
 !.config/libinput-gestures.conf
 !.config/mimeapps.list
 

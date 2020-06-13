@@ -4,6 +4,6 @@
 #
 
 scs &
-feh --no-fehbg --bg-scale ~/Pictures/walls/bck.* &
+feh --no-fehbg --bg-fill ~/Pictures/walls/bck.* &
 sxhkd &
 spotifyd &

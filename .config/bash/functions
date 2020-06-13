@@ -26,7 +26,8 @@ orphans() {
   if [ -z "$(pacman -Qtd)" ]; then
     echo "No orphans to remove."
   else
-    sudo pacman -Rns "$(pacman -Qtdq)"
+    # shellcheck disable=SC2046
+    sudo pacman -Rns $(pacman -Qtdq)
   fi
 }
 
