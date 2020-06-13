@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 #
-# ~/.config/bash/aliases
+# $XDG_CONFIG_HOME/bash/aliases
 #
 
 # Terminal application aliases
@@ -16,7 +16,7 @@ alias word='/usr/lib/libreoffice/program/swriter'
 
 # VPN
 alias oc='bkr $HOME/.local/scripts/opc || $HOME/.local/scripts/opc'
-alias poc='sudo pkill openconnect 2>/dev/null'
+alias poc='sudo pkill openfortivpn 2>/dev/null'
 
 # Other
 alias tabbed-surf='tabbed -d -r 2 surf -e "surf" 2>/dev/null'

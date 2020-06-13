@@ -92,7 +92,7 @@ memory() {
 }
 
 openconnect() {
-    [ -n "$(pidof openconnect)" ] && clr=$(colors 2) || clr=$(colors 1)
+    [ -n "$(pidof openfortivpn)" ] && clr=$(colors 2) || clr=$(colors 1)
     printf '%s %s' "$clr" ""
 }
 

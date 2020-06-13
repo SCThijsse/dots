@@ -1,3 +1,10 @@
+#! /usr/bin/env zsh
+#
+# $XDG_CONFIG_HOME/zsh/.zshrc
+#
+
+# shellcheck source=/dev/null
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 PS1=" %F{white}%~ %B>>%F{blue}>%F{white}%b "

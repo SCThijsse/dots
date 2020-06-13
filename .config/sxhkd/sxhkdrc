@@ -13,8 +13,8 @@ mod4 + {p,space}
 mod1 + p
   /bin/sh ~/.local/scripts/dma -c -l 10
 
-mod1 + shift + {c,e,m,p,u,z}
-    /bin/sh ~/.local/scripts/{chk,ext,dmm mount,pss,dmm umount,itg}
+mod1 + shift + {b,c,e,m,p,u,z}
+    /bin/sh ~/.local/scripts/{blu,chk,ext,dmm mount,pss,dmm umount,itg}
 
 F1
   printf '%s' "help" > /dev/null

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# ~/.bashrc
+# $XDG_CONFIG_HOME/bash/bashrc
 #
 
 # shellcheck source=/dev/null

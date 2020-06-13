@@ -23,7 +23,7 @@ fi
 
 if [ -n "$pid" ] && [ "$sel" = "off" ]; then
     killall swayidle
-    killall xautolock
+    killall xautolock && xset -dpms
 elif [ -z "$pid" ] && [ "$sel" = "on" ]; then
     # shellcheck source=/dev/null
     . ~/.local/scripts/idl
