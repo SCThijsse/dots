@@ -98,7 +98,7 @@ install_shell() {
         sudo pacman -S --needed --noconfirm dash >/dev/null 2>&1
     fi
     printf '%s\n' "Setting default shell as zsh"
-    ln -sfT dash /usr/bin/sh
+    sudo ln -sfT dash /usr/bin/sh
 }
 
 install_suckless_tool() {
