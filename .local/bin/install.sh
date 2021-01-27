@@ -7,8 +7,34 @@
 base="$HOME/.config/pkglist"
 
 split() {
-   IFS=$'\n' read -d "" -ra arr <<< "${1//$2/$'\n'}"
-   printf '%s\n' "${arr[@]}"
+    # Disable globbing.
+    # This ensures that the word-splitting is safe.
+    set -f
+
+    # Store the current value of 'IFS' so we
+    # can restore it later.
+    old_ifs=$IFS
+
+    # Change the field separator to what we're
+    # splitting on.
+    IFS=$2
+
+    # Create an argument list splitting at each
+    # occurance of '$2'.
+    #
+    # This is safe to disable as it just warns against
+    # word-splitting which is the behavior we expect.
+    # shellcheck disable=2086
+    set -- $1
+
+    # Print each list value on its own line.
+    printf '%s\n' "$@"
+
+    # Restore the value of 'IFS'.
+    IFS=$old_ifs
+
+    # Re-enable globbing.
+    set +f
 }
 
 err() {
@@ -36,7 +62,7 @@ usg() {
 install_pacman() {
     if [ -n "$pacmanflag" ]; then
         printf '%s\n' "installing pacman packages..."
-        cat "$base/pacman-$type.lst" | xargs sudo pacman -S --needed --noconfirm
+        cat "$base/pacman-$type.lst" | xargs sudo pacman -S --needed --noconfirm \
             > /dev/null 2>&1
     fi
 }
@@ -88,17 +114,19 @@ install_gems() {
 }
 
 install_shell() {
-    if [ ! -n "$(command -v zsh)" ]; then
-        sudo pacman -S --needed --noconfirm zsh > /dev/null 2>&1
-    fi
-    printf '%s\n' "Setting default shell as zsh"
-    sudo chsh -s /usr/bin/zsh "$USER"
+    if [ -n "$shellflag" ]; then
+        if [ -z "$(command -v zsh)" ]; then
+            sudo pacman -S --needed --noconfirm zsh > /dev/null 2>&1
+        fi
+        printf '%s\n' "Setting default shell as zsh"
+        sudo chsh -s /usr/bin/zsh "$USER" > /dev/null 2>&1
 
-    if [ ! -n "$(command -v dash)" ]; then
-        sudo pacman -S --needed --noconfirm dash >/dev/null 2>&1
+        if [ -z "$(command -v dash)" ]; then
+            sudo pacman -S --needed --noconfirm dash >/dev/null 2>&1
+        fi
+        printf '%s\n' "Setting default shell as zsh"
+        sudo ln -sfT dash /usr/bin/sh
     fi
-    printf '%s\n' "Setting default shell as zsh"
-    sudo ln -sfT dash /usr/bin/sh
 }
 
 install_suckless_tool() {
@@ -121,9 +149,9 @@ install_suckless() {
     if [ -n "$suckless" ]; then
         printf '%s\n' "installing suckless tools..."
         mkdir -p "$HOME/Software"
-        mapfile -t tools < <(split "$suckless" ",")
 
-        for tool in "${tools[@]}"; do
+        tools="$(split "$suckless" ",")"
+        printf '%s' "$tools" | while IFS= read -r tool || [ -n "$tool" ]; do
             install_suckless_tool "$tool"
         done
     fi
@@ -144,7 +172,7 @@ clone_project() {
 }
 
 main() {
-    while getopts ":ad:cghl:npst:y" opt; do
+    while getopts ":acghl:npst:y" opt; do
         case "$opt" in
             t)  type="$OPTARG" ;;
             a)  apmflag="true" ;;
@@ -153,7 +181,7 @@ main() {
             l)  suckless="$OPTARG" ;;
             n)  npmflag="true" ;;
             p)  pacmanflag="true" ;;
-            s)  shell="true" ;;
+            s)  shellflag="true" ;;
             y)  yayflag="true" ;;
             h)  usg ;;
             \?) err "invalid option: -$OPTARG" >&2 ;;
@@ -179,4 +207,6 @@ main() {
     printf '%s\n' "finished."
 }
 
-main "$@"
+# main "$@"
+
+
