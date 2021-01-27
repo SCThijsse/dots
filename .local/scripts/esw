@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+#
+# Script to execute programs for sowm.
+#
+
+# shellcheck disable=SC1090
+. "$HOME/.local/scripts/ecm" &
+idl &
+dunst &
+unclutter --jitter 10 --timeout 1 &
+

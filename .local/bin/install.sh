@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 # Script to reinstall dependencies. See `arb`.
 #
@@ -20,36 +20,40 @@ usg() {
     printf '%s\n' "usage arr [arguments]"
     printf '\n'
     printf '%s\n' "Options"
-    printf '%s\n' "-t - required, either 'laptop' or 'desktop'"
-    printf '%s\n' "-a - install apm packages"
-    printf '%s\n' "-g - install gems packages"
-    printf '%s\n' "-n - install npm packages"
-    printf '%s\n' "-p - install pacman packages"
-    printf '%s\n' "-y - install yay with aur packages"
-    printf '%s\n' "-h - display this"
+    printf '\t%s\n' "-t - required, either 'laptop' or 'desktop'"
+    printf '\t%s\n' "-a - install apm packages"
+    printf '\t%s\n' "-g - install gems packages"
+    printf '\t%s\n' "-n - install npm packages"
+    printf '\t%s\n' "-p - install pacman packages"
+    printf '\t%s\n' "-y - install yay with aur packages"
+    printf '\t%s\n' "-c - clone dots project"
+    printf '\t%s\n' "-l - install suckless tools"
+    printf '\t%s\n' "-s - apply shell changes"
+    printf '\t%s\n' "-h - display this"
     exit
 }
 
 install_pacman() {
     if [ -n "$pacmanflag" ]; then
         printf '%s\n' "installing pacman packages..."
-        cat "$base/pacman-$type.lst" | xargs sudo pacman -S --needed --noconfirm 
+        cat "$base/pacman-$type.lst" | xargs sudo pacman -S --needed --noconfirm
+            > /dev/null 2>&1
     fi
 }
 
 install_yay() {
     if [ -n "$yayflag" ]; then
         printf '%s\n' "installing yay..."
-        
+
         aur="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h="
-        
+
         curl "${aur}yay" -o PKGBUILD -s
         makepkg -si --noconfirm
-        
+
         rm -Rf src pkg yay* PKGBUILD
-        
+
         printf '%s\n' "installing yay packages..."
-        cat "$base/yay-$type.lst" | xargs yay -S --noconfirm 
+        cat "$base/yay-$type.lst" | xargs yay -S --noconfirm
     fi
 }
 
@@ -60,7 +64,7 @@ install_npm() {
         nvm="https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh"
         curl -o- "$nvm" | bash
         . ~/.bashrc
-    
+
         nvm install stable
         nvm use stable
     fi
@@ -83,16 +87,32 @@ install_gems() {
     fi
 }
 
+install_shell() {
+    if [ ! -n "$(command -v zsh)" ]; then
+        sudo pacman -S --needed --noconfirm zsh > /dev/null 2>&1
+    fi
+    printf '%s\n' "Setting default shell as zsh"
+    sudo chsh -s /usr/bin/zsh "$USER"
+
+    if [ ! -n "$(command -v dash)" ]; then
+        sudo pacman -S --needed --noconfirm dash >/dev/null 2>&1
+    fi
+    printf '%s\n' "Setting default shell as zsh"
+    ln -sfT dash /usr/bin/sh
+}
+
 install_suckless_tool() {
     printf '\t- %s\t' "$1"
 
-    workdir="$HOME/Downloads/$1"
-    link="https://github.com/SCThijsse/$1.git"
-    git clone --quiet "$link" "$workdir" > /dev/null
+    workdir="$HOME/Software/$1"
+    if [ ! -d "$workdir" ]; then
+        link="https://github.com/SCThijsse/$1.git"
+        git clone --quiet "$link" "$workdir" > /dev/null
+    fi
 
     find "$workdir/patches/" -type f -print0 | sort -z | \
       xargs -n 1 -0 patch -Np1 -i >/dev/null 2>&1
-    sudo make -C "$workdir" --quiet clean install >/dev/null 2>&1
+    sudo make -C "$workdir" --quiet clean install > /dev/null 2>&1
 
     printf 'done\n'
 }
@@ -100,7 +120,7 @@ install_suckless_tool() {
 install_suckless() {
     if [ -n "$suckless" ]; then
         printf '%s\n' "installing suckless tools..."
-        mkdir -p "$HOME/Downloads"
+        mkdir -p "$HOME/Software"
         mapfile -t tools < <(split "$suckless" ",")
 
         for tool in "${tools[@]}"; do
@@ -109,52 +129,44 @@ install_suckless() {
     fi
 }
 
-install_docker_tool() {
-    printf '\t- %s\t' "$1"
-
-    workdir="$HOME/Downloads/docker/$1"
-    link="https://github.com/SCThijsse/$1.git"
-    git clone --quiet "$link" "$workdir" > /dev/null
-
-    docker stack deploy -c "$workdir/docker-stack.yml" "$1"
-
-    printf 'done\n'
+install_deps() {
+    sudo pacman -S --needed --noconfirm git patch > /dev/null 2>&1
 }
 
-install_docker() {
-    if [ -n "$docker" ]; then
-        printf '%s\n' "installing docker tools..."
-        sudo systemctl enable docker --now
-        mkdir -p "$HOME/Downloads/docker"
-        mapfile -t tools < <(split "$docker" ",")
-
-        for tool in "${tools[@]}"; do
-            install_docker_tool "$tool"
-        done
+clone_project() {
+    if [ -n "$cloneflag" ]; then
+        project="dots"
+        link="https://github.com/SCThijsse/$project.git"
+        git clone --quiet "$link" "$HOME/$project" > /dev/null
+        cp -r "$HOME/dots" "$HOME"
+        rm -rf "$HOME/dots"
     fi
 }
 
 main() {
-    while getopts ":ad:ghnps:t:y" opt; do
+    while getopts ":ad:cghlnps:t:y" opt; do
         case "$opt" in
             t)  type="$OPTARG" ;;
             a)  apmflag="true" ;;
+            c)  cloneflag="true" ;;
             g)  gemsflag="true" ;;
+            l)  suckless="$OPTARG" ;;
             n)  npmflag="true" ;;
             p)  pacmanflag="true" ;;
-            y)  yayflag="true" ;; 
-            s)  suckless="$OPTARG" ;;
-            d)  docker="$OPTARG" ;;
+            s)  shell="true" ;;
+            y)  yayflag="true" ;;
             h)  usg ;;
             \?) err "invalid option: -$OPTARG" >&2 ;;
             :)  err "option -$OPTARG requires an argument" >&2 ;;
         esac
     done
-    
+
     # throw errors when needed
-    [ -z "$type" ] && err "error: -t flag is required"
     [ "$type" != "laptop" ] && [ "$type" != "desktop" ] && \
         err "error: -t flag argument can only be 'laptop' or 'desktop'"
+
+    install_deps
+    clone_project
 
     install_pacman
     install_yay
@@ -162,7 +174,7 @@ main() {
     install_apm
     install_gems
     install_suckless
-    install_docker
+    install_shell
 
     printf '%s\n' "finished."
 }

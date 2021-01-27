@@ -3,4 +3,4 @@
 # Script to connect to the work VPN.
 #
 
-sudo openfortivpn --realm=luci -q
+sudo openfortivpn --realm=issc -q

@@ -26,12 +26,9 @@ gawk
 gcc
 gettext
 git
-gparted
 grep
 groff
 grub
-gst-libav
-gst-plugins-good
 gtk-engine-murrine
 gvfs
 gvfs-mtp
@@ -50,10 +47,11 @@ man-pages
 maven
 mdadm
 mediainfo
+mesa
 mesa-vdpau
 mpv
 nemo
-neovim
+nfs-utils
 nnn
 ntfs-3g
 openfortivpn
@@ -67,9 +65,9 @@ playerctl
 pulseaudio-alsa
 pulseaudio-bluetooth
 qbittorrent
-ruby
 scrot
 sed
+spotifyd
 sudo
 sxhkd
 sysfsutils

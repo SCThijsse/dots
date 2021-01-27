@@ -10,7 +10,7 @@ battery() {
     bat=$(acpi)
     sta=$(printf '%s' "$bat" | awk '{print $3}' | sed 's/,//g')
     per=$(printf '%s' "$bat" | awk '{print $4}' | sed 's/,//; s/%//')
-    
+
     case "$per" in
         [0-9]|1[0-9])         clr="$(colors 1)"; icn="" ;;
         2[0-9]|3[0-9]|4[0-9]) clr="$(colors 3)"; icn="" ;;
@@ -57,19 +57,19 @@ mediaplayer() {
     arg="--player=$ply"
     art=$(playerctl "$arg" metadata artist)
     ttl=$(playerctl "$arg" metadata title)
-    
+
     case "$BLOCK_BUTTON" in
         1) playerctl "$arg" previous ;;
         2) playerctl "$arg" play-pause ;;
         3) playerctl "$arg" next ;;
     esac
-    
+
     [ -n "$art" ] && msg="$art"
     [ -n "$ttl" ] && msg="$ttl"
     [ -n "$art" ] && [ -n "$ttl" ] && msg="$art - $ttl"
     [ -z "$msg" ] && return
     [ -z "$DWM" ] && msg="$(printf '%s' "$msg" | sed -e 's/\&/&amp;/g')"
-    
+
     printf '%s %s %s' "#2edb59" "" "$msg"
 }
 
@@ -79,7 +79,7 @@ memory() {
     fre=$(printf '%s' "$mem" | awk '{print ($4+$6)/1024/1024}')
     use=$(printf '%s\n' "$ttl - $fre" | bc -l)
     per=$(printf '%s\n' "$use / $ttl * 100" | bc -l)
-    
+
     case "$per" in
         [0-9]|1[0-9])         clr="$(colors 1)" ;;
         2[0-9]|3[0-9]|4[0-9]) clr="$(colors 3)" ;;
@@ -87,7 +87,7 @@ memory() {
         7[0-9]|8[0-9])        clr="$(colors 2)" ;;
         *)                    clr="$(colors 7)" ;;
     esac
-    
+
     printf '%s %s %.f%%' "$clr" "" "$per"
 }
 
@@ -108,7 +108,7 @@ __updates() {
     upt=$(pacman -Qu 2> /dev/null | grep -cv '\[.*\]')
     [ "$aur" = "true" ] && \
         upt=$(( upt + $(yay -Qua | wc -l) ))
-    
+
     if [ "$upt" -gt 0 ]; then
         clr=$(colors 2)
         msg="$upt update(s)"
@@ -116,7 +116,7 @@ __updates() {
         clr=$(colors 3)
         msg="sys up to date"
     fi
-    
+
     [ -n "$clr" ] && [ -n "$msg" ] && printf '%s %s %s' "$clr" "" "$msg"
 }
 
@@ -142,7 +142,7 @@ volume() {
     dat="$(amixer -D $mix get "$ctl" "$cap" | sed '$!d')"
     vol="$(printf '%s' "$dat" | awk '{print $5}' | sed -e 's/\[\(.*\)\%\]/\1/')"
     sta="$(printf '%s' "$dat" | awk '{print $6}' | sed -e 's/\[\(.*\)\]/\1/')"
-    
+
     [ "$sta" = "off" ] && vol=0
     case "$BLOCK_BUTTON" in
         3) notify-send "$mix $ctl" ; amixer -q -D $mix sset "$ctl" toggle ;;
@@ -157,7 +157,7 @@ volume() {
         6[0-9]|7[0-9]|8[0-9]) icn="" ;;
         *)                    icn="" ;;
     esac
-    
+
     clr=$(colors 7)
     printf '%s %s %s' "$clr" "$icn" "$vol%"
 }
@@ -167,7 +167,7 @@ wifi() {
     [ ! -d "/sys/class/net/${int}/wireless" ] ||
         [ "$(cat /sys/class/net/"$int"/operstate)" = 'down' ] && return 1
     qlt="$(grep "$int" /proc/net/wireless | awk '{print int($3 * 100 / 70)}')"
-    
+
     case "$qlt" in
         [0-9]|1[0-9])         clr=$(colors 1); icn="" ;;
         2[0-9]|3[0-9])        clr=$(colors 3); icn="" ;;
@@ -175,6 +175,6 @@ wifi() {
         6[0-9]|7[0-9]|8[0-9]) clr=$(colors 2); icn="" ;;
         *)                    clr=$(colors 7); icn="" ;;
     esac
-    
+
     printf '%s %s %s%%' "$clr" "$icn" "$qlt"
 }

@@ -7,8 +7,6 @@
 . "$HOME/.local/scripts/ecm" &
 idl &
 dunst &
-# lxpolkit &
-# redshift &
 upt &
 slstatus &
 unclutter --jitter 10 --timeout 1 &

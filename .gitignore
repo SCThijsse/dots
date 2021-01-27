@@ -43,6 +43,7 @@
 !.config
 !.config/autostart
 !.config/autostart/*
+.config/autostart/teams.desktop
 !.config/bash
 !.config/bash/*
 .config/bash/shortcuts
@@ -79,6 +80,7 @@
 !.config/npm/*
 !.config/nvim
 !.config/nvim/*
+.config/nvim/.netrwhist
 .config/nvim/autoload
 !.config/openbox
 !.config/openbox/*
@@ -129,9 +131,10 @@
 !.local/assets
 !.local/assets/*
 
-# binary files 
+# binary files
 !.local/bin
 !.local/bin/.gitkeep
+!.local/bin/install.sh
 
 # scripts
 !.local/scripts
