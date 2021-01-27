@@ -62,6 +62,7 @@ usg() {
 install_pacman() {
     if [ -n "$pacmanflag" ]; then
         printf '%s\n' "installing pacman packages..."
+        sudo pacman -Syyu --needed --noconfirm > /dev/null 2>&1
         cat "$base/pacman-$type.lst" | xargs sudo pacman -S --needed --noconfirm \
             > /dev/null 2>&1
     fi
@@ -130,7 +131,7 @@ install_shell() {
 }
 
 install_suckless_tool() {
-    printf '\t- %s\t' "$1"
+    printf '\t- %s' "$1"
 
     workdir="$HOME/Software/$1"
     if [ ! -d "$workdir" ]; then
@@ -138,8 +139,10 @@ install_suckless_tool() {
         git clone --quiet "$link" "$workdir" > /dev/null
     fi
 
-    find "$workdir/patches/" -type f -print0 | sort -z | \
-      xargs -n 1 -0 patch -Np1 -i >/dev/null 2>&1
+    if [ -d "$workdir/patches" ]; then
+        find "$workdir/patches/" -type f -print0 | sort -z | \
+          xargs -n 1 -0 patch -Np1 -i >/dev/null 2>&1
+    fi
     sudo make -C "$workdir" --quiet clean install > /dev/null 2>&1
 
     printf 'done\n'
