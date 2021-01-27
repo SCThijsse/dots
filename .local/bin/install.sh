@@ -76,7 +76,7 @@ install_yay() {
         curl "${aur}yay" -o PKGBUILD -s
         makepkg -si --noconfirm
 
-        rm -Rf src pkg yay* PKGBUILD
+        rm -rf src pkg yay* PKGBUILD
 
         printf '%s\n' "installing yay packages..."
         cat "$base/yay-$type.lst" | xargs yay -S --noconfirm
@@ -166,8 +166,10 @@ clone_project() {
         project="dots"
         link="https://github.com/SCThijsse/$project.git"
         git clone --quiet "$link" "$HOME/$project" > /dev/null
-        cp -r "$HOME/dots" "$HOME"
-        rm -rf "$HOME/dots"
+
+        mv "$HOME/$project/"* "$HOME/"
+        mv "$HOME/$project/".[!.]* "$HOME/"
+        rm -rf "{$HOME}/$project"
     fi
 }
 
