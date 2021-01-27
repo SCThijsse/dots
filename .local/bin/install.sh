@@ -169,7 +169,7 @@ clone_project() {
 
         mv "$HOME/$project/"* "$HOME/"
         mv "$HOME/$project/".[!.]* "$HOME/"
-        rm -rf "{$HOME}/$project"
+        rm -rf "${HOME:?}/$project"
     fi
 }
 
