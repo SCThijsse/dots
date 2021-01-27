@@ -144,7 +144,7 @@ clone_project() {
 }
 
 main() {
-    while getopts ":ad:cghlnps:t:y" opt; do
+    while getopts ":ad:cghl:npst:y" opt; do
         case "$opt" in
             t)  type="$OPTARG" ;;
             a)  apmflag="true" ;;
