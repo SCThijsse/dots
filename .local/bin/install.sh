@@ -209,6 +209,4 @@ main() {
     printf '%s\n' "finished."
 }
 
-# main "$@"
-
-
+main "$@"
