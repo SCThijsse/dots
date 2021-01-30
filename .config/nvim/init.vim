@@ -7,6 +7,7 @@ runtime! misc.vim
 
 " plugin configuration
 runtime! fugitive.vim
+runtime! hardtime.vim
 runtime! lightline.vim
 runtime! lsp.vim
 runtime! netrw.vim

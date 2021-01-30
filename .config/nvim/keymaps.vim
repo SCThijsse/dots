@@ -51,8 +51,8 @@ nnoremap <leader>L :wincmd L<CR>
 " resize buffers
 nnoremap <leader>= :vertical resize +5<CR>
 nnoremap <leader>- :vertical resize -5<CR>
-nnoremap <leader>) :resize +5<CR>
-nnoremap <leader>( :resize -5<CR>
+nnoremap <leader>+ :resize +5<CR>
+nnoremap <leader>_ :resize -5<CR>
 
 " terminals
 nnoremap <leader>st  :split <Bar> resize 15 <Bar> terminal<CR>

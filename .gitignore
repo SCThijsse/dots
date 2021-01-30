@@ -58,6 +58,8 @@
 !.config/i3
 !.config/i3/*
 !.config/i3/*/*
+!.config/ideavim
+!.config/ideavim/*
 !.config/intellij-idea
 !.config/intellij-idea/idea.properties
 !.config/intellij-idea/idea64.vmoptions

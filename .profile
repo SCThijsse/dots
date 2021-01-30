@@ -49,11 +49,11 @@ fi
 
 # nnn config
 export NNN_BMS="D:~/Documents;d:~/Downloads;E:/etc/;i:~/IdeaProjects;h:~/;m:/mnt;p:~/Pictures;S:~/Software;c:~/.config;s:~/.local/scripts"
-export NNN_PLUG="d:dps;m:nmt;s:sxv"
-export NNN_TMPFILE="/tmp/nnn"
+export NNN_PLUG="d:dps;i:mnf;m:nmt;s:sxv"
+export NNN_TMPFILE="$XDG_CONFIG_HOME/nnn/.lastd"
 export NNN_OPENER="gio open"
-export NNN_USE_EDITOR=1
 export NNN_COPIER="$CLIPBOARD"
+[ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
 
 # Other environment variables
 export _JAVA_AWT_WM_NONREPARENTING=1

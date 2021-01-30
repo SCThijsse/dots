@@ -1,5 +1,5 @@
 " fugitive
-nnoremap <leader>gb  :Gblame<CR>
+nnoremap <leader>gbl :Gblame<CR>
 nnoremap <leader>gc  :Gcommit<CR>
 nnoremap <leader>gf  :Gfetch<CR>
 nnoremap <leader>gl  :Glog<CR>

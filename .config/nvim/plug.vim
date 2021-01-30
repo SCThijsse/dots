@@ -17,7 +17,11 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " misc
 Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'mcchrish/nnn.vim'
 Plug 'ThePrimeagen/vim-be-good'
+Plug 'psliwka/vim-smoothie'
+Plug 'takac/vim-hardtime'
 call plug#end()
