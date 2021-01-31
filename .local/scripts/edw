@@ -14,7 +14,7 @@ unclutter --jitter 10 --timeout 1 &
 # program for both desktop & laptop
 firefox-developer-edition &
 tabbed -n term -c st -w &
-st -n nnnterm -e nnn -Hd &
+st -n nnnterm -e nnn -Hde &
 st -n tmuxterm -e tmux -2 &
 
 if [ "$TOP_TYPE" = "laptop" ]; then
@@ -29,7 +29,7 @@ if [ "$TOP_TYPE" = "laptop" ]; then
     st -n anotherterm -e spt &
     st -n rtorrentterm -e rtorrent &
     st -n htopterm -e htop &
-else 
+else
     # programs only for desktop
     qbittorrent &
 

@@ -108,7 +108,7 @@ install_apm() {
 
 install_gems() {
     if [ -n "$gemsflag" ]; then
-        printf '%s\n' "installing gems..."
+
         [ -n "$(command -v gem)" ] && \
             cat "$base/gems-$type.lst" | xargs gem install
     fi
@@ -160,6 +160,14 @@ install_suckless() {
     fi
 }
 
+install_tmux() {
+    if [ ! -d "$HOME/.config/tmux" ]; then
+        project="tmux"
+        link="https://github.com/SCThijsse/.$project.git"
+        git clone --quiet "$link" "$HOME/.config/$project" > /dev/null
+    fi
+}
+
 install_deps() {
     sudo pacman -S --needed --noconfirm git patch > /dev/null 2>&1
 }
@@ -208,6 +216,7 @@ main() {
     install_gems
     install_suckless
     install_shell
+    install_tmux
 
     printf '%s\n' "finished."
 }
