@@ -51,6 +51,7 @@ usg() {
     printf '\t%s\n' "-g - install gems packages"
     printf '\t%s\n' "-n - install npm packages"
     printf '\t%s\n' "-p - install pacman packages"
+    printf '\t%s\n' "-x - install tmux"
     printf '\t%s\n' "-y - install yay with aur packages"
     printf '\t%s\n' "-c - clone dots project"
     printf '\t%s\n' "-l - install suckless tools"
@@ -161,10 +162,18 @@ install_suckless() {
 }
 
 install_tmux() {
-    if [ ! -d "$HOME/.config/tmux" ]; then
-        project="tmux"
-        link="https://github.com/SCThijsse/.$project.git"
-        git clone --quiet "$link" "$HOME/.config/$project" > /dev/null
+    if [ -n "$tmuxflag" ]; then
+        sudo pacman -S --needed --noconfirm tmux > /dev/null 2>&1
+        if [ ! -d "$HOME/.config/tmux" ]; then
+            project="tmux"
+            link="https://github.com/SCThijsse/.$project.git"
+            git clone --quiet "$link" "$HOME/.config/$project" > /dev/null
+        fi
+
+        [ -f "$HOME/.tmux.conf" ] && \
+            ln -s -f "$HOME/.config/tmux/.tmux.conf" "$HOME/.tmux.conf"
+        [ -f "$HOME/.tmux.conf.local" ] && \
+            ln -s -f "$HOME/.config/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
     fi
 }
 
@@ -185,7 +194,7 @@ clone_project() {
 }
 
 main() {
-    while getopts ":acghl:npst:y" opt; do
+    while getopts ":acghl:npst:xy" opt; do
         case "$opt" in
             t)  type="$OPTARG" ;;
             a)  apmflag="true" ;;
@@ -195,6 +204,7 @@ main() {
             n)  npmflag="true" ;;
             p)  pacmanflag="true" ;;
             s)  shellflag="true" ;;
+            x)  tmuxflag="true" ;;
             y)  yayflag="true" ;;
             h)  usg ;;
             \?) err "invalid option: -$OPTARG" >&2 ;;

@@ -29,10 +29,6 @@
 # ssh
 !.ssh/config
 
-# tmux
-!.tmux.conf
-!.tmux.conf.local
-
 # vim
 *.swp
 !.vimrc
