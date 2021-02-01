@@ -51,6 +51,7 @@ usg() {
     printf '\t%s\n' "-g - install gems packages"
     printf '\t%s\n' "-n - install npm packages"
     printf '\t%s\n' "-p - install pacman packages"
+    printf '\t%s\n' "-v - install nvim plugins"
     printf '\t%s\n' "-x - install tmux config"
     printf '\t%s\n' "-y - install yay with aur packages"
     printf '\t%s\n' "-c - clone dots project"
@@ -64,7 +65,7 @@ install_pacman() {
     if [ -n "$pacmanflag" ]; then
         printf '%s\n' "installing pacman packages..."
         sudo pacman -Syyu --needed --noconfirm > /dev/null 2>&1
-        cat "$base/pacman-$variant.lst" | xargs sudo pacman -S --needed --noconfirm \
+        cat "$base/pacman-$VARIANT.lst" | xargs sudo pacman -S --needed --noconfirm \
             > /dev/null 2>&1
     fi
 }
@@ -76,12 +77,13 @@ install_yay() {
         aur="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h="
 
         curl "${aur}yay" -o PKGBUILD -s
-        makepkg -si --noconfirm
+        makepkg -si --noconfirm > /dev/null 2>&1
 
-        rm -rf src pkg yay* PKGBUILD
+        rm -rf src pkg yay* PKGBUILD > /dev/null 2>&1
 
         printf '%s\n' "installing yay packages..."
-        cat "$base/yay-$variant.lst" | xargs yay -S --noconfirm
+        cat "$base/yay-$VARIANT.lst" | xargs yay -S --noconfirm \
+            > /dev/null 2>&1
     fi
 }
 
@@ -89,32 +91,39 @@ install_npm() {
     if [ -n "$npmflag" ]; then
         printf '%s\n' "installing nvm, npm & node..."
         # mkdir -p $HOME/.config/nvm
-	XDG_CONFIG_HOME="$HOME/.config"
-	NVM_DIR="$XDG_CONFIG_HOME/nvm"
+        XDG_CONFIG_HOME="$HOME/.config"
+        NVM_DIR="$XDG_CONFIG_HOME/nvm"
 
         nvm="https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh"
-        curl -o- "$nvm" | bash
+        curl -o- "$nvm" -s | bash > /dev/null 2>&1
 
-	. "$NVM_DIR/nvm.sh"
-        nvm install stable
-        nvm use stable
+        . "$NVM_DIR/nvm.sh"
+        nvm install stable > /dev/null 2>&1
+        nvm use stable > /dev/null 2>&1
     fi
 }
 
 install_apm() {
     if [ -n "$apmflag" ]; then
         printf '%s\n' "installing npm & apm packages..."
-        [ -n "$(command -v apm)" ] && cat "$base/apm-$variant.lst" | apm install
+        [ -n "$(command -v apm)" ] && cat "$base/apm-$VARIANT.lst" | apm install
         [ -n "$(command -v npm)" ] && \
-            cat "$base/npm-$variant.list"  | sudo npm install -g
+            cat "$base/npm-$VARIANT.lst"  | xargs npm install -g > /dev/null 2>&1
     fi
 }
 
 install_gems() {
     if [ -n "$gemsflag" ]; then
-
+        printf '%s\n' "installing gem packages..."
         [ -n "$(command -v gem)" ] && \
-            cat "$base/gems-$variant.lst" | xargs gem install
+            cat "$base/gems-$VARIANT.lst" | xargs gem install
+    fi
+}
+
+install_nvim() {
+    if [ -n "$nvimflag" ]; then
+        printf '%s\n' "installing nvim plugins..."
+        nvim -c :PluginInstall +qall
     fi
 }
 
@@ -123,14 +132,14 @@ install_shell() {
         if [ -z "$(command -v zsh)" ]; then
             sudo pacman -S --needed --noconfirm zsh > /dev/null 2>&1
         fi
-        printf '%s\n' "Setting default shell as zsh"
+        printf '%s\n' "setting default shell as zsh..."
         sudo chsh -s /usr/bin/zsh "$USER" > /dev/null 2>&1
 
         if [ -z "$(command -v dash)" ]; then
             sudo pacman -S --needed --noconfirm dash >/dev/null 2>&1
         fi
-        printf '%s\n' "Setting default shell as zsh"
-        sudo ln -sfT dash /usr/bin/sh
+        printf '%s\n' "symlinking sh to dash..."
+        # sudo ln -sfT dash /usr/bin/sh
     fi
 }
 
@@ -154,11 +163,6 @@ install_suckless_tool() {
 
 install_suckless() {
     if [ -n "$suckless" ]; then
-        if [ "$suckless" = "true" ]; then
-            printf '%s' "enter suckless tools to be installed (comma separated): "
-            read -r suckless
-        fi
-
         printf '%s\n' "installing suckless tools..."
         mkdir -p "$HOME/Software"
 
@@ -171,7 +175,7 @@ install_suckless() {
 
 install_tmux() {
     if [ -n "$tmuxflag" ]; then
-        printf '%s\n' "installing tmux"
+        printf '%s\n' "installing tmux..."
         sudo pacman -S --needed --noconfirm tmux > /dev/null 2>&1
         if [ ! -d "$HOME/.config/tmux" ]; then
             project="tmux"
@@ -181,7 +185,7 @@ install_tmux() {
             git clone --quiet "$link" "$HOME/.config/$project" > /dev/null
         fi
 
-        printf '%s\n' "installing tmux config"
+        printf '%s\n' "installing tmux config..."
         [ -f "$HOME/.tmux.conf" ] && \
             ln -s -f "$HOME/.config/tmux/.tmux.conf" "$HOME/.tmux.conf"
         [ -f "$HOME/.tmux.conf.local" ] && \
@@ -190,28 +194,28 @@ install_tmux() {
 }
 
 install_deps() {
-    printf '%s\n' "installing dependencies for install.sh script"
+    printf '%s\n' "installing dependencies for install.sh script..."
     sudo pacman -S --needed --noconfirm git patch > /dev/null 2>&1
 }
 
 clone_project() {
     if [ -n "$cloneflag" ]; then
         project="dots"
-	printf '%s\n' "cloning $project project"
+        printf '%s\n' "cloning $project project..."
 
         link="https://github.com/SCThijsse/$project.git"
         git clone --quiet "$link" "$HOME/$project" > /dev/null
 
-        mv "$HOME/$project/"* "$HOME/"
-        mv "$HOME/$project/".[!.]* "$HOME/"
-        rm -rf "${HOME:?}/$project"
+        mv "$HOME/$project/"* "$HOME/" > /dev/null 2>&1
+        mv "$HOME/$project/".[!.]* "$HOME/" > /dev/null 2>&1
+        rm -rf "${HOME:?}/$project" > /dev/null 2>&1
     fi
 }
 
 main() {
-    while getopts ":acghl:npst:xuy" opt; do
+    while getopts ":acghl:npst:vxuy" opt; do
         case "$opt" in
-            t)  variant="$OPTARG" ;;
+            t)  VARIANT="$OPTARG" ;;
             a)  apmflag="true" ;;
             c)  cloneflag="true" ;;
             g)  gemsflag="true" ;;
@@ -219,8 +223,9 @@ main() {
             n)  npmflag="true" ;;
             p)  pacmanflag="true" ;;
             s)  shellflag="true" ;;
+            u)  sucklessflag="dmenu,dwm,slock,sltatus,st,sxiv,sxiv,tabbed" ;;
+            v)  nvimflag="true" ;;
             x)  tmuxflag="true" ;;
-            u)  suckless="true" ;;
             y)  yayflag="true" ;;
             h)  usg ;;
             \?) err "invalid option: -$OPTARG" >&2 ;;
@@ -228,13 +233,9 @@ main() {
         esac
     done
 
-    if [ -z "$variant" ]; then
-        printf '%s' "Enter the variant you want to install (desktop or laptop): "
-        read -r variant
-    fi
-
+    VARIANT="${VARIANT:-desktop}"
     # throw errors when needed
-    [ "$variant" != "laptop" ] && [ "$variant" != "desktop" ] && \
+    [ "$VARIANT" != "laptop" ] && [ "$VARIANT" != "desktop" ] && \
         err "error: -t flag argument can only be 'laptop' or 'desktop'"
 
     install_deps
@@ -245,11 +246,12 @@ main() {
     install_npm
     install_apm
     install_gems
-    install_suckless
+    install_nvim
     install_shell
+    install_suckless
     install_tmux
 
     printf '%s\n' "finished."
 }
 
-[ -z "MANUAL_MODE" ] && main "$@" || main -acgnpsxuy
+[ "$#" -eq 0 ] && main -acgnpsvxuy || main "$@"

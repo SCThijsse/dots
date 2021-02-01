@@ -15,7 +15,7 @@ backup_pacman() {
 backup_npm() {
     [ -n "$(command -v npm)" ] && \
         printf '%s\t\t' "npm..." && \
-        npm ls -g --depth=0 | sed '1d' | sed 's/[^a-zA-Z0-9@\.-]//g' \
+        npm ls -g --depth=0 | sed '1d;s/[^a-zA-Z0-9@\/\.-]//g' \
             > "$1/npm-$TOP_TYPE.lst" && \
         printf '%s\n' "done"
 }
@@ -37,7 +37,7 @@ backup_gems() {
 main() {
   TOP_TYPE="${TOP_TYPE:?}"
   printf '%s\n' "generating list of packages to backup"
-  
+
   base="$HOME/.config/pkglist"
 
   backup_pacman "$base"
