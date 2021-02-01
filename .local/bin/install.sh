@@ -90,11 +90,11 @@ install_yay() {
 install_npm() {
     if [ -n "$npmflag" ]; then
         printf '%s\n' "installing nvm, npm & node..."
-        XDG_CONFIG_HOME="$HOME/.config"
-        NVM_DIR="$XDG_CONFIG_HOME/nvm"
+        export XDG_CONFIG_HOME="$HOME/.config"
+        export NVM_DIR="$XDG_CONFIG_HOME/nvm"
         mkdir -p "$NVM_DIR"
 
-        nvm="https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh"
+        nvm="https://raw.githubusercontent.com/creationix/nvm/v0.37.2/install.sh"
         curl -o- "$nvm" -s | bash > /dev/null 2>&1
 
         . "$NVM_DIR/nvm.sh"
