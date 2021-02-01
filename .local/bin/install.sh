@@ -252,4 +252,4 @@ main() {
     printf '%s\n' "finished."
 }
 
-[ "$#" -eq 0 ] && main -acgnpsxuy || main "$@"
+[ -z "MANUAL_MODE" ] && main "$@" || main -acgnpsxuy
