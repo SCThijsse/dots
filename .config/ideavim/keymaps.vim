@@ -37,17 +37,9 @@ vnoremap > >gv
 xnoremap J :action MoveLineDown<CR>
 xnoremap K :action MoveLineUp<CR>
 
-" moving lines vertically
-" xnoremap J :action MoveStatementDown<CR>
-" xnoremap K :action MoveStatementUp<CR>
-
-" soring
+" sorting
 nnoremap <leader>si vip:'<,'>sort i<CR>
 nnoremap <leader>so vip:'<,'>sort<CR>
-
-" spell-checking
-" map <silent> leader>se setlocal spell! spelllang=en_us<CR>
-" map <silent> leader>sn setlocal spell! spelllang=nl_nl<CR>
 
 " cycle buffers
 nnoremap <Tab>   :action NextTab<CR>
