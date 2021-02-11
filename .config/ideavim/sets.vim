@@ -1,0 +1,6 @@
+" sets
+set incsearch
+set number relativenumber
+set scrolloff=4
+set ideajoin
+

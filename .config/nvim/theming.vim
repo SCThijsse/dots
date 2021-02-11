@@ -1,5 +1,5 @@
 " theming
-set background=light "
+set background=light
 
 " fix the vertical split theming
 highlight SignColumn         ctermfg=NONE     ctermbg=black    cterm=NONE

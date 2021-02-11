@@ -1,23 +1,22 @@
 " keymaps
+let mapleader = " "
 
-let mapleader = " "                         " set leader
+" reload nvim configurations
+nnoremap <silent> <leader>r :source $MYVIMRC<CR>
 
-" apparently great remaps
-vnoremap <leader>p "_dP
+" paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+" copy (file) to clipboard
 nnoremap <leader>y "+y
-vnoremap <leader>y "+Y
-nnoremap <leader>Y gg"+yG
+nnoremap <leader>Y "+Y
+nnoremap <leader>YY gg"+yG
 
 " unmap arrow keys
-no  <down>  ddp
+no  <down>  :move +1<CR>
 no  <left>  <Nop>
 no  <right> <Nop>
-no  <up>    ddkP
-" disabled for autocompletion
-" ino <down>  <Nop>
-" ino <left>  <Nop>
-" ino <right> <Nop>
-" ino <up>    <Nop>
+no  <up>    :move -2<CR>
 vno <down>  <Nop>
 vno <left>  <Nop>
 vno <right> <Nop>
@@ -30,31 +29,51 @@ nnoremap N Nzz
 nnoremap { {zz
 nnoremap } }zz
 
-" utils
+" better indents
 vnoremap < <gv
 vnoremap > >gv
 
+" moving lines vertically
+xnoremap J :move '>+1<CR>gv-gv
+xnoremap K :move '<-2<CR>gv-gv
+
+" sorting
+nnoremap <leader>si vip:'<,'>sort i<CR>
+nnoremap <leader>so vip:'<,'>sort<CR>
+
 " spell-checking
-map <leader>oe :setlocal spell! spelllang=en_us<CR>
-map <leader>on :setlocal spell! spelllang=nl_nl<CR>
+map <silent> <leader>se :setlocal spell! spelllang=en_us<CR>
+map <silent> <leader>sn :setlocal spell! spelllang=nl_nl<CR>
+
+" cycle buffers
+nnoremap <silent> <Tab>   :bnext<CR>
+nnoremap <silent> <A-Tab> :bprev<CR>
 
 " switch buffers
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>H :wincmd H<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>J :wincmd J<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>K :wincmd K<CR>
-nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>L :wincmd L<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " resize buffers
-nnoremap <leader>= :vertical resize +5<CR>
-nnoremap <leader>- :vertical resize -5<CR>
-nnoremap <leader>+ :resize +5<CR>
-nnoremap <leader>_ :resize -5<CR>
+nnoremap <silent> <A-C-j> :resize -2<CR>
+nnoremap <silent> <A-C-k> :resize +2<CR>
+nnoremap <silent> <A-C-h> :vertical resize -2<CR>
+nnoremap <silent> <A-C-l> :vertical resize +2<CR>
 
-" terminals
-nnoremap <leader>st  :split <Bar> resize 15 <Bar> terminal<CR>
-nnoremap <leader>vst :vsplit <Bar> terminal<CR>
+" creating terminal buffers
+nnoremap <silent> <leader>ts :split  <Bar> resize 15 <Bar> terminal<CR>
+nnoremap <silent> <leader>tv :vsplit <Bar> terminal<CR>
 
+" easy switching from/into terminal buffers
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-w> <C-\><C-n><C-w>
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+tnoremap <C-d> <C-\><C-n>:q<CR>
+
+" try to unlearn a nasty habbit
+vno d <Nop>
+vno y <Nop>

@@ -6,6 +6,7 @@
 # shellcheck source=/dev/null disable=SC2002
 base="$HOME/.config/pkglist"
 
+# from: https://github.com/dylanaraps/pure-sh-bible#split-a-string-on-a-delimiter
 split() {
     # Disable globbing.
     # This ensures that the word-splitting is safe.
@@ -134,6 +135,7 @@ install_shell() {
         fi
         printf '%s\n' "setting default shell as zsh..."
         sudo chsh -s /usr/bin/zsh "$USER" > /dev/null 2>&1
+        ln -s -f "$HOME/.profile" "$HOME/.zprofile"
 
         if [ -z "$(command -v dash)" ]; then
             sudo pacman -S --needed --noconfirm dash >/dev/null 2>&1

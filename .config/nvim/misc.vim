@@ -6,9 +6,12 @@ fun! TrimWhitespace()
     call winrestview(l:save)
 endfun
 
-augroup EOS
+augroup THIJSSE
     autocmd!
+    " trim whitespaces when writing
     autocmd BufWritePre * :call TrimWhitespace()
-    " autocmd VimEnter * :VimApm
-    autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
+    " enter insert mode when opening/switching to a terminal buffer
+    autocmd BufWinEnter,TermOpen,WinEnter term://* startinsert
+    " enter normal mode when exiting a terminal buffer
+    autocmd BufLeave term://* stopinsert
 augroup END

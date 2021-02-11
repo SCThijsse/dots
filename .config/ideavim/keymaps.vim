@@ -1,0 +1,122 @@
+" keymaps
+let mapleader=" "
+
+" reload nvim configurations
+nnoremap <leader>r :source ~/.config/ideavim/ideavimrc<CR>
+
+" paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+" copy (file) to clipboard
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+nnoremap <leader>YY gg"+yG
+
+" unmap arrow keys
+no  <down>  :move +1<CR>
+no  <left>  <Nop>
+no  <right> <Nop>
+no  <up>    :move -2<CR>
+vno <down>  <Nop>
+vno <left>  <Nop>
+vno <right> <Nop>
+vno <up>    <Nop>
+
+" auto-center
+nnoremap G Gzz
+nnoremap N Nzz
+nnoremap n nzz
+nnoremap { {zz
+nnoremap } }zz
+
+" better indents
+vnoremap < <gv
+vnoremap > >gv
+
+" moving lines vertically
+xnoremap J :action MoveLineDown<CR>
+xnoremap K :action MoveLineUp<CR>
+
+" moving lines vertically
+" xnoremap J :action MoveStatementDown<CR>
+" xnoremap K :action MoveStatementUp<CR>
+
+" soring
+nnoremap <leader>si vip:'<,'>sort i<CR>
+nnoremap <leader>so vip:'<,'>sort<CR>
+
+" spell-checking
+" map <silent> leader>se setlocal spell! spelllang=en_us<CR>
+" map <silent> leader>sn setlocal spell! spelllang=nl_nl<CR>
+
+" cycle buffers
+nnoremap <Tab>   :action NextTab<CR>
+nnoremap <A-Tab> :action PreviousTab<CR>
+
+" switch buffers
+nnoremap <C-h> <C-W>h
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+
+" resize buffers
+" nnoremap <A-C-j> :resize -2<CR>
+" nnoremap <A-C-k> :resize +2<CR>
+" nnoremap <A-C-h> :vertical resize -2<CR>
+" nnoremap <A-C-l> :vertical resize +2<CR>
+
+" easy switching from/into terminal buffers
+nnoremap <leader>ts :action ActivateTerminalToolWindow<CR>
+nnoremap <C-BS>     :action Terminal.SwitchFocusToEditor<CR>
+
+" try to unlearn a nasty habbit
+vno d <Nop>
+vno y <Nop>
+
+" gitgutter
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap <leader>hp :action VcsShowCurrentChangeMarker<CR>
+" nnoremap <leader>hs :action stage hunk<CR>
+nnoremap <leader>hu :action Vcs.RollbackChangedLines<CR>
+
+" lsp
+nnoremap <leader>db :action Back<CR>
+nnoremap <leader>dd :action GotoDeclarationOnly<CR>
+nnoremap <leader>de :action ReformatCode<CR>
+nnoremap <leader>df :action GotoDeclaration<CR>
+nnoremap <leader>dh :action QuickTypeDefinition<CR>
+nnoremap <leader>di :action GotoImplementation<CR>
+nnoremap <leader>dm :action ImplementMethods<CR>
+nnoremap <leader>dn :action GotoNextError<CR>
+nnoremap <leader>dn :action GotoPreviousError<CR>
+nnoremap <leader>do :action OverrideMethods<CR>
+nnoremap <leader>dr :action RenameElement<CR>
+nnoremap <leader>ds :action SelectInProjectView<CR>
+
+" netrw
+nnoremap <leader>\ :action ActivateProjectToolWindow<CR>
+
+" telescope
+nnoremap <leader>fb :action Git.Branches<CR>
+nnoremap <leader>fc :action Vcs.Show.Log<CR>
+nnoremap <leader>ff :action SearchEverywhere<CR>
+nnoremap <leader>fg :action FindInPath<CR>
+nnoremap <leader>fo :action Vcs.ShowTabbedFileHistory<CR>
+" nnoremap <leader>fr :Telescope git_files<CR>
+nnoremap <leader>fs :action Vcs.Show.Local.Changes<CR>
+nnoremap <leader>fu :action Switcher<CR>
+
+" intellij specific - debug
+nnoremap <leader>be :action EvaluateExpression<CR>
+nnoremap <leader>bg :action Debug<CR>
+nnoremap <leader>bo :action Stop<CR>
+nnoremap <leader>bp :action ToggleLineBreakpoint<CR>
+nnoremap <leader>br :action Resume<CR>
+nnoremap <leader>bs :action StepOver<CR>
+nnoremap <leader>bt :action ActivateDebugToolWindow<CR>
+
+" intellij specific - misc
+nnoremap <leader>cg :action CodeGlance.toggle<CR>
+nnoremap <leader>gg :action ActivateVersionControlToolWindow<CR>
+nnoremap <leader>mm :action ViewMainMenu<CR>

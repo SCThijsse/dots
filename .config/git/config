@@ -46,3 +46,5 @@
   br   = branch
   loc  = !git ls-files | xargs wc -l
   lsa  = !git config -l | grep alias | cut -c 7-
+[pull]
+	rebase = false

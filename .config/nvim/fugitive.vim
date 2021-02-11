@@ -1,8 +1,11 @@
 " fugitive
-nnoremap <leader>gbl :Gblame<CR>
-nnoremap <leader>gc  :Gcommit<CR>
-nnoremap <leader>gf  :Gfetch<CR>
-nnoremap <leader>gl  :Glog<CR>
-nnoremap <leader>gsl :G<CR>
-nnoremap <leader>gp  :Gpull<CR>
-nnoremap <leader>gps :Gpush<CR>
+nnoremap <leader>gb :Git branch<CR>
+nnoremap <leader>gc :Git commit<CR>
+nnoremap <leader>gf :Git fetch<CR>
+nnoremap <leader>gh :Git push<CR>
+nnoremap <leader>gl :Git log<CR>
+nnoremap <leader>gm :Git blame<CR>
+" nnoremap <leader>go :Git checkout<CR>
+nnoremap <leader>gp :Git pull<CR>
+nnoremap <leader>gr :Git reset --hard<CR>
+nnoremap <leader>gs :Git status --long<CR>

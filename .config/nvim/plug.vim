@@ -1,8 +1,9 @@
 " plug
 if ! filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
     echo "Downloading junegunn/vim-plug to manage plugins..."
-    silent !mkdir -p ~/.local/share/nvim/site/autoload/
-    silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.local/share/nvim/site/autoload/plug.vim
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin('~/.local/share/nvim/plugged')
@@ -15,13 +16,16 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+" learning
+Plug 'ThePrimeagen/vim-be-good'
+Plug 'takac/vim-hardtime'
+
 " misc
+Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
+Plug 'mcchrish/nnn.vim'
+Plug 'psliwka/vim-smoothie'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'mcchrish/nnn.vim'
-Plug 'ThePrimeagen/vim-be-good'
-Plug 'psliwka/vim-smoothie'
-Plug 'takac/vim-hardtime'
 call plug#end()

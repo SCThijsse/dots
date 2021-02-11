@@ -34,7 +34,6 @@ gvfs
 gvfs-mtp
 gzip
 inetutils
-keepass
 libtool
 libva-mesa-driver
 linux
@@ -65,7 +64,6 @@ pkgconf
 playerctl
 pulseaudio-alsa
 pulseaudio-bluetooth
-python-pip
 qbittorrent
 scrot
 sed
