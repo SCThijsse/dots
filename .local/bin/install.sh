@@ -124,6 +124,7 @@ install_gems() {
 install_nvim() {
     if [ -n "$nvimflag" ]; then
         printf '%s\n' "installing nvim plugins..."
+        curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
         nvim -c :PlugInstall +qall > /dev/null
     fi
 }

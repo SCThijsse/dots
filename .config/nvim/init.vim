@@ -1,16 +1,28 @@
-"nvim configuration
-source $HOME/.config/nvim/plug.vim
-source $HOME/.config/nvim/sets.vim
-source $HOME/.config/nvim/theming.vim
-source $HOME/.config/nvim/keymaps.vim
-source $HOME/.config/nvim/misc.vim
+" plug
+call plug#begin('~/.config/nvim/plugged')
+" lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
-" plugin configuration
-source $HOME/.config/nvim/fugitive.vim
-source $HOME/.config/nvim/gitgutter.vim
-source $HOME/.config/nvim/hardtime.vim
-source $HOME/.config/nvim/lightline.vim
-source $HOME/.config/nvim/lsp.vim
-source $HOME/.config/nvim/netrw.vim
-source $HOME/.config/nvim/nnn.vim
-source $HOME/.config/nvim/telescope.vim
+" telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" learning
+Plug 'ThePrimeagen/vim-be-good'
+Plug 'takac/vim-hardtime'
+
+" misc
+Plug 'airblade/vim-gitgutter'
+Plug 'itchyny/lightline.vim'
+Plug 'mcchrish/nnn.vim'
+Plug 'preservim/nerdtree'
+Plug 'psliwka/vim-smoothie'
+Plug 'ThePrimeagen/harpoon'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+call plug#end()
+
+let g:mapleader = ' '

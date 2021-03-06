@@ -38,8 +38,7 @@ xnoremap J :action MoveLineDown<CR>
 xnoremap K :action MoveLineUp<CR>
 
 " sorting
-nnoremap <leader>si vip:'<,'>sort i<CR>
-nnoremap <leader>so vip:'<,'>sort<CR>
+nnoremap <leader>so vip:'<,'>sort ui<CR>
 
 " cycle buffers
 nnoremap <Tab>   :action NextTab<CR>
@@ -62,8 +61,10 @@ nnoremap <leader>ts :action ActivateTerminalToolWindow<CR>
 nnoremap <C-BS>     :action Terminal.SwitchFocusToEditor<CR>
 
 " try to unlearn a nasty habbit
-vno d <Nop>
-vno y <Nop>
+vno d   <Nop>
+vno y   <Nop>
+nno dw  <Nop>
+nno diw <Nop>
 
 " gitgutter
 nnoremap [c :action VcsShowPrevChangeMarker<CR>
@@ -87,7 +88,8 @@ nnoremap <leader>dr :action RenameElement<CR>
 nnoremap <leader>ds :action SelectInProjectView<CR>
 
 " netrw
-nnoremap <leader>\ :action ActivateProjectToolWindow<CR>
+nnoremap <leader><BS> :action NERDTreeFocus<CR>
+nnoremap <leader>\    :action NERDTreeToggle<CR>
 
 " telescope
 nnoremap <leader>fb :action Git.Branches<CR>

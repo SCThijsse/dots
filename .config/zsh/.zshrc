@@ -89,6 +89,6 @@ icy
     . "$XDG_CONFIG_HOME/bash/taliases"
 
 # Load zsh-syntax-highlighting; should be last.
-[ -f "$HOME/Software/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
-    . "$HOME/Software/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+[ -f "$XDG_CONFIG_HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
+    . "$XDG_CONFIG_HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
     > /dev/null

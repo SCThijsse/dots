@@ -55,8 +55,7 @@ disk() {
 mediaplayer() {
     ply="${BLOCK_INSTANCE:-spotifyd}"
     arg="--player=$ply"
-    art=$(playerctl "$arg" metadata artist)
-    ttl=$(playerctl "$arg" metadata title)
+    msg="$(playerctl "$arg" metadata --format '{{ artist }} - {{ title }}')"
 
     case "$BLOCK_BUTTON" in
         1) playerctl "$arg" previous ;;
@@ -64,9 +63,6 @@ mediaplayer() {
         3) playerctl "$arg" next ;;
     esac
 
-    [ -n "$art" ] && msg="$art"
-    [ -n "$ttl" ] && msg="$ttl"
-    [ -n "$art" ] && [ -n "$ttl" ] && msg="$art - $ttl"
     [ -z "$msg" ] && return
     [ -z "$DWM" ] && msg="$(printf '%s' "$msg" | sed -e 's/\&/&amp;/g')"
 
@@ -103,8 +99,8 @@ timee() {
 __updates() {
     aur="${1:-true}"
     sil="${2:-false}"
-    mkdir -p /tmp/checkup-db-"$USER"
-    sudo pacman -Sy --dbpath /tmp/checkup-db-"$USER" --logfile /dev/null >/dev/null 2>&1
+    tmp="$(mktemp -d)"
+    sudo pacman -Sy --dbpath "$tmp" --logfile /dev/null &> /dev/null
     upt=$(pacman -Qu 2> /dev/null | grep -cv '\[.*\]')
     [ "$aur" = "true" ] && \
         upt=$(( upt + $(yay -Qua | wc -l) ))
@@ -129,7 +125,7 @@ updates() {
 }
 
 rupdates() {
-    [ -f "/tmp/updates" ] &&  printf '%s' "$(cat /tmp/updates)"
+    [ -f "/tmp/updates" ] && printf '%s' "$(cat /tmp/updates)"
 }
 
 volume() {

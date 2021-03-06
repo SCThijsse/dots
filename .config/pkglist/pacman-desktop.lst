@@ -65,6 +65,7 @@ playerctl
 pulseaudio-alsa
 pulseaudio-bluetooth
 qbittorrent
+ripgrep
 scrot
 sed
 spotifyd
