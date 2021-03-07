@@ -79,6 +79,10 @@
 !.config/npm/*
 !.config/nvim
 !.config/nvim/*
+!.config/nvim/lua
+!.config/nvim/lua/**
+!.config/nvim/plugin
+!.config/nvim/plugin/*
 .config/nvim/.netrwhist
 .config/nvim/autoload
 !.config/openbox

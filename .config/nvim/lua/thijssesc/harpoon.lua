@@ -1,0 +1,2 @@
+--- harpoon
+require('harpoon').setup {}
