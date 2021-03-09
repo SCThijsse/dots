@@ -40,7 +40,6 @@ m4
 make
 man-db
 man-pages
-maven
 mdadm
 mediainfo
 mesa
