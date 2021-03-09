@@ -40,7 +40,6 @@
 !.config
 !.config/autostart
 !.config/autostart/*
-.config/autostart/teams.desktop
 !.config/bash
 !.config/bash/*
 .config/bash/shortcuts
@@ -114,6 +113,8 @@
 !.config/systemd/*
 !.config/systemd/user
 !.config/systemd/user/*
+!.config/touchegg
+!.config/touchegg/touchegg.conf
 !.config/tint2
 !.config/tint2/*
 .config/tint2/tint2rc.backup.*

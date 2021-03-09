@@ -13,6 +13,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # XDG support for various applications
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"
@@ -58,29 +59,15 @@ export NNN_COPIER="$CLIPBOARD"
 # Other environment variables
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# Add Android SDK platform tools to path
-[ -d "$HOME/Software/platform-tools" ] && \
-    PATH="$PATH:$HOME/Software/platform-tools"
-
-# Add fzf to path
-[ -d "$HOME/.local/share/fzf/bin" ] && PATH="$PATH:$HOME/.local/share/fzf/bin"
-
-# Add ruby gems to path
-[ -d "$XDG_CONFIG_HOME/gem/ruby/bin" ] && \
-    PATH="$PATH:$XDG_CONFIG_HOME/gem/ruby/bin"
-
 # Add bin & scripts to path
 [ -d "$HOME/.local/bin" ] && PATH="$PATH:$HOME/.local/bin"
 [ -d "$HOME/.local/scripts" ] && PATH="$PATH:$HOME/.local/scripts"
-
-# Added travis gem
-[ -f "$HOME/.travis/travis.sh" ] && . "$HOME/.travis/travis.sh"
 
 # Export secrets
 [ -s "$HOME/.local/scripts/scr" ] && . "$HOME/.local/scripts/scr"
 
 # Set if is dekstop or laptop based if machine has wifi
-if [ "$(lspci -k | grep -ic wireless)" -gt 0 ]; then
+if [ "$(lspci -k | grep -ic ath11k)" -gt 0 ]; then
     export TOP_TYPE="laptop"
 else
     export TOP_TYPE="desktop"

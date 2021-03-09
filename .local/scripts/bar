@@ -87,16 +87,15 @@ memory() {
     printf '%s %s %.f%%' "$clr" "" "$per"
 }
 
-openconnect() {
-    [ -n "$(pidof openfortivpn)" ] && clr=$(colors 2) || clr=$(colors 1)
-    printf '%s %s' "$clr" ""
-}
-
 timee() {
     printf '%s %s %s' "$(colors 6)" "" "$(date '+%H:%M')"
 }
 
-__updates() {
+updates() {
+    case "$BLOCK_BUTTON" in
+        1) __updates "$@"; return ;;
+    esac
+
     aur="${1:-true}"
     sil="${2:-false}"
     tmp="$(mktemp -d)"
@@ -114,18 +113,6 @@ __updates() {
     fi
 
     [ -n "$clr" ] && [ -n "$msg" ] && printf '%s %s %s' "$clr" "" "$msg"
-}
-
-updates() {
-    case "$BLOCK_BUTTON" in
-        1) __updates "$@"; return ;;
-    esac
-
-    __updates "$@"
-}
-
-rupdates() {
-    [ -f "/tmp/updates" ] && printf '%s' "$(cat /tmp/updates)"
 }
 
 volume() {
@@ -159,7 +146,7 @@ volume() {
 }
 
 wifi() {
-    int="${BLOCK_INSTANCE:-wlp2s0}"
+    int="${BLOCK_INSTANCE:-wlan0}"
     [ ! -d "/sys/class/net/${int}/wireless" ] ||
         [ "$(cat /sys/class/net/"$int"/operstate)" = 'down' ] && return 1
     qlt="$(grep "$int" /proc/net/wireless | awk '{print int($3 * 100 / 70)}')"

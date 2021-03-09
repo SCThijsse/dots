@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-#
-# Script to execute common programs.
-#
-
-scs &
-feh --no-fehbg --bg-fill ~/Pictures/walls/bck.* &
-sxhkd &
-spotifyd &

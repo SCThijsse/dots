@@ -10,6 +10,6 @@ if [ -n "$WAYLAND_DISPLAY" ]; then
         timeout 600  'swaymsg "output * dpms off"' \
              resume  'swaymsg "output * dpms on"' \
         before-sleep '$(/bin/sh ~/.local/scripts/lck)'
-else 
+else
     xautolock -time 5 -locker '$(/bin/sh ~/.local/scripts/lck)'
 fi

@@ -49,15 +49,17 @@ usg() {
     printf '%s\n' "Options"
     printf '\t%s\n' "-t - required, either 'laptop' or 'desktop'"
     printf '\t%s\n' "-a - install apm packages"
+    printf '\t%s\n' "-c - clone dots project"
     printf '\t%s\n' "-g - install gems packages"
+    printf '\t%s\n' "-l - install suckless tools"
+    printf '\t%s\n' "-m - enable systemd services"
     printf '\t%s\n' "-n - install npm packages"
     printf '\t%s\n' "-p - install pacman packages"
+    printf '\t%s\n' "-r - install rtorrent-vi-color"
+    printf '\t%s\n' "-s - apply shell changes"
     printf '\t%s\n' "-v - install nvim plugins"
     printf '\t%s\n' "-x - install tmux config"
     printf '\t%s\n' "-y - install yay with aur packages"
-    printf '\t%s\n' "-c - clone dots project"
-    printf '\t%s\n' "-l - install suckless tools"
-    printf '\t%s\n' "-s - apply shell changes"
     printf '\t%s\n' "-h - display this"
     exit
 }
@@ -124,7 +126,7 @@ install_gems() {
 install_nvim() {
     if [ -n "$nvimflag" ]; then
         printf '%s\n' "installing nvim plugins..."
-        curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" --silent
         nvim -c :PlugInstall +qall > /dev/null
     fi
 }
@@ -147,6 +149,7 @@ install_shell() {
 }
 
 install_suckless_tool() {
+    old_dir="$(pwd)"
     printf '\t- %s' "$1"
 
     workdir="$HOME/Software/$1"
@@ -156,20 +159,22 @@ install_suckless_tool() {
     fi
 
     if [ -d "$workdir/patches" ]; then
+        cd "$workdir" || return
         find "$workdir/patches/" -type f -print0 | sort -z | \
-          xargs -n 1 -0 patch -Np1 -i >/dev/null 2>&1
+            xargs -n 1 -0 patch -Np1 -i >/dev/null 2>&1
     fi
     sudo make -C "$workdir" --quiet clean install > /dev/null 2>&1
 
+    cd "$old_dir" || return
     printf ' done\n'
 }
 
 install_suckless() {
-    if [ -n "$suckless" ]; then
+    if [ -n "$sucklessflag" ]; then
         printf '%s\n' "installing suckless tools..."
         mkdir -p "$HOME/Software"
 
-        tools="$(split "$suckless" ",")"
+        tools="$(split "$sucklessflag" ",")"
         printf '%s' "$tools" | while IFS= read -r tool || [ -n "$tool" ]; do
             install_suckless_tool "$tool"
         done
@@ -196,6 +201,42 @@ install_tmux() {
     fi
 }
 
+install_systemd_service() {
+    printf '\t- %s' "$1"
+    sudo gpasswd -a "$USER" docker > /dev/null
+    sudo gpasswd -a "$USER" lp > /dev/null
+    if sudo systemctl enable --now "$1" >/dev/null; then
+        printf ' done\n'
+    else
+        printf ' failed\n'
+    fi
+}
+
+install_systemd_services() {
+    if [ -n "$servicesflag" ]; then
+        printf '%s' "setting up systemd services"
+        services="$(split "docker,iwd,bluetooth,touchegg" ",")"
+        printf '%s' "$services" | while IFS= read -r service || [ -n "$service" ]; do
+            install_systemd_service "$service"
+        done
+    fi
+}
+
+install_rtorrent() {
+    if [ -n "$rtorrentflag" ]; then
+        printf '%s' "installing rtorrent"
+        old_dir="$(pwd)"
+        project="rtorrent-vi-color"
+
+        workdir="$HOME/Software/$project"
+        git clone --quiet "https://github.com/SCThijsse/$project.git" "$workdir" > /dev/null
+        cd "$workdir" || return
+        makepkg -si > /dev/null
+
+        cd "$old_dir" || return
+    fi
+}
+
 install_deps() {
     printf '%s\n' "installing dependencies for install.sh script..."
     sudo pacman -S --needed --noconfirm git patch > /dev/null 2>&1
@@ -216,17 +257,18 @@ clone_project() {
 }
 
 main() {
-    while getopts ":acghl:npst:vxuy" opt; do
+    while getopts ":acghmnprsvxuy" opt; do
         case "$opt" in
             t)  VARIANT="$OPTARG" ;;
             a)  apmflag="true" ;;
             c)  cloneflag="true" ;;
             g)  gemsflag="true" ;;
-            l)  suckless="$OPTARG" ;;
             n)  npmflag="true" ;;
+            m)  servicesflag="true" ;;
             p)  pacmanflag="true" ;;
+            r)  rtorrentflag="true" ;;
             s)  shellflag="true" ;;
-            u)  sucklessflag="dmenu,dwm,slock,sltatus,st,sxiv,sxiv,tabbed" ;;
+            u)  sucklessflag="dmenu,dwm,dwmblocks,slock,st,sxiv,sxiv,tabbed" ;;
             v)  nvimflag="true" ;;
             x)  tmuxflag="true" ;;
             y)  yayflag="true" ;;
@@ -253,8 +295,15 @@ main() {
     install_shell
     install_suckless
     install_tmux
+    install_systemd_services
+    install_rtorrent
 
     printf '%s\n' "finished."
 }
 
-[ "$#" -eq 0 ] && main -acgnpsvxuy || main "$@"
+if [ "$#" -eq 0 ]; then
+    main -acgnmprsuvxy
+else
+    main "$@"
+fi
+

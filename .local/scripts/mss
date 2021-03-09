@@ -4,11 +4,7 @@
 #
 
 if [ "$TOP_TYPE" = "laptop" ]; then
-    xrandr --output HDMI2 --off \
-        --output DP1 --off \
-        --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal \
-        --output DP2 --mode 1920x1080 --pos 1920x0 --rotate normal \
-        --output HDMI1 --primary --mode 1920x1080 --pos 3840x0 --rotate normal
+    xrandr --output eDP1 --primary --mode 1920x1200 --pos 0x0 --rotate normal
 else
     xrandr --output DisplayPort-2 --off \
         --output HDMI-A-0 --off \

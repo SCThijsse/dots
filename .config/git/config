@@ -48,3 +48,5 @@
   lsa  = !git config -l | grep alias | cut -c 7-
 [pull]
 	rebase = false
+[init]
+	defaultBranch = master

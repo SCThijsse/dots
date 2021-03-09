@@ -9,6 +9,15 @@ export WM="${1:-dwm}"
 [ -f "$XDG_CONFIG_HOME/X11/Xresources" ] && \
     xrdb -merge "$XDG_CONFIG_HOME/X11/Xresources"
 
+if [ "$TOP_TYPE" == "latop" ]; then
+    # Remaps control to caps
+     setxkbmap -option ctrl:nocaps
+    # Remaps backslash/bar to backspace
+    xmodmap -e "keycode 22 = backslash bar"
+    # Remaps backspace to backslash/bar
+    xmodmap -e "keycode 51 = BackSpace"
+fi
+
 case "$WM" in
     dwm)      . "$HOME/.local/scripts/edw" & while true; do dwm 2> /tmp/.dwm.log; done ;;
     i3)       exec dbus-launch i3 ;;
