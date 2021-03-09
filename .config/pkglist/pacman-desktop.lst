@@ -1,5 +1,4 @@
 alsa-utils
-atool
 autoconf
 automake
 base
@@ -21,7 +20,6 @@ ffmpegthumbnailer
 file
 findutils
 firefox-developer-edition
-flex
 gawk
 gcc
 gettext
@@ -35,11 +33,9 @@ gvfs-mtp
 gzip
 inetutils
 libtool
-libva-mesa-driver
 linux
 linux-firmware
 linux-headers
-lxsession
 m4
 make
 man-db
@@ -54,7 +50,6 @@ nemo
 nfs-utils
 nnn
 ntfs-3g
-openfortivpn
 openssh
 otf-font-awesome
 pacman
