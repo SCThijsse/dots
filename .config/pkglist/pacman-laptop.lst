@@ -17,6 +17,7 @@ dzen2
 efibootmgr
 fakeroot
 feh
+ffmpegthumbnailer
 file
 findutils
 firefox-developer-edition
@@ -47,7 +48,6 @@ mesa-vdpau
 mkinitcpio
 mpv
 nemo
-networkmanager
 nnn
 openssh
 otf-font-awesome
@@ -58,6 +58,7 @@ pkgconf
 playerctl
 pulseaudio-alsa
 pulseaudio-bluetooth
+ripgrep
 scrot
 sed
 spotifyd
