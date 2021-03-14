@@ -2,7 +2,7 @@
 
 local opts = { noremap = true, silent = true }
 
-vim.api.nvim_set_option('updatetime', 500)
+vim.o.updatetime = 500
 
 vim.api.nvim_set_keymap('n', '<leader>ub', [[:GitGutterBufferToggle<CR>]], opts)
 vim.api.nvim_set_keymap('n', '<leader>uh', [[:GitGutterLineHighlightsToggle<CR>]], opts)

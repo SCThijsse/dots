@@ -43,8 +43,8 @@ vim.api.nvim_set_keymap('x', 'K', [[ :move '<-2<CR>gv-gv]], opts)
 vim.api.nvim_set_keymap('n', '<leader>so', [[vip:'<,'>sort ui<CR>]], opts)
 
 -- spell-checking
-vim.api.nvim_set_keymap('', '<leader>se', [[:setlocal spell! spellang=en_us<CR>]], opts)
-vim.api.nvim_set_keymap('', '<leader>sn', [[:setlocal spell! spellang=nl_nl<CR>]], opts)
+vim.api.nvim_set_keymap('', '<leader>se', [[:setlocal spell! spelllang=en_us<CR>]], opts)
+vim.api.nvim_set_keymap('', '<leader>sn', [[:setlocal spell! spelllang=nl_nl<CR>]], opts)
 
 -- cycle buffers
 vim.api.nvim_set_keymap('n', '<Tab>',   [[:bnext<CR>]], opts)

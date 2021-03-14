@@ -23,9 +23,6 @@
 # profile
 !.profile
 
-# spectrwm
-!.spectrwm.conf
-
 # ssh
 !.ssh/config
 
@@ -99,6 +96,8 @@
 !.config/readline/*
 !.config/rtorrent
 !.config/rtorrent/rtorrent.rc
+!.config/spectrwm
+!.config/spectrwm/*
 !.config/sway
 !.config/sway/*
 !.config/sway/*/*
