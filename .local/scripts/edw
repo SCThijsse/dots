@@ -21,10 +21,10 @@ if [ "$TOP_TYPE" = "laptop" ]; then
     touchegg &
     st -n rtorrentterm -e rtorrent &
     st -n sptterm -e spt &
-    # if [ "$(date '+%u')" -le 5 ]; then
-    #     intellij-idea-ultimate-edition &
-    #     slack &
-    # fi
+    if [ "$(date '+%u')" -le 5 ]; then
+        intellij-idea-ultimate-edition &
+        slack &
+    fi
 else
     # programs only for desktop
     qbittorrent &
