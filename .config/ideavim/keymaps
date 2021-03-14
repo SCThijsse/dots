@@ -127,3 +127,5 @@ nnoremap <leader>bt :action ActivateDebugToolWindow<CR>
 nnoremap <leader>cg :action CodeGlance.toggle<CR>
 nnoremap <leader>gg :action ActivateVersionControlToolWindow<CR>
 nnoremap <leader>mm :action ViewMainMenu<CR>
+
+# vi: ft=vim
