@@ -128,4 +128,4 @@ nnoremap <leader>cg :action CodeGlance.toggle<CR>
 nnoremap <leader>gg :action ActivateVersionControlToolWindow<CR>
 nnoremap <leader>mm :action ViewMainMenu<CR>
 
-# vi: ft=vim
+# vi: syntax=vim

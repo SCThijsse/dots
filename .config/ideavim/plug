@@ -3,4 +3,4 @@ set surround
 set commentary
 set NERDTree
 
-# vi: ft=vim
+# vi: syntax=vim

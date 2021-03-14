@@ -4,4 +4,4 @@ set number relativenumber
 set scrolloff=4
 set ideajoin
 
-# vi: ft=vim
+# vi: syntax=vim
