@@ -2,5 +2,3 @@
 source ~/.config/ideavim/plug
 source ~/.config/ideavim/sets
 source ~/.config/ideavim/keymaps
-
-# vi: syntax=vim
