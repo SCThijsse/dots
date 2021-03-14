@@ -9,7 +9,7 @@ export WM="${1:-dwm}"
 [ -f "$XDG_CONFIG_HOME/X11/Xresources" ] && \
     xrdb -merge "$XDG_CONFIG_HOME/X11/Xresources"
 
-if [ "$TOP_TYPE" == "latop" ]; then
+if [ "$TOP_TYPE" == "laptop" ]; then
     # Remaps control to caps
      setxkbmap -option ctrl:nocaps
     # Remaps backslash/bar to backspace

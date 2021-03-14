@@ -1,0 +1,15 @@
+-- config
+
+require('config.fugitive')
+require('config.gitgutter')
+require('config.hardtime')
+require('config.harpoon')
+require('config.keymaps')
+require('config.lightline')
+require('config.lsp')
+require('config.misc')
+require('config.nerdtree')
+require('config.nnn')
+require('config.sets')
+require('config.telescope')
+require('config.themeing')

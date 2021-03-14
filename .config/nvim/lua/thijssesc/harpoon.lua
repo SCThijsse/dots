@@ -1,2 +1,0 @@
---- harpoon
-require('harpoon').setup {}

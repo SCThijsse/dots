@@ -1,5 +1,5 @@
 " keymaps
-let mapleader=" "
+let mapleader = " "
 
 " reload nvim configurations
 nnoremap <leader>r :source ~/.config/ideavim/ideavimrc<CR>
@@ -40,6 +40,10 @@ xnoremap K :action MoveLineUp<CR>
 " sorting
 nnoremap <leader>so vip:'<,'>sort ui<CR>
 
+" spell-checking
+" map <silent> <leader> se :setlocal spell! spelllang=en_us<CR>
+" map <silent> <leader> sn :setlocal spell! spelllang=nl_nl<CR>
+
 " cycle buffers
 nnoremap <Tab>   :action NextTab<CR>
 nnoremap <A-Tab> :action PreviousTab<CR>
@@ -59,6 +63,15 @@ nnoremap <C-l> <C-W>l
 " easy switching from/into terminal buffers
 nnoremap <leader>ts :action ActivateTerminalToolWindow<CR>
 nnoremap <C-BS>     :action Terminal.SwitchFocusToEditor<CR>
+
+" easy switching from/into terminal buffers
+" tnoremap <Esc> <C><C-n>
+" tnoremap <C-w> <C><C-n><C-w>
+" tnoremap <C-h> <C><C-n><C-w>h
+" tnoremap <C-j> <C><C-n><C-w>j
+" tnoremap <C-k> <C><C-n><C-w>k
+" tnoremap <C-l> <C><C-n><C-w>l
+" tnoremap <C-d> <C><C-n><C-w>:q<CR>
 
 " try to unlearn a nasty habbit
 vno d   <Nop>
@@ -82,7 +95,7 @@ nnoremap <leader>dh :action QuickTypeDefinition<CR>
 nnoremap <leader>di :action GotoImplementation<CR>
 nnoremap <leader>dm :action ImplementMethods<CR>
 nnoremap <leader>dn :action GotoNextError<CR>
-nnoremap <leader>dn :action GotoPreviousError<CR>
+nnoremap <leader>dp :action GotoPreviousError<CR>
 nnoremap <leader>do :action OverrideMethods<CR>
 nnoremap <leader>dr :action RenameElement<CR>
 nnoremap <leader>ds :action SelectInProjectView<CR>

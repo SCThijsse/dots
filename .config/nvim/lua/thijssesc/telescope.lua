@@ -1,10 +1,16 @@
 --- telescope
+local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 local themes = require('telescope.themes')
 
 require('telescope').setup {
   defaults = {
     initial_mode = "normal",
+    -- mappings = {
+    --   i = {
+    --     ["<esc>"] = actions.close
+    --   }
+    -- },
     layout_defaults = {
       horizontal = {
         width_padding = 0.1,
