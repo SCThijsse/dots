@@ -1,4 +1,4 @@
 " ideavim configuration
-source ~/.config/ideavim/plug
-source ~/.config/ideavim/sets
-source ~/.config/ideavim/keymaps
+source ~/.config/ideavim/plug.vim
+source ~/.config/ideavim/sets.vim
+source ~/.config/ideavim/keymaps.vim

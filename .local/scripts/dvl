@@ -18,7 +18,7 @@ if [ -n "$WAYLAND_DISPLAY" ]; then
 else
     if [ "$TOP_TYPE" = "desktop" ]; then
         scw=5760
-    else 
+    else
         scw="$(xrandr | grep '\*' | awk '{print $1}' \
             | cut -d 'x' -f1 | awk '{s+=$1} END {print s}')"
     fi

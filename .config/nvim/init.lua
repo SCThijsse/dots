@@ -1,14 +1,20 @@
-vim.g.mapleader = ' '
-
-local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  vim.api.nvim_command 'packadd packer.nvim'
-end
+-- init
 
 require('plugins')
-require('config')
+require('astronauta.keymap')
+require('colorscheme')
+require('keymaps')
+require('misc')
+require('sets')
 
+require('plugins.dap')
+require('plugins.gitsigns')
+require('plugins.harpoon')
+require('plugins.kommentary')
+require('plugins.lsp')
+require('plugins.lualine')
+require('plugins.neogit')
+require('plugins.nvim-tree')
+require('plugins.telescope')
+require('plugins.treesitter')
 
-local neogit = require('neogit')
-neogit.status.create('floating')

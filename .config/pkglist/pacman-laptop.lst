@@ -1,5 +1,6 @@
 acpi
 alsa-utils
+arandr
 autoconf
 automake
 base
@@ -32,6 +33,8 @@ gtk-engine-murrine
 gzip
 inetutils
 iwd
+jdk8-openjdk
+keepass
 libtool
 linux
 linux-firmware
@@ -50,6 +53,7 @@ mpv
 nemo
 nnn
 openssh
+openvpn
 otf-font-awesome
 pacman
 pass

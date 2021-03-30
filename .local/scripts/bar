@@ -87,19 +87,31 @@ memory() {
     printf '%s %s %.f%%' "$clr" "" "$per"
 }
 
+openvpn() {
+    clr=$(colors 1)
+    txt="dis"
+
+    if [ -n "$(pidof openvpn)" ]; then
+        clr=$(colors 2)
+        txt="con"
+    fi
+
+    printf '%s %s %s' "$clr" "" "$txt"
+}
+
 timee() {
     printf '%s %s %s' "$(colors 6)" "" "$(date '+%H:%M')"
 }
 
 updates() {
     case "$BLOCK_BUTTON" in
-        1) __updates "$@"; return ;;
+        1) updates "$@"; return ;;
     esac
 
     aur="${1:-true}"
     sil="${2:-false}"
     tmp="$(mktemp -d)"
-    sudo pacman -Sy --dbpath "$tmp" --logfile /dev/null &> /dev/null
+    sudo pacman -Sy --dbpath "$tmp" --logfile /dev/null > /dev/null
     upt=$(pacman -Qu 2> /dev/null | grep -cv '\[.*\]')
     [ "$aur" = "true" ] && \
         upt=$(( upt + $(yay -Qua | wc -l) ))

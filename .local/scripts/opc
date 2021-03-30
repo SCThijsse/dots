@@ -3,4 +3,15 @@
 # Script to connect to the work VPN.
 #
 
-sudo openfortivpn --realm=issc -q
+OPENVPN_PASS_NAME="PRO/Algemeen/openvpn"
+OPENVPN_USER_NAME="sthijsse"
+OPENVPN_CONFIG="/home/sjoerd/Documents/dpc.ovpn"
+
+pass="$(pass show "$OPENVPN_PASS_NAME" | head -n 1)"
+temp="/tmp/pass"
+token="$(printf '' | dmenu -i -p "enter token: ")"
+
+printf '%s\n%s' "$OPENVPN_USER_NAME" "$pass$token" > "$temp"
+sudo openvpn "$OPENVPN_CONFIG"
+rm -rf "$temp"
+
