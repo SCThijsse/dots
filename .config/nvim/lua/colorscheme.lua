@@ -3,7 +3,7 @@
 local colorbuddy = require('colorbuddy')
 local utils = require('utils')
 
-local _, colors, Group, _, styles = colorbuddy.setup()
+local _, colors, Group, _, styles = colorbuddy.setup {}
 local opt = utils.opt
 
 vim.g.material_style = 'deep ocean'

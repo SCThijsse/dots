@@ -41,6 +41,7 @@ end
 function custom.find_files()
   builtin.find_files {
     initial_mode = 'insert',
+    shorten_path = true,
     find_command = { 'find', '.', '-type', 'f' },
   }
 end

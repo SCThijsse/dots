@@ -8,7 +8,7 @@ local utils = require('utils')
 
 local nnoremap = utils.keymap.nnoremap
 
-harpoon.setup()
+harpoon.setup {}
 
 nnoremap { '<C-m>', mark.add_file }
 nnoremap { '<C-t>', ui.toggle_quick_menu }

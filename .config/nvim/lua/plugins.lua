@@ -33,9 +33,11 @@ return packer.startup(function(use)
     use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'tjdevries/astronauta.nvim' }
     use { 'mfussenegger/nvim-jdtls' }
+    use { 'norcalli/nvim-colorizer.lua' }
 
     -- misc
     use { 'psliwka/vim-smoothie' }
+    use { 'takac/vim-hardtime' }
 
     -- colorscheme
     use { 'marko-cerovac/material.nvim', requires = { 'tjdevries/colorbuddy.nvim' } }

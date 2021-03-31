@@ -13,18 +13,17 @@ nnoremap { '<leader>p',  [["+p]] }
 nnoremap { '<leader>P',  [["+P]] }
 -- copy (file) to clipboard
 nnoremap { '<leader>y',  [["+y]] }
-nnoremap { '<leader>Y',  [["+Y]] }
-nnoremap { '<leader>YY', [[gg"+yG]] }
+nnoremap { '<leader>Y',  [[gg"+yG]] }
 
 -- unmap arrow keys
-nnoremap { '<down>',  [[<Nop>]] }
-nnoremap { '<left>',  [[<Nop>]] }
-nnoremap { '<right>', [[<Nop>]] }
-nnoremap { '<up>',    [[<Nop>]] }
-vnoremap { '<down>',  [[<Nop>]] }
-vnoremap { '<left>',  [[<Nop>]] }
-vnoremap { '<right>', [[<Nop>]] }
-vnoremap { '<up>',    [[<Nop>]] }
+nnoremap { '<Down>',  [[<Nop>]] }
+nnoremap { '<Left>',  [[<Nop>]] }
+nnoremap { '<Right>', [[<Nop>]] }
+nnoremap { '<Up>',    [[<Nop>]] }
+vnoremap { '<Down>',  [[<Nop>]] }
+vnoremap { '<Left>',  [[<Nop>]] }
+vnoremap { '<Right>', [[<Nop>]] }
+vnoremap { '<Up>',    [[<Nop>]] }
 
 -- auto-center
 nnoremap { 'G', [[Gzz]] }
@@ -73,3 +72,5 @@ vnoremap { 'y',   [[<Nop>]] }
 nnoremap { 'dw',  [[<Nop>]] }
 nnoremap { 'diw', [[<Nop>]] }
 
+-- stop the search highlighting
+nnoremap { '<leader>nh', [[:nohlsearch<CR>]] }
