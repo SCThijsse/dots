@@ -37,6 +37,8 @@
 !.config
 !.config/autostart
 !.config/autostart/*
+!.config/awesome
+!.config/awesom/*
 !.config/bash
 !.config/bash/*
 .config/bash/shortcuts

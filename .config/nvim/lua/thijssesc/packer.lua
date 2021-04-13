@@ -19,25 +19,26 @@ return packer.startup(function(use)
     -- telescope
     use {
         'nvim-telescope/telescope.nvim',
+        -- branch = 'use_plenary_async',
         requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
     }
+
+    -- treesitter
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 'nvim-treesitter/nvim-treesitter-textobjects' }
 
     -- lua
     use { 'b3nj5m1n/kommentary' }
     use { 'hoob3rt/lualine.nvim' }
+    use { 'karb94/neoscroll.nvim' }
     use { 'kyazdani42/nvim-tree.lua' }
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'mfussenegger/nvim-dap' }
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 'mfussenegger/nvim-jdtls' }
+    use { 'norcalli/nvim-colorizer.lua' }
     use { 'ThePrimeagen/harpoon' }
     use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'tjdevries/astronauta.nvim' }
-    use { 'mfussenegger/nvim-jdtls' }
-    use { 'norcalli/nvim-colorizer.lua' }
-
-    -- misc
-    use { 'psliwka/vim-smoothie' }
-    use { 'takac/vim-hardtime' }
 
     -- colorscheme
     use { 'marko-cerovac/material.nvim', requires = { 'tjdevries/colorbuddy.nvim' } }

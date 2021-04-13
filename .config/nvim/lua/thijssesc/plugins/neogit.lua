@@ -1,7 +1,7 @@
 -- neogit
 
 local neogit = require('neogit')
-local utils = require('utils')
+local utils = require('thijssesc.utils')
 
 local nnoremap = utils.keymap.nnoremap
 

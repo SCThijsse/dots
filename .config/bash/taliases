@@ -33,7 +33,7 @@ alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias y='yay'
-# alias mvn='mvn -gs "$XDG_CONFIG_HOME/maven/settings.xml"'
+alias mvn='mvn -gs "$XDG_CONFIG_HOME/maven/settings.xml"'
 alias build-brxm='mvn clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true'
 
 # vim: set syntax=sh:

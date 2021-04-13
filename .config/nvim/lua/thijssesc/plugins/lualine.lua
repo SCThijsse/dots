@@ -51,8 +51,8 @@ lualine.setup {
     options = {
         theme = deep_ocean,
         icons_enabled = false,
-        section_separators = { nil, nil },
-        component_separators = { nil, nil },
+        section_separators = '',
+        component_separators = '',
     },
     sections = {
         lualine_a = { 'mode' },

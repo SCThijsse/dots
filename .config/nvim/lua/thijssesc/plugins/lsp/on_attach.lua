@@ -1,17 +1,17 @@
 -- on_attach
 
+local code_action = require('lspsaga.codeaction')
+local hover = require('lspsaga.hover')
+local provider = require('lspsaga.provider')
+local rename = require('lspsaga.rename')
+local diagnostic = require('lspsaga.diagnostic')
+local signature_help  = require('lspsaga.signaturehelp')
+local utils = require('thijssesc.utils')
+
+local opt = utils.opt
+local nnoremap = utils.keymap.nnoremap
+
 return function(client, bufnr)
-    local code_action = require('lspsaga.codeaction')
-    local hover = require('lspsaga.hover')
-    local provider = require('lspsaga.provider')
-    local rename = require('lspsaga.rename')
-    local diagnostic = require('lspsaga.diagnostic')
-    local signature_help  = require('lspsaga.signaturehelp')
-    local utils = require('utils')
-
-    local opt = utils.opt
-    local nnoremap = utils.keymap.nnoremap
-
     opt('b', 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     nnoremap { '<A-CR>',     code_action.code_action, buffer = bufnr }
@@ -41,12 +41,9 @@ return function(client, bufnr)
 
   if client.resolved_capabilities.document_highlight then
       vim.api.nvim_exec([[
-          hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-          hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-          hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
           augroup lsp_document_highlight
               autocmd! * <buffer>
-              " autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+              autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
               autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
           augroup END
       ]], false)

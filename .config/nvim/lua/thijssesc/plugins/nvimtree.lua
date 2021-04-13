@@ -12,7 +12,7 @@ vim.g.nvim_tree_show_icons = {
 }
 
 local tree = require('nvim-tree')
-local utils = require('utils')
+local utils = require('thijssesc.utils')
 
 local nnoremap = utils.keymap.nnoremap
 

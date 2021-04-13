@@ -1,7 +1,7 @@
 -- lua lsp
 
 local lspconfig = require('lspconfig')
-local on_attach = require('plugins.lsp.on_attach')
+local on_attach = require('thijssesc.plugins.lsp.on_attach')
 
 local sumneko_root_path = vim.fn.getenv('HOME')..'/Software/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'

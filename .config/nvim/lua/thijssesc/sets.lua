@@ -1,16 +1,14 @@
 -- sets
 
-local utils = require('utils')
+local utils = require('thijssesc.utils')
 
 local opt = utils.opt
 
 -- global options
 opt('o', 'hidden', true)          --
-opt('o', 'hlsearch', true)        -- don't highlight searched text
-opt('o', 'incsearch', true)       -- find the next match as we type the search
 opt('o', 'backup', false)         --
-opt('o', 'swapfile', false)       --
 opt('o', 'writebackup', false)    --
+opt('o', 'swapfile', false)       --
 opt('o', 'showcmd', false)        -- show incomplete cmds down the bottom
 opt('o', 'showmode', false)       -- do not show current mode down the bottom
 opt('o', 'scrolloff', 4)          -- give some space at the top and bottom
@@ -27,6 +25,6 @@ opt('b', 'shiftwidth', 2)         -- change the number of space charaters insert
 opt('b', 'tabstop', 2)            -- insert 2 spaces for a tab
 opt('b', 'softtabstop', 2)        --
 opt('b', 'expandtab', true)       -- converts tabs to spaces
-opt('b', 'autoindent', true)      -- good auto indent
+-- opt('b', 'autoindent', true)      -- good auto indent
 opt('b', 'smartindent', true)     --
 

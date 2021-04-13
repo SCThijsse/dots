@@ -2,34 +2,32 @@
 let mapleader = ' '
 
 " reload nvim configurations
-nnoremap <leader>r :source ~/.config/ideavim/ideavimrc<CR>
+nnoremap <leader>rr :source ~/.config/ideavim/ideavimrc<CR>
+
+" stop the search hightlighting
+nnoremap <leader>nh :set nohlsearch<CR>
 
 " paste from clipboard
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 " copy (file) to clipboard
 nnoremap <leader>y "+y
-nnoremap <leader>Y "+Y
-nnoremap <leader>YY gg"+yG
+nnoremap <leader>Y gg"+yG
 
 " unmap arrow keys
-nnoremap  <down>  <Nop>
-nnoremap  <left>  <Nop>
-nnoremap  <right> <Nop>
-nnoremap  <up>    <Nop>
-vnoremap <down>  <Nop>
-vnoremap <left>  <Nop>
-vnoremap <right> <Nop>
-vnoremap <up>    <Nop>
+noremap <Uown>  <Nop>
+noremap <Ueft>  <Nop>
+noremap <Uight> <Nop>
+noremap <Up>    <Nop>
 
 " auto-center
 nnoremap G Gzz
 nnoremap N Nzz
 nnoremap n nzz
-nnoremap { {zz
-nnoremap } }zz
-nnoremap ( (zz
-nnoremap ) )zz
+" nnoremap { {zz
+" nnoremap } }zz
+" nnoremap ( (zz
+" nnoremap ) )zz
 
 " sorting
 nnoremap <leader>so vip:'<,'>sort ui<CR>
@@ -37,10 +35,6 @@ nnoremap <leader>so vip:'<,'>sort ui<CR>
 " spell-checking
 " map <silent> <leader> se :setlocal spell! spelllang=en_us<CR>
 " map <silent> <leader> sn :setlocal spell! spelllang=nl_nl<CR>
-
-" cycle buffers
-nnoremap <Tab>   :action NextTab<CR>
-nnoremap <A-Tab> :action PreviousTab<CR>
 
 " switch buffers
 nnoremap <C-h> <C-W>h
@@ -55,68 +49,28 @@ nnoremap <C-l> <C-W>l
 " nnoremap <A-C-l> :vertical resize +2<CR>
 
 " easy switching from/into terminal buffers
-nnoremap <leader>ts :action ActivateTerminalToolWindow<CR>
-nnoremap <C-BS>     :action Terminal.SwitchFocusToEditor<CR>
+" tnoreamp <Esc> <C-\><C-n>
+" tnoreamp <C-h> <C-\><C-n><C-w>h
+" tnoreamp <C-j> <C-\><C-n><C-w>j
+" tnoreamp <C-k> <C-\><C-n><C-w>k
+" tnoreamp <C-l> <C-\><C-n><C-w>l
+" tnoreamp <C-d> <C-\><C-n><C-w>:q<CR>
 
-" easy switching from/into terminal buffers
-" tnoremap <Esc> <C><C-n>
-" tnoremap <C-w> <C><C-n><C-w>
-" tnoremap <C-h> <C><C-n><C-w>h
-" tnoremap <C-j> <C><C-n><C-w>j
-" tnoremap <C-k> <C><C-n><C-w>k
-" tnoremap <C-l> <C><C-n><C-w>l
-" tnoremap <C-d> <C><C-n><C-w>:q<CR>
+" cycle through qflist and location list
+" nnoremap ]q :cnext<CR>
+" nnoremap [q :cprev<CR>
+" nnoremap ]l :lnext<CR>
+" nnoremap [l :lprev<CR>
 
-" try to unlearn a nasty habbit
-vnoremap d   <Nop>
-vnoremap y   <Nop>
-nnoremap dw  <Nop>
-nnoremap diw <Nop>
+" create a split
+nnoremap <leader>sp :action SplitHorizontally<CR>
+nnoremap <leader>vs :action SplitVertically<CR>
 
-" gitsigns
-nnoremap <leader>hp :action VcsShowCurrentChangeMarker<CR>
-nnoremap <leader>hr :action Vcs.RollbackChangedLines<CR>
-nnoremap <leader>hs :action Vcs.Diff.IncludeOnlyChangedLinesIntoCommit<CR>
-nnoremap <leader>hu :action Vcs.Diff.ExcludeChangedLinesFromCommit<CR>
-nnoremap [c         :action VcsShowPrevChangeMarker<CR>
-nnoremap ]c         :action VcsShowNextChangeMarker<CR>
-
-" lsp
-nnoremap <A-CR>     :action ShowIntentionActions<CR>
-nnoremap <leader>ca :action ShowIntentionActions<CR>
-nnoremap gD         :action QuickImplementations<CR>
-nnoremap gd         :action GotoDeclarationOnly<CR>
-nnoremap <leader>gd :action GotoDeclarationOnly<CR>
-nnoremap K          :action QuickJavaDoc<CR>
-nnoremap gi         :action GotoImplementation<CR>
-nnoremap <A-S-k>    :action ParameterInfo<CR>
-" nnoremap <leader>wa :action AddToWorkspaces<CR>
-" nnoremap <leader>wr :action RemoveFromWorkspaces<CR>
-" nnoremap <leader>wl :action ListWorkspaces<CR>
-nnoremap <leader>rn :action RenameElement<CR>
-nnoremap <leader>D  :action QuickTypeDefinition<CR>
-nnoremap gr         :action GotoDeclaration<CR>
-" nnoremap <leader>e  :action ShowLineDiagnostics<CR>
-nnoremap [d         :action GotoPreviousError<CR>
-nnoremap ]d         :action GotoNextError<CR>
-" nnoremap <leader> q :action SetLocList<CR>
-nnoremap <leader>F  :action ReformatCode<CR>
-nnoremap <leader>im :action ImplementMethods<CR>
-nnoremap <leader>om :action OverrideMethods<CR>
-
-" nvimtree
-nnoremap <leader><BS> :NERDTreeFocus<CR>
-
-" telescope
-nnoremap <leader>fB :action Switcher<CR>
-nnoremap <leader>fb :action Git.Branches<CR>
-nnoremap <leader>fC :action Vcs.ShowTabbedFileHistory<CR>
-nnoremap <leader>fc :action Vcs.Show.Log<CR>
-" nnoremap <leader>fd :action DotFiles<CR>
-nnoremap <leader>ff :action SearchEverywhere<CR>
-nnoremap <leader>fg :action FindInPath<CR>
-" nnoremap <leader>fg :action GitFiles<CR>
-nnoremap <leader>fs :action Vcs.Show.Local.Changes<CR>
+" anti-pattern: cycle through buffers and tabs
+nnoremap ]b :action NextSplitter<CR>
+nnoremap [b :action PrevSplitter<CR>
+nnoremap ]t :action NextTab<CR>
+nnoremap [t :action PreviousTab<CR>
 
 " dap
 nnoremap <leader>da :action ActivateDebugToolWindow<CR>
@@ -134,10 +88,73 @@ nnoremap <leader>dS :action Stop<CR>
 nnoremap <leader>dt :action ToggleLineBreakPoint<CR>
 " nnoremap <leader>du :action Up<CR>
 
+" gitsigns
+nnoremap <leader>hb :action Annotate<CR>
+nnoremap <leader>hp :action VcsShowCurrentChangeMarker<CR>
+nnoremap <leader>hr :action Vcs.RollbackChangedLines<CR>
+nnoremap <leader>hs :action Vcs.Diff.IncludeOnlyChangedLinesIntoCommit<CR>
+nnoremap <leader>hu :action Vcs.Diff.ExcludeChangedLinesFromCommit<CR>
+nnoremap [c         :action VcsShowPrevChangeMarker<CR>
+nnoremap ]c         :action VcsShowNextChangeMarker<CR>
+
+" harpoon
+nnoremap <C-m>      :action ToggleBookmarkWithMnemonic<CR>
+nnoremap <C-t>      :action ShowBookmarks<CR>
+nnoremap <C-q>      :action ToggleBookmark<CR>
+nnoremap <leader>tt :action ActivateTerminalToolWindow<CR>
+nnoremap <C-BS>     :action Terminal.SwitchFocusToEditor<CR>
+nnoremap <leader>hh :action GotoBookmarkH<CR>
+nnoremap <leader>jj :action GotoBookmarkJ<CR>
+nnoremap <leader>kk :action GotoBookmarkK<CR>
+nnoremap <leader>ll :action GotoBookmarkL<CR>
+
+" lsp
+nnoremap <A-CR>     :action ShowIntentionActions<CR>
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+nnoremap gD         :action QuickImplementations<CR>
+nnoremap gd         :action GotoDeclarationOnly<CR>
+nnoremap <leader>gd :action GotoDeclarationOnly<CR>
+nnoremap K          :action QuickJavaDoc<CR>
+nnoremap gi         :action GotoImplementation<CR>
+nnoremap <A-S-k>    :action ParameterInfo<CR>
+" nnoremap <leader>wa :action AddToWorkspaces<CR>
+" nnoremap <leader>wr :action RemoveFromWorkspaces<CR>
+" nnoremap <leader>wl :action ListWorkspaces<CR>
+nnoremap <leader>D  :action QuickTypeDefinition<CR>
+nnoremap <leader>rn :action RenameElement<CR>
+nnoremap gr         :action GotoDeclaration<CR>
+" nnoremap <leader>e  :action ShowLineDiagnostics<CR>
+nnoremap [d         :action GotoPreviousError<CR>
+nnoremap ]d         :action GotoNextError<CR>
+" nnoremap <leader> q :action SetLocList<CR>
+nnoremap <leader>F  :action ReformatCode<CR>
+nnoremap <leader>im :action ImplementMethods<CR>
+nnoremap <leader>om :action OverrideMethods<CR>
+nnoremap <leader>df :action RunClass<CR>
+" nnoremap <leader>dn :action RunNearestMethod<CR>
+
+" neogit
+" nnoremap <leader>gg :neogit.open<CR>
+
+" nvimtree
+nnoremap <leader><BS>     :NERDTreeFocus<CR>
+nnoremap <leader><BSlash> :NERDTreeToggle<CR>
+
+" telescope
+nnoremap <leader>fB :action Switcher<CR>
+nnoremap <leader>fb :action Git.Branches<CR>
+nnoremap <leader>fC :action Vcs.ShowTabbedFileHistory<CR>
+nnoremap <leader>fc :action Vcs.Show.Log<CR>
+" nnoremap <leader>fd :action DotFiles<CR>
+nnoremap <leader>ff :action SearchEverywhere<CR>
+nnoremap <leader>fg :action FindInPath<CR>
+" nnoremap <leader>fG :action GitFiles<CR>
+nnoremap <leader>fs :action Vcs.Show.Local.Changes<CR>
+
 " intellij specific - misc
-nnoremap <leader>gb :action Annotate<CR>
 nnoremap <leader>gg :action ActivateVersionControlToolWindow<CR>
+nnoremap <leader>hc :action HideCoverage<CR>
 nnoremap <leader>mm :action ViewMainMenu<CR>
+nnoremap <leader>pm :action TogglePresentationMode<CR>
 nnoremap <leader>sb :action ViewStatusBar<CR>
 nnoremap <leader>tb :action ViewToolButtons<CR>
-

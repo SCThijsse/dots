@@ -3,7 +3,7 @@
 local dap = require('dap')
 local variables = require('dap.ui.variables')
 local launchjs = require('dap.ext.vscode')
-local utils = require('utils')
+local utils = require('thijssesc.utils')
 
 local nnoremap = utils.keymap.nnoremap
 

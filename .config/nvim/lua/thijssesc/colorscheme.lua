@@ -1,7 +1,7 @@
 -- theming
 
 local colorbuddy = require('colorbuddy')
-local utils = require('utils')
+local utils = require('thijssesc.utils')
 
 local _, colors, Group, _, styles = colorbuddy.setup {}
 local opt = utils.opt
@@ -26,3 +26,7 @@ Group.new('TelescopePreviewBorder', colors.red,    colors.none, styles.none)
 Group.new('TelescopeMatching',      colors.green,  colors.none, styles.bold)
 Group.new('TelescopePromptPrefix',  colors.red,    colors.none, styles.none)
 
+-- lsp cursor hold highlighting
+Group.new('LspReferenceRead',       colors.none,   colors.none,  styles.bold + styles.underline)
+Group.new('LspReferenceText',       colors.none,   colors.none,  styles.bold + styles.underline)
+Group.new('LspReferenceWrite',      colors.none,   colors.none,  styles.bold + styles.underline)

@@ -1,7 +1,7 @@
 -- compe
 
 local compe = require('compe')
-local utils = require('utils')
+local utils = require('thijssesc.utils')
 
 local opt = utils.opt
 local inoremap = utils.keymap.inoremap
