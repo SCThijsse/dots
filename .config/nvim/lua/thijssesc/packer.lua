@@ -35,7 +35,6 @@ return packer.startup(function(use)
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'mfussenegger/nvim-dap' }
     use { 'mfussenegger/nvim-jdtls' }
-    use { 'norcalli/nvim-colorizer.lua' }
     use { 'ThePrimeagen/harpoon' }
     use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'tjdevries/astronauta.nvim' }

@@ -10,6 +10,11 @@ local nnoremap = utils.keymap.nnoremap
 telescope.setup {
     defaults = {
         initial_mode = 'normal',
+        file_ignore_patterns = {
+            'target/**',
+            '%.class',
+            '.git',
+        },
         layout_defaults = {
             horizontal = {
                 width_padding = 0.1,
@@ -28,8 +33,10 @@ telescope.setup {
 local custom = {}
 
 function custom.buffers()
-    local opts = themes.get_dropdown { previewer = false }
-    builtin.buffers(opts)
+    builtin.buffers {
+        initial_mode = 'insert',
+        shorten_path = true,
+    }
 end
 
 function custom.git_branches()
@@ -40,7 +47,6 @@ end
 function custom.find_files()
     builtin.find_files {
         initial_mode = 'insert',
-        shorten_path = false,
         find_command = { 'find', '.', '-type', 'f' },
     }
 end

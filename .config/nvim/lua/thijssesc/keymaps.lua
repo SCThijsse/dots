@@ -67,14 +67,14 @@ tnoremap { '<C-d>', [[<C-\><C-n><C-w>:q<CR>]] }
 
 -- cycle through qflist and localtion list
 nnoremap { ']q', ':cnext<CR>' }
-nnoremap { '[q', ':cnext<CR>' }
+nnoremap { '[q', ':cprev<CR>' }
 nnoremap { ']l', ':lnext<CR>' }
-nnoremap { '[l', ':lnext<CR>' }
+nnoremap { '[l', ':lprev<CR>' }
 
 -- anti-pattern: cycle through buffers and tabs
 nnoremap { '[b', ':bprev<CR>' }
 nnoremap { ']b', ':bnext<CR>' }
-nnoremap { '[t', ':tnext<CR>' }
+nnoremap { '[t', ':tprev<CR>' }
 nnoremap { ']t', ':tnext<CR>' }
 
 -- create a split

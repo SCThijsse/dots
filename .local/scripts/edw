@@ -7,7 +7,7 @@
 (scs && feh --no-fehbg --bg-fill ~/Pictures/walls/bck.*) &
 dwmblocks &
 sxhkd &
-idl &
+# idl &
 dunst &
 unclutter --jitter 10 --timeout 1 &
 

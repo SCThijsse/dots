@@ -27,6 +27,10 @@ for _, v in ipairs(maps) do
 end
 
 function utils.trim_whitespace()
+    if vim.bo.filetype == 'java' then
+        return
+    end
+
     local save = vim.fn.winsaveview()
     vim.cmd [[keeppatterns %s/\s\+$//e]]
     vim.fn.winrestview(save)

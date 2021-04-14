@@ -15,4 +15,7 @@ nvim_create_augroups {
         -- enter normal mode when exiting a terminal buffer
         { 'BufLeave',                      'term://*', 'stopinsert' },
     },
+    java = {
+        { 'FileType', 'java', [[:lua require('thijssesc.plugins.lsp.java').setup()]] }
+    },
 }
