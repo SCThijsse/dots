@@ -1,5 +1,6 @@
 -- dap
 
+
 local dap = require('dap')
 local variables = require('dap.ui.variables')
 local launchjs = require('dap.ext.vscode')
@@ -10,22 +11,32 @@ local nnoremap = utils.keymap.nnoremap
 launchjs.load_launchjs()
 
 dap.adapters.node2 = {
-  type = 'executable',
-  command = 'node',
-  args = { vim.fn.getenv('HOME')..'/Software/vscode-node-debug2/out/src/nodeDebug.js' },
+    type = 'executable',
+    command = 'node',
+    args = { vim.fn.getenv('HOME')..'/Software/vscode-node-debug2/out/src/nodeDebug.js' },
+}
+
+dap.configurations.java = {
+    {
+        type = 'java';
+        request = 'attach';
+        name = "Debug (Attach) - Remote";
+        hostName = "127.0.0.1";
+        port = 5005;
+    },
 }
 
 dap.configurations.javascript = {
-  {
-    type = 'node2',
-    request = 'launch',
-    program = '${workspaceFolder}/${file}',
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-    protocol = 'inspector',
-    console = 'integratedTerminal',
-    skipFiles = { '<node_internals>/**' },
-  },
+    {
+        type = 'node2',
+        request = 'launch',
+        program = '${workspaceFolder}/${file}',
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = 'inspector',
+        console = 'integratedTerminal',
+        skipFiles = { '<node_internals>/**' },
+    },
 }
 dap.configurations.typescript = vim.tbl_extend('force', {
     outFiles = { '${workspaceFolder}/build/**/*.js' },

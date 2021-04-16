@@ -16,6 +16,7 @@ nvim_create_augroups {
         { 'BufLeave',                      'term://*', 'stopinsert' },
     },
     java = {
+        -- setup java lsp when entering a java file
         { 'FileType', 'java', [[:lua require('thijssesc.plugins.lsp.java').setup()]] }
     },
 }

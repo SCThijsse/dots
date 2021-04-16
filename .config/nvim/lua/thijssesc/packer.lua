@@ -15,13 +15,15 @@ return packer.startup(function(use)
     use { 'neovim/nvim-lspconfig' }
     use { 'hrsh7th/nvim-compe' }
     use { 'glepnir/lspsaga.nvim', require = { 'neovim/nvim-lspconfig' } }
+    use { 'mfussenegger/nvim-jdtls' }
 
     -- telescope
     use {
         'nvim-telescope/telescope.nvim',
-        -- branch = 'use_plenary_async',
         requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
     }
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use { 'nvim-telescope/telescope-project.nvim' }
 
     -- treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -31,10 +33,9 @@ return packer.startup(function(use)
     use { 'b3nj5m1n/kommentary' }
     use { 'hoob3rt/lualine.nvim' }
     use { 'karb94/neoscroll.nvim' }
-    use { 'kyazdani42/nvim-tree.lua' }
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'mfussenegger/nvim-dap' }
-    use { 'mfussenegger/nvim-jdtls' }
+    use { 'ThePrimeagen/git-worktree.nvim' }
     use { 'ThePrimeagen/harpoon' }
     use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'tjdevries/astronauta.nvim' }

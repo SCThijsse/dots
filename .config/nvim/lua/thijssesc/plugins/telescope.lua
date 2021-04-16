@@ -1,5 +1,6 @@
 -- telescope
 
+local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 local telescope = require('telescope')
 local themes = require('telescope.themes')
@@ -9,11 +10,12 @@ local nnoremap = utils.keymap.nnoremap
 
 telescope.setup {
     defaults = {
-        initial_mode = 'normal',
-        file_ignore_patterns = {
-            'target/**',
-            '%.class',
-            '.git',
+        initial_mode = 'insert',
+        file_ignore_patterns = { 'target/*', '%.class', '.git' },
+        mappings = {
+            i = {
+                ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
+            },
         },
         layout_defaults = {
             horizontal = {
@@ -28,15 +30,22 @@ telescope.setup {
             },
         },
     },
+    extensions = {
+        fzf = {
+            override_generic_sorter = false, -- override the generic sorter
+            override_file_sorter = true,     -- override the file sorter
+            case_mode = 'smart_case',        -- or "ignore_case" or "respect_case"
+        },
+    },
 }
+telescope.load_extension('fzf')
+telescope.load_extension('git_worktree')
+telescope.load_extension('project')
 
 local custom = {}
 
 function custom.buffers()
-    builtin.buffers {
-        initial_mode = 'insert',
-        shorten_path = true,
-    }
+    builtin.buffers { shorten_path = true }
 end
 
 function custom.git_branches()
@@ -46,22 +55,12 @@ end
 
 function custom.find_files()
     builtin.find_files {
-        initial_mode = 'insert',
         find_command = { 'find', '.', '-type', 'f' },
     }
 end
 
-function custom.git_files()
-    builtin.git_files { initial_mode = 'insert' }
-end
-
-function custom.live_grep()
-    builtin.live_grep { initial_mode = 'insert' }
-end
-
 function custom.dot_files()
     local opts = themes.get_dropdown {
-        initial_mode = 'insert',
         previewer = false,
         prompt_title = '~ dotfiles ~',
         cwd = '~/',
@@ -69,13 +68,16 @@ function custom.dot_files()
     builtin.git_files(opts)
 end
 
-nnoremap { '<leader>fB', custom.buffers }
-nnoremap { '<leader>fb', custom.git_branches }
-nnoremap { '<leader>fC', builtin.git_bcommits }
-nnoremap { '<leader>fc', builtin.git_commits }
-nnoremap { '<leader>fd', custom.dot_files }
-nnoremap { '<leader>ff', custom.find_files }
-nnoremap { '<leader>fg', custom.live_grep }
-nnoremap { '<leader>fG', builtin.git_files }
-nnoremap { '<leader>fs', builtin.git_status }
-
+nnoremap { '<leader><BS>', builtin.file_browser }
+nnoremap { '<leader>fb',   custom.buffers }
+nnoremap { '<leader>fB',   custom.git_branches }
+nnoremap { '<leader>fC',   builtin.git_bcommits }
+nnoremap { '<leader>fc',   builtin.git_commits }
+nnoremap { '<leader>fd',   custom.dot_files }
+nnoremap { '<leader>ff',   custom.find_files }
+nnoremap { '<leader>fg',   builtin.live_grep }
+nnoremap { '<leader>fG',   builtin.git_files }
+nnoremap { '<leader>fs',   builtin.git_status }
+nnoremap { '<leader>fS',   builtin.grep_string }
+nnoremap { '<leader>fw',   telescope.extensions.git_worktree.git_worktrees }
+nnoremap { '<leader>fp',   telescope.extensions.project.project }

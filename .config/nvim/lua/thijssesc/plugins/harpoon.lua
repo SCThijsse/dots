@@ -8,7 +8,9 @@ local utils = require('thijssesc.utils')
 
 local nnoremap = utils.keymap.nnoremap
 
-harpoon.setup {}
+harpoon.setup {
+    global_settings = { save_on_toggle = true },
+}
 
 nnoremap { '<C-m>', mark.add_file }
 nnoremap { '<C-t>', ui.toggle_quick_menu }

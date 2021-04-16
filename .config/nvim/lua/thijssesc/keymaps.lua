@@ -5,7 +5,6 @@ local utils = require('thijssesc.utils')
 local nnoremap = utils.keymap.nnoremap
 local noremap  = utils.keymap.noremap
 local tnoremap = utils.keymap.tnoremap
--- local vnoremap = utils.keymap.vnoremap
 
 vim.g.mapleader = ' '
 
@@ -32,10 +31,6 @@ noremap { '<Up>',    '<Nop>' }
 nnoremap { 'G', 'Gzz' }
 nnoremap { 'n', 'nzz' }
 nnoremap { 'N', 'Nzz' }
--- nnoremap { '{', '{zz' }
--- nnoremap { '}', '}zz' }
--- nnoremap { '(', '(zz' }
--- nnoremap { ')', ')zz' }
 
 -- sorting
 nnoremap { '<leader>so', [[vip:'<,'>sort ui<CR>]] }
@@ -51,9 +46,9 @@ nnoremap { '<C-k>', '<C-w>k' }
 nnoremap { '<C-l>', '<C-w>l' }
 
 -- resize splits
-nnoremap { '<A-C-h>', ':resize -2<CR>' }
+nnoremap { '<A-C-h>', ':vertical resize -2<CR>' }
 nnoremap { '<A-C-j>', ':resize +2<CR>' }
-nnoremap { '<A-C-k>', ':vertical resize -2<CR>' }
+nnoremap { '<A-C-k>', ':resize -2<CR>' }
 nnoremap { '<A-C-l>', ':vertical resize +2<CR>' }
 
 -- easy switching from/into terminal buffers
@@ -65,19 +60,16 @@ tnoremap { '<C-k>', [[<C-\><C-n><C-w>k]] }
 tnoremap { '<C-l>', [[<C-\><C-n><C-w>l]] }
 tnoremap { '<C-d>', [[<C-\><C-n><C-w>:q<CR>]] }
 
+-- I hate this
+nnoremap { 'q:', '<Nop>' }
+
 -- cycle through qflist and localtion list
 nnoremap { ']q', ':cnext<CR>' }
 nnoremap { '[q', ':cprev<CR>' }
 nnoremap { ']l', ':lnext<CR>' }
 nnoremap { '[l', ':lprev<CR>' }
 
--- anti-pattern: cycle through buffers and tabs
+-- anti-pattern: cycle through buffers
 nnoremap { '[b', ':bprev<CR>' }
 nnoremap { ']b', ':bnext<CR>' }
-nnoremap { '[t', ':tprev<CR>' }
-nnoremap { ']t', ':tnext<CR>' }
-
--- create a split
-nnoremap { '<leader>sp', ':split<CR>' }
-nnoremap { '<leader>vs', ':vsplit<CR>' }
 

@@ -10,10 +10,10 @@ local maps = { 'inoremap', 'nnoremap', 'noremap', 'snoremap', 'tnoremap', 'xnore
 local utils = {}
 
 function utils.opt(scope, key, value)
-  scopes[scope][key] = value
-  if scope ~= 'o' then
-      scopes['o'][key] = value
-  end
+    scopes[scope][key] = value
+    if scope ~= 'o' then
+        scopes['o'][key] = value
+    end
 end
 
 -- creates a keymap function for each value in the `maps` table with the

@@ -25,6 +25,5 @@ opt('b', 'shiftwidth', 2)         -- change the number of space charaters insert
 opt('b', 'tabstop', 2)            -- insert 2 spaces for a tab
 opt('b', 'softtabstop', 2)        --
 opt('b', 'expandtab', true)       -- converts tabs to spaces
--- opt('b', 'autoindent', true)      -- good auto indent
 opt('b', 'smartindent', true)     --
 
