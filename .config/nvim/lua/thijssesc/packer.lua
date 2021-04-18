@@ -27,6 +27,7 @@ return packer.startup(function(use)
 
     -- treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 'nvim-treesitter/playground' }
     use { 'nvim-treesitter/nvim-treesitter-textobjects' }
 
     -- lua
@@ -34,6 +35,7 @@ return packer.startup(function(use)
     use { 'hoob3rt/lualine.nvim' }
     use { 'karb94/neoscroll.nvim' }
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+    use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
     use { 'mfussenegger/nvim-dap' }
     use { 'ThePrimeagen/git-worktree.nvim' }
     use { 'ThePrimeagen/harpoon' }

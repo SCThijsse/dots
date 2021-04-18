@@ -24,15 +24,11 @@ noremap <Up>    <Nop>
 nnoremap G Gzz
 nnoremap N Nzz
 nnoremap n nzz
-" nnoremap { {zz
-" nnoremap } }zz
-" nnoremap ( (zz
-" nnoremap ) )zz
 
 " sorting
 nnoremap <leader>so vip:'<,'>sort ui<CR>
 
-" spell-checking
+" " spell-checking
 " map <silent> <leader> se :setlocal spell! spelllang=en_us<CR>
 " map <silent> <leader> sn :setlocal spell! spelllang=nl_nl<CR>
 
@@ -42,13 +38,13 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 
-" resize buffers
-" nnoremap <A-C-j> :resize -2<CR>
-" nnoremap <A-C-k> :resize +2<CR>
+" " resize buffers
 " nnoremap <A-C-h> :vertical resize -2<CR>
+" nnoremap <A-C-j> :resize +2<CR>
+" nnoremap <A-C-k> :resize -2<CR>
 " nnoremap <A-C-l> :vertical resize +2<CR>
 
-" easy switching from/into terminal buffers
+" " easy switching from/into terminal buffers
 " tnoreamp <Esc> <C-\><C-n>
 " tnoreamp <C-h> <C-\><C-n><C-w>h
 " tnoreamp <C-j> <C-\><C-n><C-w>j
@@ -56,21 +52,23 @@ nnoremap <C-l> <C-W>l
 " tnoreamp <C-l> <C-\><C-n><C-w>l
 " tnoreamp <C-d> <C-\><C-n><C-w>:q<CR>
 
-" cycle through qflist and location list
+" " cycle through qflist and location list
 " nnoremap ]q :cnext<CR>
 " nnoremap [q :cprev<CR>
 " nnoremap ]l :lnext<CR>
 " nnoremap [l :lprev<CR>
 
-" create a split
-nnoremap <leader>sp :action SplitHorizontally<CR>
-nnoremap <leader>vs :action SplitVertically<CR>
-
-" anti-pattern: cycle through buffers and tabs
+" anti-pattern: cycle through buffers
 nnoremap ]b :action NextSplitter<CR>
 nnoremap [b :action PrevSplitter<CR>
-nnoremap ]t :action NextTab<CR>
-nnoremap [t :action PreviousTab<CR>
+
+" " anti-pattern(gt, gT): cycle through tabs
+" nnoremap ]t :action NextTab<CR>
+" nnoremap [t :action PreviousTab<CR>
+
+" " anti-pattern(<C-w>s, <C-w>v): create a split
+" nnoremap <leader>sp :action SplitHorizontally<CR>
+" nnoremap <leader>vs :action SplitVertically<CR>
 
 " dap
 nnoremap <leader>da :action ActivateDebugToolWindow<CR>
@@ -133,7 +131,7 @@ nnoremap <leader>om :action OverrideMethods<CR>
 nnoremap <leader>df :action RunClass<CR>
 " nnoremap <leader>dn :action RunNearestMethod<CR>
 
-" neogit
+" " neogit
 " nnoremap <leader>gg :neogit.open<CR>
 
 " nvimtree

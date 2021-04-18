@@ -6,8 +6,9 @@ local actions = require('telescope.actions')
 local finders = require('telescope.finders')
 local pickers = require('telescope.pickers')
 local sorters = require('telescope.sorters')
-local utils = require('thijssesc.utils')
 local on_attach = require('thijssesc.plugins.lsp.on_attach')
+local ntula = require('thijssesc.plugins.ntula')
+local utils = require('thijssesc.utils')
 
 local M = {}
 
@@ -29,6 +30,10 @@ M.on_jdtls_attach = function(client, bufnr)
     vnoremap { '<leader>crm', [[<Esc>:lua require('jdtls').extract_method(true)<CR>]], buffer = bufnr }
     nnoremap { '<leader>df',  jdtls.test_class, buffer = bufnr }
     nnoremap { '<leader>dn',  jdtls.test_nearest_method, buffer = bufnr }
+
+    nnoremap { '<leader>tf',  ntula.test_file }
+    nnoremap { '<leader>tn',  ntula.test_nearest }
+    nnoremap { '<leader>tl',  ntula.test_last }
 end
 
 M.on_init = function(client)
