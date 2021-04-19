@@ -15,7 +15,7 @@ local M = {}
 M.on_jdtls_attach = function(client, bufnr)
     on_attach(client, bufnr)
 
-    jdtls.setup_dap()
+    -- jdtls.setup_dap()
     jdtls.setup.add_commands()
 
     local nnoremap = utils.keymap.nnoremap
@@ -31,9 +31,12 @@ M.on_jdtls_attach = function(client, bufnr)
     nnoremap { '<leader>df',  jdtls.test_class, buffer = bufnr }
     nnoremap { '<leader>dn',  jdtls.test_nearest_method, buffer = bufnr }
 
-    nnoremap { '<leader>tf',  ntula.test_file }
-    nnoremap { '<leader>tn',  ntula.test_nearest }
-    nnoremap { '<leader>tl',  ntula.test_last }
+    nnoremap { '<leader>tf',   ntula.test_file }
+    nnoremap { '<leader>tn',   ntula.test_nearest }
+    nnoremap { '<leader>tl',   ntula.test_last }
+    nnoremap { '<leader>tdf',  ntula.debug_file }
+    nnoremap { '<leader>tdn',  ntula.debug_nearest }
+    nnoremap { '<leader>tdl',  ntula.debug_last }
 end
 
 M.on_init = function(client)
@@ -75,9 +78,9 @@ M.setup = function()
     local home = os.getenv('HOME')
 
     local jar_patterns = {
-        -- home..'/Software/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar',
-        -- home..'/Software/vscode-java-decompiler/server/*.jar',
-        -- home..'/Software/vscode-java-test/server/*.jar',
+        '/Software/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar',
+        '/Software/vscode-java-decompiler/server/*.jar',
+        '/Software/vscode-java-test/server/*.jar',
     }
     local bundles = {}
     for _, jar_pattern in ipairs(jar_patterns) do
@@ -109,7 +112,7 @@ M.setup = function()
         ['java.format.settings.profile'] = 'HippoStyle',
         configuration = {
             signatureHelp = { enabled = true },
-            -- contentProvider = { preferred = 'fernflower' },
+            contentProvider = { preferred = 'fernflower' },
             completion = {
                 favoriteStaticMembers = {
                     -- 'org.hamcrest.MatcherAssert.assertThat',

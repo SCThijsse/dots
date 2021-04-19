@@ -1,10 +1,10 @@
 -- dap
 
-
 local dap = require('dap')
-local variables = require('dap.ui.variables')
+local jdtls_util = require('jdtls.util')
 local launchjs = require('dap.ext.vscode')
 local utils = require('thijssesc.utils')
+local variables = require('dap.ui.variables')
 
 local nnoremap = utils.keymap.nnoremap
 
@@ -16,13 +16,25 @@ dap.adapters.node2 = {
     args = { vim.fn.getenv('HOME')..'/Software/vscode-node-debug2/out/src/nodeDebug.js' },
 }
 
+dap.adapters.java = function(callback)
+    local foo = { command = 'vscode.java.startDebugSession' }
+    jdtls_util.execute_command(foo, function(err, port)
+        assert(not err, vim.inspect(err))
+        callback({
+            type = 'server',
+            host = '127.0.0.1',
+            port = port,
+        })
+    end)
+end
+
 dap.configurations.java = {
     {
-        type = 'java';
-        request = 'attach';
-        name = "Debug (Attach) - Remote";
-        hostName = "127.0.0.1";
-        port = 5005;
+        type = 'java',
+        request = 'attach',
+        name = 'Debug (Attach) - Remote',
+        hostName = '127.0.0.1',
+        port = 8000,
     },
 }
 

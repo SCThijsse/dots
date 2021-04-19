@@ -13,5 +13,4 @@ require('thijssesc.plugins.ntula')
 require('thijssesc.plugins.packer')
 require('thijssesc.plugins.telescope')
 require('thijssesc.plugins.treesitter')
-require('thijssesc.plugins.worktree')
 

@@ -37,7 +37,6 @@ return packer.startup(function(use)
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
     use { 'mfussenegger/nvim-dap' }
-    use { 'ThePrimeagen/git-worktree.nvim' }
     use { 'ThePrimeagen/harpoon' }
     use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'tjdevries/astronauta.nvim' }

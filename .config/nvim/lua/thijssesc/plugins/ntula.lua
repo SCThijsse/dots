@@ -1,39 +1,32 @@
 -- ntula
 
+local Iterator = require('plenary.iterators')
 local Path = require('plenary.path')
+-- local dap = require('dap')
 local term = require('harpoon.term')
 local ts_locals = require('nvim-treesitter.locals')
 local ts_parsers = require('nvim-treesitter.parsers')
 local ts_query = require('nvim-treesitter.query')
 local ts_utils = require('nvim-treesitter.ts_utils')
 
-local ntula = {}
+local ntula = {
+    config = {
+        term = 1,
+        execute = true,
+        offline = true,
+        write = true,
+    }
+}
 _NTulaCache = _NTulaCache or {}
 _NTulaLastCmd = _NTulaLastCmd or ''
 
-local config = {
-    term = 2,
-    execute = true,
-    offline = true,
-}
-
-function config.set_options(opts)
+function ntula.config.set_config(opts)
     opts = opts or {}
-    for opt, _ in pairs(config) do
+    for opt, _ in pairs(ntula.config) do
         if opts[opt] ~= nil then
-            config[opt] = opts[opt]
+            ntula.config[opt] = opts[opt]
         end
     end
-end
-
-table.filter = function(t, filterIter)
-    local out = {}
-    for k, v in pairs(t) do
-        if filterIter(v, k, t) then
-            table.insert(out, v)
-        end
-    end
-    return out
 end
 
 function ntula.ts_parse_query(query, nearest_end_row)
@@ -88,9 +81,9 @@ function ntula.get_test_subject()
     end
 
     -- the results table includes the annotation names so filter them out.
-    methods = table.filter(methods, function(o)
+    methods = Iterator.iter(methods):filter(function(o)
         return o ~= 'Test'
-    end)
+    end):tolist()
 
     return packages[1], classes[1], methods[#methods]
 end
@@ -117,19 +110,20 @@ function ntula.get_project(class)
     end
 
     local lines = ntula.find_root_pom():readlines()
-    local artifacts = table.filter(lines, function(o)
+    local artifacts = Iterator.iter(lines):filter(function(o)
         return string.match(o, '<artifactId>') ~= nil
     end)
 
-    -- assumes <parent> tag has the first <artifactId> tag
-    project = artifacts[2]:gsub('%s+<artifactId>', ''):gsub('</artifactId>', '')
+    -- assumes <parent> tag has the first <artifactId> tag, so get the second
+    -- artifact tag.
+    project = artifacts:tolist()[2]:gsub('%s+<artifactId>', ''):gsub('</artifactId>', '')
     -- set the cache for later
     _NTulaCache[class] = project
 
     return project
 end
 
-function ntula.get_cmd(is_nearest)
+function ntula.get_cmd(is_nearest, is_debug)
     local package, class, method = ntula.get_test_subject()
     local project = ntula.get_project(class)
     local test_subject = package..'.'..class
@@ -138,69 +132,85 @@ function ntula.get_cmd(is_nearest)
     end
 
     -- TODO: creating the command with a builder pattern, maybe?
-    local cmd = { 'mvn', 'test', '-Dtest='..test_subject, '-pl=:'..project }
-    if config.offline then
-        table.insert(cmd, '-o')
+    local cmd_opts = { 'test', '-Dtest='..test_subject, '-pl=:'..project }
+    if ntula.config.offline then
+        table.insert(cmd_opts, '-o')
     end
-    if config.execute then
-        table.insert(cmd, "\n")
+    if ntula.config.execute then
+        table.insert(cmd_opts, "\n")
+    end
+
+    local cmd = { 'mvn', unpack(cmd_opts) }
+    if is_debug then
+        cmd = { 'mvnDebug', unpack(cmd_opts) }
     end
 
     return table.concat(cmd, ' ')
 end
 
-function ntula.test(is_nearest)
+function ntula.test(is_nearest, is_debug)
     -- if the last executed command is not set, assign is.
     if _NTulaLastCmd == '' then
-        _NTulaLastCmd = ntula.get_cmd(is_nearest)
+        _NTulaLastCmd = ntula.get_cmd(is_nearest, is_debug)
     end
 
-    term.sendCommand(config.term, _NTulaLastCmd)
-    term.gotoTerminal(config.term)
+    if ntula.config.write then
+        vim.cmd('write')
+    end
+
+    term.sendCommand(ntula.config.term, _NTulaLastCmd)
+    term.gotoTerminal(ntula.config.term)
 end
 
-function ntula.test_last()
+function ntula.test_last(is_nearest, is_debug)
     -- don't reset the cached last executed command to rerun it.
-    ntula.test()
+    ntula.test(is_nearest, is_debug)
 end
 
-function ntula.test_file()
+function ntula.test_file(is_debug)
     -- reset the last executed command to assign it later.
     _NTulaLastCmd = ''
-    ntula.test()
+    ntula.test(false, is_debug)
 end
 
-function ntula.test_nearest()
+function ntula.test_nearest(is_debug)
     -- reset the last executed command to assign it later.
     _NTulaLastCmd = ''
-    ntula.test(true)
+    ntula.test(true, is_debug)
 end
 
+-- TODO: dap should start when mvnDebug is listening on port
+function ntula.debug_last()
+    ntula.test_last(true)
+    -- dap.continue()
+end
+
+function ntula.debug_file()
+    ntula.test_file(true)
+    -- dap.continue()
+end
+
+function ntula.debug_nearest()
+    ntula.test_nearest(true)
+    -- dap.continue()
+end
+
+-- setup to override the default config.
 function ntula.setup(opts)
-    config.set_options(opts)
-end
-
-function ntula.foo()
-    -- gets the names of all the methods with an @Test annotation
-    local methods_query = [[
-      (program
-        (class_declaration
-          (identifier)
-          (class_body
-            (method_declaration
-              (modifiers (marker_annotation (identifier) @annotation (#eq? @annotation "Test")))
-              (identifier) @name))))
-    ]]
-
-    local res = ntula.ts_parse_query(methods_query)
-    print(vim.inspect(res))
+    ntula.config.set_config(opts)
 end
 
 -- setup if I decide to more this to it's own repo
 ntula.setup {
     term = 2,
-    execute = true,
+    execute = true, -- TODO: not sure I like this for debugging
     offline = true,
+    write = true,
 }
+
+
+
+
+
 
 return ntula
