@@ -9,6 +9,11 @@ nvim_create_augroups {
         -- trim whitespaces when writing
         { 'BufWritePre', '*', [[:lua require('thijssesc.utils').trim_whitespace()]] },
     },
+    netrw = {
+        -- remove the <C-l> mapping when in netrw
+        { 'FileType', 'netrw', [[:lua require('thijssesc.utils').remove_netrw_mappings()]] },
+    },
+    -- turned off for harpoon/ntula
     -- term = {
     --     -- enter insert mode when opening/switching to a terminal buffer
     --     { 'BufWinEnter,TermOpen,WinEnter', 'term://*', 'startinsert' },

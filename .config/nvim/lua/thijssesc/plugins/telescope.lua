@@ -39,7 +39,6 @@ telescope.setup {
     },
 }
 telescope.load_extension('fzf')
-telescope.load_extension('project')
 
 local custom = {}
 
@@ -78,4 +77,3 @@ nnoremap { '<leader>fg',   builtin.live_grep }
 nnoremap { '<leader>fG',   builtin.git_files }
 nnoremap { '<leader>fs',   builtin.git_status }
 nnoremap { '<leader>fS',   builtin.grep_string }
-nnoremap { '<leader>fp',   telescope.extensions.project.project }

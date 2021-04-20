@@ -57,4 +57,16 @@ function utils.reload()
     end
 end
 
+function utils.remove_netrw_mappings()
+    local mappings = {
+        ['n'] = '<C-l>'
+    }
+
+    for mode, mapping in pairs(mappings) do
+        if vim.fn.hasmapto('<Plug>NetrwRefresh') then
+            vim.api.nvim_buf_del_keymap(0, mode, mapping)
+        end
+    end
+end
+
 return utils

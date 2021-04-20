@@ -23,16 +23,13 @@ return packer.startup(function(use)
         requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
     }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use { 'nvim-telescope/telescope-project.nvim' }
 
     -- treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use { 'nvim-treesitter/playground' }
     use { 'nvim-treesitter/nvim-treesitter-textobjects' }
 
     -- lua
     use { 'b3nj5m1n/kommentary' }
-    use { 'hoob3rt/lualine.nvim' }
     use { 'karb94/neoscroll.nvim' }
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
