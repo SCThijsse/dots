@@ -55,6 +55,9 @@ end
 function ntula.setup(custom_config)
     custom_config = custom_config or {}
     config.set_options(custom_config.options)
+    if custom_config.execute_hook ~= nil then
+        config.execute_hook = custom_config.execute_hook
+    end
 end
 
 ntula.setup {

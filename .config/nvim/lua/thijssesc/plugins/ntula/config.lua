@@ -4,14 +4,15 @@
 local function on_debugee_ready(host, port, callback)
     local client = vim.loop.new_tcp()
     client:bind(host, port)
-    local _, err = client:getsockname()
+    local res, err = client:getsockname()
 
-    while not err ~= nil do
-        vim.loop.sleep(500)
-        client:close()
-
-        client:bind(host, port)
-        _, err = client:getsockname()
+    while not res ~= nil and err == nil do
+        vim.loop.sleep(1000)
+        if not client:is_closing() then
+            client:close()
+            client:bind(host, port)
+            res, err = client:getsockname()
+        end
     end
 
     callback()
@@ -25,7 +26,8 @@ local config = {
     },
 
     -- hook to execute before executing the command
-    -- TODO: rewrite for sainer defaults without harpoon and dap:
+    -- TODO: rewrite for sainer defaults without harpoon and dap, for
+    -- inspiration see `dap.repl.toggle`:
     --  - new buffer
     --  - new tab
     --  - split buffer, height
@@ -57,11 +59,11 @@ local config = {
     end
 }
 
-function config.set_options(options, key)
+function config.set_options(options)
     options = options or {}
     for opt, _ in pairs(config.options) do
-        if options[key] ~= nil then
-            config[opt] = options[opt]
+        if options[opt] ~= nil then
+            config.options[opt] = options[opt]
         end
     end
 end

@@ -60,8 +60,8 @@ nnoremap { '<leader>dd', dap.down }
 nnoremap { '<leader>dg', dap.goto_ }
 nnoremap { '<leader>dh', variables.hover }
 nnoremap { '<leader>di', dap.step_into }
-nnoremap { '<leader>do', dap.step_out }
-nnoremap { '<leader>dO', dap.step_over }
+nnoremap { '<leader>do', dap.step_over }
+nnoremap { '<leader>dO', dap.step_out }
 nnoremap { '<leader>dr', function() dap.repl.toggle({}, 'vsplit') end }
 nnoremap { '<leader>ds', variables.scopes }
 nnoremap { '<leader>dt', dap.toggle_breakpoint }
