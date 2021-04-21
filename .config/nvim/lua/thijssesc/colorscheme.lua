@@ -13,8 +13,6 @@ opt('o', 'termguicolors', true)
 
 -- general highlighting stuff
 Group.new('Normal',                 colors.none,   colors.none, styles.none)
-Group.new('String',                 colors.green,  colors.none, styles.none)
-Group.new('Special',                colors.yellow, colors.none, styles.none)
 Group.new('CursorLine',             colors.none,   colors.none, styles.underline)
 
 -- telescope highlighting

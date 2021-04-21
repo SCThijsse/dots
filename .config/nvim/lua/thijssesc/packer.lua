@@ -2,8 +2,8 @@
 
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/'
 if vim.fn.empty(vim.fn.glob(install_path..'packer.nvim')) > 0 then
-  vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-  vim.api.nvim_command('packadd packer.nvim')
+    vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+    vim.api.nvim_command('packadd packer.nvim')
 end
 
 local packer = require('packer')
@@ -12,10 +12,9 @@ return packer.startup(function(use)
     use { 'wbthomason/packer.nvim' }
 
     -- lsp
-    use { 'neovim/nvim-lspconfig' }
     use { 'hrsh7th/nvim-compe' }
-    use { 'glepnir/lspsaga.nvim', require = { 'neovim/nvim-lspconfig' } }
     use { 'mfussenegger/nvim-jdtls' }
+    use { 'neovim/nvim-lspconfig' }
 
     -- telescope
     use {

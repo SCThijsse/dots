@@ -63,10 +63,27 @@ function utils.remove_netrw_mappings()
     }
 
     for mode, mapping in pairs(mappings) do
-        if vim.fn.hasmapto('<Plug>NetrwRefresh') then
+        if vim.fn.hasmapto('<Plug>NetrwRefresh') ~= 0 then
             vim.api.nvim_buf_del_keymap(0, mode, mapping)
         end
     end
+end
+
+function utils.on_debugee_ready(host, port, callback)
+    local client = vim.loop.new_tcp()
+    client:bind(host, port)
+    local res, err = client:getsockname()
+
+    while not res ~= nil and err == nil do
+        vim.loop.sleep(1000)
+        if not client:is_closing() then
+            client:close()
+            client:bind(host, port)
+            res, err = client:getsockname()
+        end
+    end
+
+    callback()
 end
 
 return utils
