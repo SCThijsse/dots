@@ -1,30 +1,36 @@
 -- theming
 
-local colorbuddy = require('colorbuddy')
-local utils = require('thijssesc.utils')
-
-local _, colors, Group, _, styles = colorbuddy.setup {}
-local opt = utils.opt
-
 vim.g.material_style = 'deep ocean'
-colorbuddy.colorscheme('material')
 
-opt('o', 'termguicolors', true)
+local colors = require('material.colors')
+local material = require('material')
 
--- general highlighting stuff
-Group.new('Normal',                 colors.none,   colors.none, styles.none)
-Group.new('CursorLine',             colors.none,   colors.none, styles.underline)
+material.set()
 
--- telescope highlighting
-Group.new('TelescopeSelection',     colors.red,    colors.none, styles.bold)
-Group.new('TelescopeBorder',        colors.red,    colors.none, styles.none)
-Group.new('TelescopePromptBorder',  colors.red,    colors.none, styles.none)
-Group.new('TelescopeResultsBorder', colors.red,    colors.none, styles.none)
-Group.new('TelescopePreviewBorder', colors.red,    colors.none, styles.none)
-Group.new('TelescopeMatching',      colors.green,  colors.none, styles.bold)
-Group.new('TelescopePromptPrefix',  colors.red,    colors.none, styles.none)
+local async
+async = vim.loop.new_async(vim.schedule_wrap(function()
+    -- general highlighting stuff
+    vim.cmd(string.format('highlight CursorLine             guifg=NONE guibg=NONE gui=underline'))
+    vim.cmd(string.format('highlight Normal                 guifg=NONE guibg=NONE gui=NONE'))
+    vim.cmd(string.format('highlight NormalFloat            guifg=NONE guibg=NONE gui=NONE'))
+    vim.cmd(string.format('highlight SignColumn             guifg=%s   guibg=NONE gui=NONE', colors.fg))
+    vim.cmd(string.format('highlight Special                guifg=%s   guibg=NONE gui=NONE', colors.yellow))
+    vim.cmd(string.format('highlight String                 guifg=%s   guibg=NONE gui=NONE', colors.green))
 
--- lsp cursor hold highlighting
-Group.new('LspReferenceRead',       colors.none,   colors.none,  styles.bold + styles.underline)
-Group.new('LspReferenceText',       colors.none,   colors.none,  styles.bold + styles.underline)
-Group.new('LspReferenceWrite',      colors.none,   colors.none,  styles.bold + styles.underline)
+    -- telescope highlighting
+    vim.cmd(string.format('highlight TelescopeSelection     guifg=%s   guibg=NONE gui=bold', colors.red))
+    vim.cmd(string.format('highlight TelescopeBorder        guifg=%s   guibg=NONE gui=NONE', colors.red))
+    vim.cmd(string.format('highlight TelescopePromptBorder  guifg=%s   guibg=NONE gui=NONE', colors.red))
+    vim.cmd(string.format('highlight TelescopeResultsBorder guifg=%s   guibg=NONE gui=NONE', colors.red))
+    vim.cmd(string.format('highlight TelescopePreviewBorder guifg=%s   guibg=NONE gui=NONE', colors.red))
+    vim.cmd(string.format('highlight TelescopeMatching      guifg=%s   guibg=NONE gui=bold', colors.green))
+    vim.cmd(string.format('highlight TelescopePromptPrefix  guifg=%s   guibg=NONE gui=NONE', colors.red))
+
+    -- lsp cursor hold highlighting
+    vim.cmd(string.format('highlight LspReferenceRead       guifg=NONE guibg=NONE gui=bold,underline'))
+    vim.cmd(string.format('highlight LspReferenceText       guifg=NONE guibg=NONE gui=bold,underline'))
+    vim.cmd(string.format('highlight LspReferenceWrite      guifg=NONE guibg=NONE gui=bold,underline'))
+
+    async:close()
+end))
+async:send()

@@ -12,6 +12,7 @@ return packer.startup(function(use)
     use { 'wbthomason/packer.nvim' }
 
     -- lsp
+    use { 'glepnir/lspsaga.nvim' }
     use { 'hrsh7th/nvim-compe' }
     use { 'mfussenegger/nvim-jdtls' }
     use { 'neovim/nvim-lspconfig' }
@@ -33,10 +34,10 @@ return packer.startup(function(use)
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
     use { 'mfussenegger/nvim-dap' }
-    use { 'ThePrimeagen/harpoon' }
+    use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'tjdevries/astronauta.nvim' }
 
     -- colorscheme
-    use { 'marko-cerovac/material.nvim', requires = { 'tjdevries/colorbuddy.nvim' } }
+    use { 'marko-cerovac/material.nvim' }
 end)

@@ -25,19 +25,18 @@ harpoon.setup {
         save_on_toggle = true,
         save_on_change = true,
     },
-    projects = { projects },
+    projects = projects,
 }
 
-nnoremap { '<C-m>', mark.add_file }
+nnoremap { '<C-n>', mark.add_file }
 nnoremap { '<C-t>', ui.toggle_quick_menu }
 nnoremap { '<C-q>', mark.rm_file }
 
 nnoremap { '<leader>tt', function() term.gotoTerminal(1) end }
 nnoremap { '<leader>tr', function() term.gotoTerminal(2) end }
 nnoremap { '<leader>te', function() term.gotoTerminal(3) end }
-nnoremap { '<leader>s1', function() term.sendCommand(1, 1) end }
-nnoremap { '<leader>s2', function() term.sendCommand(1, 2) end }
-nnoremap { '<leader>s3', function() term.sendCommand(1, 3) end }
+nnoremap { '<leader>s1', function() term.sendCommand(1, 1) end  }
+nnoremap { '<leader>s2', function() term.sendCommand(1, 2) end  }
 nnoremap { '<leader>hh', function() ui.nav_file(1) end }
 nnoremap { '<leader>jj', function() ui.nav_file(2) end }
 nnoremap { '<leader>kk', function() ui.nav_file(3) end }

@@ -11,8 +11,8 @@ vim.g.mapleader = ' '
 -- reload config
 nnoremap { '<leader>rr', utils.reload }
 
--- stop the search highlighting
-nnoremap { '<leader>nh', ':nohlsearch<CR>' }
+-- stop the search highlighting if enabled. source: tj
+nnoremap { '<CR>', [[{-> v:hlsearch ? ':nohl<CR>' : '<CR>'}()]], expr = true }
 
 -- paste from clipboard
 nnoremap { '<leader>p', '"+p' }

@@ -1,8 +1,16 @@
 -- on_attach
 
-return function(client, bufnr)
-    local builtin = require('telescope.builtin')
+local foo = ''
+local bar = ''
+
+return function(client, buffer)
     local utils = require('thijssesc.utils')
+    local custom = require('thijssesc.plugins.telescope')
+
+    local hover = require('lspsaga.hover')
+    local provider = require('lspsaga.provider')
+    local rename = require('lspsaga.rename')
+    local signature = require('lspsaga.signaturehelp')
 
     local opt = utils.opt
     local nnoremap = utils.keymap.nnoremap
@@ -10,28 +18,31 @@ return function(client, bufnr)
 
     opt('b', 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    nnoremap { 'gD',         vim.lsp.buf.declaration, buffer = bufnr }
-    nnoremap { 'gd',         vim.lsp.buf.definition, buffer = bufnr }
-    nnoremap { 'K',          vim.lsp.buf.hover, buffer = bufnr }
-    nnoremap { 'gi',         vim.lsp.buf.implementation, buffer = bufnr }
-    nnoremap { '<A-S-K>',    vim.lsp.buf.signature_help, buffer = bufnr }
-    nnoremap { '<leader>wa', vim.lsp.buf.add_workspace_folder, buffer = bufnr }
-    nnoremap { '<leader>wr', vim.lsp.buf.remove_workspace_folder, buffer = bufnr }
-    nnoremap { '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, buffer = bufnr }
-    nnoremap { '<leader>D',  vim.lsp.buf.type_definition, buffer = bufnr }
-    nnoremap { '<leader>rn', vim.lsp.buf.rename, buffer = bufnr }
-    nnoremap { '<leader>ca', builtin.lsp_code_actions, buffer = bufnr }
-    nnoremap { '<A-CR>',     builtin.lsp_code_actions, buffer = bufnr }
-    nnoremap { 'gr',         builtin.lsp_references, buffer = bufnr }
-    nnoremap { '<leader>e',  vim.lsp.diagnostic.show_line_diagnostics, buffer = bufnr }
-    nnoremap { '[d',         function() vim.lsp.diagnostic.goto_next({ enable_popup = false }) end, buffer = bufnr }
-    nnoremap { ']d',         function() vim.lsp.diagnostic.goto_prev({ enable_popup = false }) end, buffer = bufnr }
-    nnoremap { '<leader>q',  builtin.lsp_document_diagnostics, buffer = bufnr }
+    nnoremap { 'gD',         vim.lsp.buf.declaration, buffer = buffer }
+    nnoremap { '<leader>gD', provider.lsp_finder, buffer = buffer }
+    nnoremap { 'gd',         vim.lsp.buf.definition, buffer = buffer }
+    nnoremap { '<leader>gd', provider.preview_definition, buffer = buffer }
+    nnoremap { 'K',          hover.render_hover_doc, buffer = buffer }
+    nnoremap { 'gi',         vim.lsp.buf.implementation, buffer = buffer }
+    nnoremap { '<A-S-K>',    signature.signature_help, buffer = buffer }
+    nnoremap { '<leader>wa', vim.lsp.buf.add_workspace_folder, buffer = buffer }
+    nnoremap { '<leader>wr', vim.lsp.buf.remove_workspace_folder, buffer = buffer }
+    nnoremap { '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, buffer = buffer }
+    nnoremap { '<leader>D',  vim.lsp.buf.type_definition, buffer = buffer }
+    nnoremap { '<leader>rn', rename.rename, buffer = buffer }
+    nnoremap { '<leader>ca', custom.lsp_code_actions, buffer = buffer }
+    nnoremap { '<A-CR>',     custom.lsp_code_actions, buffer = buffer }
+    nnoremap { 'gr',         custom.lsp_references, buffer = buffer }
+    nnoremap { '<leader>e',  vim.lsp.diagnostic.show_line_diagnostics, buffer = buffer }
+    nnoremap { '[d',         function() vim.lsp.diagnostic.goto_next({ enable_popup = false }) end, buffer = buffer }
+    nnoremap { ']d',         function() vim.lsp.diagnostic.goto_prev({ enable_popup = false }) end, buffer = buffer }
+    nnoremap { '<leader>q',  custom.lsp_document_diagnostics, buffer = buffer }
+    nnoremap { '<leader>Q',  custom.lsp_workspace_diagnostics, buffer = buffer }
 
     if client.resolved_capabilities.document_formatting then
-        nnoremap { '<leader>F', vim.lsp.buf.formatting, buffer = bufnr }
+        nnoremap { '<leader>F', vim.lsp.buf.formatting, buffer = buffer }
     elseif client.resolved_capabilities.document_range_formatting then
-        vnoremap { '<leader>F', vim.lsp.buf.range_formatting, buffer = bufnr }
+        vnoremap { '<leader>F', vim.lsp.buf.range_formatting, buffer = buffer }
     end
 
     if client.resolved_capabilities.document_highlight then
