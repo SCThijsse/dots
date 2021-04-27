@@ -5,7 +5,7 @@ local reload = require('plenary.reload')
 require('astronauta.keymap')
 
 local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
-local maps = { 'inoremap', 'nnoremap', 'noremap', 'snoremap', 'tnoremap', 'xnoremap', 'vnoremap' }
+local maps = { 'inoremap', 'nnoremap', 'noremap', 'snoremap', 'tnoremap', 'vnoremap' }
 
 local utils = {}
 

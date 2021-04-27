@@ -12,7 +12,6 @@ return packer.startup(function(use)
     use { 'wbthomason/packer.nvim' }
 
     -- lsp
-    use { 'glepnir/lspsaga.nvim' }
     use { 'hrsh7th/nvim-compe' }
     use { 'mfussenegger/nvim-jdtls' }
     use { 'neovim/nvim-lspconfig' }
@@ -39,5 +38,5 @@ return packer.startup(function(use)
     use { 'tjdevries/astronauta.nvim' }
 
     -- colorscheme
-    use { 'marko-cerovac/material.nvim' }
+    use { 'scthijsse/material.nvim' }
 end)
