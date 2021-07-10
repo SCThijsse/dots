@@ -17,8 +17,9 @@ dap.adapters.node2 = {
 }
 
 dap.adapters.java = function(callback)
-    local foo = { command = 'vscode.java.startDebugSession' }
-    jdtls_util.execute_command(foo, function(err, port)
+    jdtls_util.execute_command({
+        command = 'vscode.java.startDebugSession'
+    } , function(err, port)
         assert(not err, vim.inspect(err))
         callback({
             type = 'server',

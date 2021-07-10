@@ -12,7 +12,6 @@ local nnoremap = utils.keymap.nnoremap
 
 telescope.setup {
     defaults = {
-        prompt_position = 'bottom',
         prompt_prefix = '> ',
         selection_caret = '> ',
         entry_prefix = '  ',
@@ -20,7 +19,12 @@ telescope.setup {
         selection_strategy = 'reset',
         sorting_strategy = 'descending',
         layout_strategy = 'horizontal',
-        layout_defaults = {
+        layout_config = {
+            prompt_position = 'bottom',
+            width = 0.75,
+            preview_cutoff = 120,
+            -- results_height = 1,
+            -- results_width = 0.8,
             horizontal = {
                 width_padding = 0.1,
                 height_padding = 0.1,
@@ -33,14 +37,11 @@ telescope.setup {
             },
         },
         file_sorter =  sorters.get_fuzzy_file,
-        file_ignore_patterns = { '%.class', '.git', 'parser.c', 'target/*' },
+        file_ignore_patterns = { '%.class', '.git/*', 'parser.c', 'target/*', 'node_modules/*' },
         generic_sorter =  sorters.get_generic_fuzzy_sorter,
-        shorten_path = true,
+        -- shorten_path = true,
+        path_display = { 'shorten' },
         winblend = 0,
-        width = 0.75,
-        preview_cutoff = 120,
-        results_height = 1,
-        results_width = 0.8,
         border = {},
         borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         color_devicons = false,
@@ -63,9 +64,15 @@ telescope.setup {
         },
     },
 }
+telescope.load_extension('dap')
 telescope.load_extension('fzf')
 
 local custom = {}
+
+function custom.dap_commands()
+    local opts = themes.get_dropdown()
+    telescope.extensions.dap.commands(opts)
+end
 
 function custom.dot_files()
     local opts = themes.get_dropdown {
@@ -123,5 +130,11 @@ nnoremap { '<leader>fg',   builtin.live_grep }
 nnoremap { '<leader>fG',   builtin.git_files }
 nnoremap { '<leader>fs',   builtin.git_status }
 nnoremap { '<leader>fS',   builtin.grep_string }
+
+nnoremap { '<leader><leader>c', custom.dap_commands }
+nnoremap { '<leader><leader>C', telescope.extensions.dap.configurations }
+nnoremap { '<leader><leader>f', telescope.extensions.dap.frames }
+nnoremap { '<leader><leader>l', telescope.extensions.dap.list_breakpoints }
+nnoremap { '<leader><leader>v', telescope.extensions.dap.variables }
 
 return custom

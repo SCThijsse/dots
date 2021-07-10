@@ -3,11 +3,10 @@
 local compe = require('compe')
 local utils = require('thijssesc.utils')
 
-local opt = utils.opt
 local inoremap = utils.keymap.inoremap
 local snoremap = utils.keymap.snoremap
 
-opt('o', 'completeopt', 'menuone,noselect')
+-- vim.optcompleteopt = 'menuone,noselect'
 
 compe.setup {
     enabled = true,

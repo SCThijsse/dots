@@ -3,8 +3,12 @@
   name = Sjoerd Thijsse
 [core]
   editor = nvim
+[difftool]
+  prompt = true
 [diff]
-  tool = vimdiff
+  tool = nvimdiff
+[mergetool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [credential]
   helper = /usr/lib/git-core/git-credential-libsecret
 [alias]

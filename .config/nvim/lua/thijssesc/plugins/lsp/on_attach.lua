@@ -4,11 +4,10 @@ return function(client, buffer)
     local utils = require('thijssesc.utils')
     local custom = require('thijssesc.plugins.telescope')
 
-    local opt = utils.opt
     local nnoremap = utils.keymap.nnoremap
     local vnoremap = utils.keymap.vnoremap
 
-    opt('b', 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
     nnoremap { 'gD',         vim.lsp.buf.declaration, buffer = buffer }
     nnoremap { 'gd',         vim.lsp.buf.definition, buffer = buffer }

@@ -20,7 +20,8 @@ if [ "$TOP_TYPE" == "laptop" ] && [ "$scr" -ne 3 ]; then
 fi
 
 case "$WM" in
-    dwm)      . "$HOME/.local/scripts/edw" & while true; do dwm 2> /tmp/.dwm.log; done ;;
+    awesome)  . "$HOME/.local/scripts/edw" && exec awesome ;;
+    dwm)      . "$HOME/.local/scripts/edw" & exec dwm ;;
     i3)       exec dbus-launch i3 ;;
     openbox)  exec dbus-launch openbox ;;
     sowm)     . "$HOME/.local/scripts/ecm" & exec sowm ;;

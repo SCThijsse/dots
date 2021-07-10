@@ -74,9 +74,9 @@ else
 fi
 
 if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-    exec startx "$XDG_CONFIG_HOME/X11/xinitrc" dwm
-elif [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty2" ]; then
     exec startx "$XDG_CONFIG_HOME/X11/xinitrc" awesome
+elif [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty2" ]; then
+    exec startx "$XDG_CONFIG_HOME/X11/xinitrc" dwm
 elif [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty3" ]; then
     XKB_DEFAULT_LAYOUT=us exec sway
 fi

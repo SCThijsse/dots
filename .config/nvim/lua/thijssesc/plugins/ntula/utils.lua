@@ -11,6 +11,7 @@ local CommandBuilder = require('thijssesc.plugins.ntula.command_builder')
 local config = require('thijssesc.plugins.ntula.config')
 
 local utils = {}
+_NTulaCache = _NTulaCache or {}
 
 local function ts_parse_query(query, nearest_end_row)
     local bufnr = vim.fn.bufnr()
@@ -34,37 +35,9 @@ local function ts_parse_query(query, nearest_end_row)
 end
 
 local function get_test_subject()
-    local packages = ts_parse_query [[(program (package_declaration (scoped_identifier) @name))]]
-    local classes = ts_parse_query [[(program (class_declaration (identifier) @name))]]
-
-    -- gets the names of all the methods with an @Test annotation
-    local methods_query = [[
-      (program
-        (class_declaration
-          (identifier)
-          (class_body
-            (method_declaration
-              (modifiers [
-                  (annotation (identifier) @annotation (#eq? @annotation "Test"))
-                  (marker_annotation (identifier) @annotation (#eq? @annotation "Test"))
-              ])
-              (identifier) @name))))
-    ]]
-
-    -- try to get the nearest method between the first line and the line the
-    -- cursor is currently on.
-    local nearest_end_row = vim.fn.line('.')
-    local methods = ts_parse_query(methods_query, nearest_end_row)
-
-    -- if no methods are found get the first method.
-    if next(methods) == nil then
-        methods = ts_parse_query(methods_query)
-    end
-
-    -- the results table includes the annotation names so filter them out.
-    methods = Iterator.iter(methods):filter(function(o)
-        return o ~= 'Test'
-    end):tolist()
+    local packages = utils.get_packages()
+    local classes = utils.get_classes()
+    local methods = utils.get_methods()
 
     return packages[1], classes[1], methods[#methods]
 end
@@ -102,6 +75,49 @@ local function get_project(class)
     _NTulaCache[class] = project
 
     return project
+end
+
+function utils.get_packages()
+    local query = [[(program (package_declaration (scoped_identifier) @name))]]
+    return ts_parse_query(query)
+end
+
+function utils.get_classes()
+    local query = [[(program (class_declaration (identifier) @name))]]
+    return ts_parse_query(query)
+end
+
+function utils.get_methods(nearest_end_row)
+    -- try to get the nearest method between the first line and the line the
+    -- cursor is currently on.
+    nearest_end_row = nearest_end_row or vim.fn.line('.')
+
+    -- gets the names of all the methods with an @Test annotation
+    local query = [[
+      (program
+        (class_declaration
+          (identifier)
+          (class_body
+            (method_declaration
+              (modifiers [
+                  (annotation (identifier) @annotation (#eq? @annotation "Test"))
+                  (marker_annotation (identifier) @annotation (#eq? @annotation "Test"))
+              ])
+              (identifier) @name))))
+    ]]
+    local methods = ts_parse_query(query, nearest_end_row)
+
+    -- if no methods are found get the first method.
+    if next(methods) == nil then
+        methods = ts_parse_query(query)
+    end
+
+    -- the results table includes the annotation names so filter them out.
+    methods = Iterator.iter(methods):filter(function(o)
+        return o ~= 'Test'
+    end):tolist()
+
+    return methods
 end
 
 function utils.get_cmd(with_debugee, execute_nearest)

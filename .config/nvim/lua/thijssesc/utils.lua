@@ -1,21 +1,10 @@
 -- utils
 
-local reload = require('plenary.reload')
-
-require('astronauta.keymap')
-
-local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
 local maps = { 'inoremap', 'nnoremap', 'noremap', 'snoremap', 'tnoremap', 'vnoremap' }
 
 local utils = {}
 
-function utils.opt(scope, key, value)
-    scopes[scope][key] = value
-    if scope ~= 'o' then
-        scopes['o'][key] = value
-    end
-end
-
+require('astronauta.keymap')
 -- creates a keymap function for each value in the `maps` table with the
 -- `silent` option being on by default.
 for _, v in ipairs(maps) do
@@ -48,20 +37,8 @@ function utils.nvim_create_augroups(definitions)
     end
 end
 
-function utils.reload()
-    for k in pairs(package.loaded) do
-        if string.match(k, '^thijssesc') then
-            reload.reload_module(k)
-            require(k)
-        end
-    end
-end
-
 function utils.remove_netrw_mappings()
-    local mappings = {
-        ['n'] = '<C-l>'
-    }
-
+    local mappings = { ['n'] = '<C-l>' }
     for mode, mapping in pairs(mappings) do
         if vim.fn.hasmapto('<Plug>NetrwRefresh') ~= 0 then
             vim.api.nvim_buf_del_keymap(0, mode, mapping)

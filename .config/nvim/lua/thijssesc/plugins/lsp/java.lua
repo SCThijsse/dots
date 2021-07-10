@@ -12,8 +12,8 @@ local utils = require('thijssesc.utils')
 
 local M = {}
 
-M.on_jdtls_attach = function(client, bufnr)
-    on_attach(client, bufnr)
+M.on_jdtls_attach = function(client, buffer)
+    on_attach(client, buffer)
 
     -- jdtls.setup_dap()
     jdtls.setup.add_commands()
@@ -21,15 +21,17 @@ M.on_jdtls_attach = function(client, bufnr)
     local nnoremap = utils.keymap.nnoremap
     local vnoremap = utils.keymap.vnoremap
 
-    nnoremap { '<A-CR>',      jdtls.code_action, buffer = bufnr }
-    vnoremap { '<A-CR>',      function() jdtls.code_action(true) end, buffer = bufnr }
-    nnoremap { '<leader>ca',  function() jdtls.code_action(false, 'refactor') end, buffer = bufnr }
-    nnoremap { '<leader>cri', jdtls.organize_imports, buffer = bufnr }
-    nnoremap { '<leader>crv', jdtls.extract_variable, buffer = bufnr }
-    vnoremap { '<leader>crv', [[<Esc>:lua require('jdtls').extract_variable(true)<CR>]], buffer = bufnr }
-    vnoremap { '<leader>crm', [[<Esc>:lua require('jdtls').extract_method(true)<CR>]], buffer = bufnr }
-    nnoremap { '<leader>df',  jdtls.test_class, buffer = bufnr }
-    nnoremap { '<leader>dn',  jdtls.test_nearest_method, buffer = bufnr }
+    nnoremap { '<A-CR>',      jdtls.code_action, buffer = buffer }
+    vnoremap { '<A-CR>',      function() jdtls.code_action(true) end, buffer = buffer }
+    nnoremap { '<leader>ca',  function() jdtls.code_action(false, 'refactor') end, buffer = buffer }
+    nnoremap { '<leader>cri', jdtls.organize_imports, buffer = buffer }
+    nnoremap { '<leader>crv', jdtls.extract_variable, buffer = buffer }
+    nnoremap { '<leader>crc', jdtls.extract_variable, buffer = buffer }
+    vnoremap { '<leader>crc', [[<Esc>:lua require('jdtls').extract_variable(true)<CR>]], buffer = buffer }
+    vnoremap { '<leader>crv', [[<Esc>:lua require('jdtls').extract_variable(true)<CR>]], buffer = buffer }
+    vnoremap { '<leader>crm', [[<Esc>:lua require('jdtls').extract_method(true)<CR>]], buffer = buffer }
+    nnoremap { '<leader>df',  jdtls.test_class, buffer = buffer }
+    nnoremap { '<leader>dn',  jdtls.test_nearest_method, buffer = buffer }
 
     nnoremap { '<leader>tf',   ntula.test_file }
     nnoremap { '<leader>tn',   ntula.test_nearest }
@@ -108,8 +110,8 @@ M.setup = function()
     extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
     local settings = {
-        ['java.format.settings.url'] = home..'/.config/nvim/language-servers/hippo.xml',
-        ['java.format.settings.profile'] = 'HippoStyle',
+        ['java.format.settings.url'] = home..'/.config/nvim/language-servers/hppo-eclipse-formatting-1.0.xml',
+        ['java.format.settings.profile'] = 'Hippo-eclipse-formatting',
         configuration = {
             signatureHelp = { enabled = true },
             contentProvider = { preferred = 'fernflower' },
@@ -138,11 +140,11 @@ M.setup = function()
             java = {
                 runtimes = {
                     {
-                        name = 'JavaOpenJDK-8',
+                        name = 'JavaSE-1.8',
                         path = '/usr/lib/jvm/java-8-openjdk/',
                     },
                     {
-                        name = 'JavaOpenJDK-15',
+                        name = 'JavaSE-15',
                         path = '/usr/lib/jvm/java-15-openjdk/',
                     },
                 },

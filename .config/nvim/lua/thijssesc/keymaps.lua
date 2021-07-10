@@ -9,7 +9,7 @@ local tnoremap = utils.keymap.tnoremap
 vim.g.mapleader = ' '
 
 -- reload config
-nnoremap { '<leader>rr', utils.reload }
+nnoremap { '<leader>rr', ':so $MYVIMRC' }
 
 -- stop the search highlighting if enabled. source: tj
 nnoremap { '<CR>', [[{-> v:hlsearch ? ':nohl<CR>' : '<CR>'}()]], expr = true }

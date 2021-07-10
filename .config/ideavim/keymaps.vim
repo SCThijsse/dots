@@ -6,6 +6,7 @@ nnoremap <leader>rr :source ~/.config/ideavim/ideavimrc<CR>
 
 " stop the search hightlighting
 nnoremap <leader>nh :set nohlsearch<CR>
+nnoremap <expr> <CR> {-> v:hlsearch ? ":nohl\<CR>" : "\<CR>"}()
 
 " paste from clipboard
 nnoremap <leader>p "+p
@@ -62,14 +63,6 @@ nnoremap <C-l> <C-W>l
 nnoremap ]b :action NextSplitter<CR>
 nnoremap [b :action PrevSplitter<CR>
 
-" " anti-pattern(gt, gT): cycle through tabs
-" nnoremap ]t :action NextTab<CR>
-" nnoremap [t :action PreviousTab<CR>
-
-" " anti-pattern(<C-w>s, <C-w>v): create a split
-" nnoremap <leader>sp :action SplitHorizontally<CR>
-" nnoremap <leader>vs :action SplitVertically<CR>
-
 " dap
 nnoremap <leader>da :action ActivateDebugToolWindow<CR>
 nnoremap <leader>dc :action Resume<CR>
@@ -83,7 +76,7 @@ nnoremap <leader>dO :action StepOver<CR>
 nnoremap <leader>dr :action EvaluateExpression<CR>
 nnoremap <leader>ds :action Scopes<CR>
 nnoremap <leader>dS :action Stop<CR>
-nnoremap <leader>dt :action ToggleLineBreakPoint<CR>
+nnoremap <leader>dt :action ToggleLineBreakpoint<CR>
 " nnoremap <leader>du :action Up<CR>
 
 " gitsigns
@@ -96,7 +89,7 @@ nnoremap [c         :action VcsShowPrevChangeMarker<CR>
 nnoremap ]c         :action VcsShowNextChangeMarker<CR>
 
 " harpoon
-nnoremap <C-m>      :action ToggleBookmarkWithMnemonic<CR>
+nnoremap <C-n>      :action ToggleBookmarkWithMnemonic<CR>
 nnoremap <C-t>      :action ShowBookmarks<CR>
 nnoremap <C-q>      :action ToggleBookmark<CR>
 nnoremap <leader>tt :action ActivateTerminalToolWindow<CR>
@@ -128,8 +121,14 @@ nnoremap ]d         :action GotoNextError<CR>
 nnoremap <leader>F  :action ReformatCode<CR>
 nnoremap <leader>im :action ImplementMethods<CR>
 nnoremap <leader>om :action OverrideMethods<CR>
-nnoremap <leader>df :action RunClass<CR>
-" nnoremap <leader>dn :action RunNearestMethod<CR>
+
+" ntula
+nnoremap <leader>tf :action RunClass<CR>
+nnoremap <leader>tl :action Rerun<CR>
+" nnoremap <leader>tn :action RunAnything<CR>
+nnoremap <leader>tdf :action DebugClass<CR>
+" nnoremap <leader>tdl :action DebugLast<CR>
+" nnoremap <leader>tdn :action DebugNearest<CR>
 
 " " neogit
 " nnoremap <leader>gg :neogit.open<CR>

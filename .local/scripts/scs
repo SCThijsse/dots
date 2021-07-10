@@ -9,7 +9,7 @@ if [ -z "$WAYLAND_DISPLAY" ]; then
     scr="$(xrandr | grep -c ' connected')"
     if [ "$scr" -eq 3 ]; then
         . ~/.local/scripts/mss > /dev/null
-    else 
+    else
         . ~/.local/scripts/sss > /dev/null
     fi
 fi

@@ -86,7 +86,7 @@ ntula.setup {
         local java_config = dap.configurations.java[1]
         local th_utils = require('thijssesc.utils')
         th_utils.on_debugee_ready(java_config.hostName, java_config.port, dap.continue)
-    end
+    end,
 }
 
 return ntula
